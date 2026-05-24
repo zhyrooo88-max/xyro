@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="id" data-theme="dark">
+<html lang="id">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -8,228 +8,253 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
   <script src="https://www.gstatic.com/firebasejs/10.13.0/firebase-app-compat.js"></script>
   <script src="https://www.gstatic.com/firebasejs/10.13.0/firebase-firestore-compat.js"></script>
-  
   <style>
     body { font-family: 'Inter', system-ui, sans-serif; }
-    .card-hover { transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1); }
-    .card-hover:hover { transform: translateY(-10px); box-shadow: 0 25px 50px -12px rgb(34 211 238 / 0.25); }
+    .card-hover { transition: all 0.4s; }
+    .card-hover:hover { transform: translateY(-12px); box-shadow: 0 20px 25px -5px rgb(0 0 0 / 0.2); }
   </style>
 </head>
-<body class="bg-gray-950 text-white min-h-screen">
+<body class="bg-gray-950 text-white">
 
-  <!-- Navbar -->
-  <nav class="border-b border-gray-800 bg-gray-900/90 backdrop-blur-lg fixed w-full z-50">
+  <!-- NAVBAR -->
+  <nav class="bg-gray-900 border-b border-gray-800 fixed w-full z-50">
     <div class="max-w-7xl mx-auto px-6 py-5 flex justify-between items-center">
       <div class="flex items-center gap-3">
         <span class="text-4xl">🔥</span>
-        <h1 class="text-3xl font-bold tracking-tighter">NOKOS<span class="text-cyan-400">OTP</span></h1>
+        <h1 class="text-3xl font-bold tracking-tight">NOKOS<span class="text-cyan-400">OTP</span></h1>
       </div>
-      <div class="flex gap-8 items-center text-lg">
-        <a href="#produk" class="hover:text-cyan-400">Produk</a>
-        <a href="#api" class="hover:text-cyan-400">API</a>
-        <a href="#" onclick="showLogin()" class="hover:text-cyan-400">Login</a>
-        <button onclick="showRegister()" class="bg-cyan-500 hover:bg-cyan-600 px-7 py-3 rounded-2xl font-semibold">Daftar</button>
+      <div class="flex items-center gap-8 text-lg">
+        <a onclick="navigate('home')" class="cursor-pointer hover:text-cyan-400">Home</a>
+        <a onclick="navigate('produk')" class="cursor-pointer hover:text-cyan-400">Produk</a>
+        <a onclick="navigate('dashboard')" class="cursor-pointer hover:text-cyan-400">Dashboard</a>
+        <button onclick="showLoginModal()" class="hover:text-cyan-400">Login</button>
+        <button onclick="showRegisterModal()" class="bg-cyan-500 hover:bg-cyan-600 px-6 py-2.5 rounded-2xl font-semibold">Daftar</button>
       </div>
     </div>
   </nav>
 
-  <!-- Hero -->
-  <section class="pt-32 pb-24 text-center px-6">
-    <div class="max-w-5xl mx-auto">
-      <h2 class="text-6xl md:text-7xl font-bold leading-tight mb-6">
-        Nomor Virtual<br>Super Cepat & Murah
-      </h2>
-      <p class="text-2xl text-gray-400 mb-10">Stok Real-time • Pembayaran Instan • QRIS & E-Wallet</p>
-    </div>
-  </section>
+  <div class="pt-24 max-w-7xl mx-auto px-6 pb-20">
 
-  <!-- Produk -->
-  <section id="produk" class="max-w-7xl mx-auto px-6 py-16">
-    <h2 class="text-4xl font-bold mb-10">Produk Tersedia</h2>
-    <div id="product-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
-      <!-- Diisi otomatis -->
+    <!-- HOME PAGE -->
+    <div id="home-page">
+      <div class="text-center py-20">
+        <h1 class="text-6xl md:text-7xl font-bold mb-6 leading-tight">Nomor Virtual<br>Super Cepat & Murah</h1>
+        <p class="text-2xl text-gray-400 mb-10">Stok Real-time • Pembayaran QRIS & E-Wallet • 50+ Negara</p>
+        <button onclick="navigate('produk')" class="bg-white text-black px-10 py-5 rounded-3xl text-xl font-bold">Lihat Produk</button>
+      </div>
     </div>
-  </section>
 
-  <!-- Payment Modal -->
-  <div id="paymentModal" class="hidden fixed inset-0 bg-black/90 flex items-center justify-center z-50">
-    <div class="bg-gray-900 w-full max-w-lg mx-4 rounded-3xl overflow-hidden">
+    <!-- PRODUK PAGE -->
+    <div id="produk-page" class="hidden">
+      <h2 class="text-4xl font-bold mb-10">Produk Tersedia</h2>
+      <div id="product-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8"></div>
+    </div>
+
+    <!-- DASHBOARD PAGE -->
+    <div id="dashboard-page" class="hidden">
+      <h2 class="text-4xl font-bold mb-8">Dashboard</h2>
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12">
+        <div class="bg-gray-900 rounded-3xl p-8">
+          <p class="text-gray-400">Saldo</p>
+          <p id="user-balance" class="text-5xl font-bold text-cyan-400">Rp 250.000</p>
+        </div>
+        <div class="bg-gray-900 rounded-3xl p-8">
+          <p class="text-gray-400">Order Sukses</p>
+          <p class="text-5xl font-bold">47</p>
+        </div>
+        <div class="bg-gray-900 rounded-3xl p-8">
+          <p class="text-gray-400">Total Pengeluaran</p>
+          <p class="text-5xl font-bold">Rp 1.245.000</p>
+        </div>
+      </div>
+      <h3 class="text-2xl font-bold mb-6">Riwayat Transaksi</h3>
+      <div id="history-list" class="space-y-4"></div>
+    </div>
+  </div>
+
+  <!-- LOGIN MODAL -->
+  <div id="loginModal" class="hidden fixed inset-0 bg-black/80 flex items-center justify-center z-[100]">
+    <div class="bg-gray-900 p-10 rounded-3xl w-full max-w-md">
+      <h3 class="text-3xl font-bold text-center mb-8">Login</h3>
+      <input id="login-email" type="email" placeholder="Email" class="w-full bg-gray-800 p-5 rounded-2xl mb-4">
+      <input id="login-password" type="password" placeholder="Password" class="w-full bg-gray-800 p-5 rounded-2xl mb-8">
+      <button onclick="login()" class="w-full bg-cyan-500 text-black py-5 rounded-2xl font-bold">Login</button>
+      <p class="text-center mt-6 text-gray-400">Belum punya akun? <span onclick="switchToRegister()" class="text-cyan-400 cursor-pointer">Daftar</span></p>
+    </div>
+  </div>
+
+  <!-- REGISTER MODAL -->
+  <div id="registerModal" class="hidden fixed inset-0 bg-black/80 flex items-center justify-center z-[100]">
+    <div class="bg-gray-900 p-10 rounded-3xl w-full max-w-md">
+      <h3 class="text-3xl font-bold text-center mb-8">Daftar Akun</h3>
+      <input id="reg-username" type="text" placeholder="Username" class="w-full bg-gray-800 p-5 rounded-2xl mb-4">
+      <input id="reg-email" type="email" placeholder="Email" class="w-full bg-gray-800 p-5 rounded-2xl mb-4">
+      <input id="reg-password" type="password" placeholder="Password" class="w-full bg-gray-800 p-5 rounded-2xl mb-8">
+      <button onclick="register()" class="w-full bg-cyan-500 text-black py-5 rounded-2xl font-bold">Daftar Sekarang</button>
+      <p class="text-center mt-6 text-gray-400">Sudah punya akun? <span onclick="switchToLogin()" class="text-cyan-400 cursor-pointer">Login</span></p>
+    </div>
+  </div>
+
+  <!-- PAYMENT MODAL -->
+  <div id="paymentModal" class="hidden fixed inset-0 bg-black/90 flex items-center justify-center z-[100]">
+    <div class="bg-gray-900 w-full max-w-lg rounded-3xl overflow-hidden">
       <div class="p-8">
-        <h3 class="text-2xl font-bold mb-2">Checkout</h3>
-        <div id="product-info" class="bg-gray-800 rounded-2xl p-5 mb-6"></div>
+        <h3 class="text-2xl font-bold mb-6">Checkout</h3>
+        <div id="product-detail" class="bg-gray-800 rounded-2xl p-6 mb-8"></div>
 
         <h4 class="font-semibold mb-4">Pilih Metode Pembayaran</h4>
-        
         <div class="grid grid-cols-2 gap-4">
-          <button onclick="selectPayment('qris')" class="payment-btn flex flex-col items-center gap-3 border border-gray-700 hover:border-cyan-500 p-6 rounded-2xl transition">
-            <i class="fas fa-qrcode text-4xl text-cyan-400"></i>
-            <span class="font-medium">QRIS</span>
-          </button>
-          <button onclick="selectPayment('dana')" class="payment-btn flex flex-col items-center gap-3 border border-gray-700 hover:border-cyan-500 p-6 rounded-2xl transition">
-            <span class="text-4xl">💰</span>
-            <span class="font-medium">DANA</span>
-          </button>
-          <button onclick="selectPayment('gopay')" class="payment-btn flex flex-col items-center gap-3 border border-gray-700 hover:border-cyan-500 p-6 rounded-2xl transition">
-            <span class="text-4xl">🚀</span>
-            <span class="font-medium">GoPay</span>
-          </button>
-          <button onclick="selectPayment('shopeepay')" class="payment-btn flex flex-col items-center gap-3 border border-gray-700 hover:border-cyan-500 p-6 rounded-2xl transition">
-            <span class="text-4xl">🛍️</span>
-            <span class="font-medium">ShopeePay</span>
-          </button>
+          <button onclick="selectPayment('qris')" class="payment-btn p-6 border-2 border-gray-700 rounded-2xl hover:border-cyan-500">QRIS</button>
+          <button onclick="selectPayment('dana')" class="payment-btn p-6 border-2 border-gray-700 rounded-2xl hover:border-cyan-500">DANA</button>
+          <button onclick="selectPayment('gopay')" class="payment-btn p-6 border-2 border-gray-700 rounded-2xl hover:border-cyan-500">GoPay</button>
+          <button onclick="selectPayment('shopeepay')" class="payment-btn p-6 border-2 border-gray-700 rounded-2xl hover:border-cyan-500">ShopeePay</button>
         </div>
 
-        <div id="qris-section" class="hidden mt-8 text-center">
-          <p class="text-sm text-gray-400 mb-3">Scan QRIS berikut untuk membayar</p>
-          <div class="bg-white p-6 inline-block rounded-2xl mx-auto">
-            <img src="https://i.ibb.co.com/0jXvK7q/qris-placeholder.png" alt="QRIS" class="w-64 h-64" id="qris-image">
-          </div>
-          <p class="text-xs text-gray-500 mt-4">Total: <span id="total-price" class="font-bold text-cyan-400"></span></p>
+        <div id="qris-area" class="hidden mt-8 text-center">
+          <p class="mb-3">Scan QRIS ini untuk membayar</p>
+          <img src="https://i.ibb.co.com/0jXvK7q/qris-placeholder.png" class="mx-auto w-64 h-64 bg-white p-4 rounded-2xl">
+          <p id="pay-amount" class="mt-4 text-cyan-400 font-bold"></p>
         </div>
 
-        <button onclick="confirmPayment()" id="pay-button" 
-                class="hidden w-full mt-8 bg-cyan-500 text-black py-5 rounded-2xl font-bold text-lg">
-          Saya Sudah Bayar
-        </button>
+        <button onclick="confirmOrder()" id="confirm-pay-btn" class="hidden w-full mt-8 bg-cyan-500 text-black py-6 rounded-2xl font-bold text-lg">Konfirmasi Pembayaran</button>
       </div>
-      
-      <div class="border-t border-gray-700 p-4 text-center">
-        <button onclick="closePaymentModal()" class="text-gray-400 hover:text-white">Batal</button>
+      <div class="p-5 border-t border-gray-700 text-center">
+        <button onclick="closePayment()" class="text-gray-400">Batal</button>
       </div>
     </div>
   </div>
 
   <script>
-    // ================== FIREBASE CONFIG ==================
+    // =============== FIREBASE CONFIG ===============
     const firebaseConfig = {
-      apiKey: "GANTI_DENGAN_API_KEY_ANDA",
-      authDomain: "nama-project-anda.firebaseapp.com",
-      projectId: "nama-project-anda",
-      storageBucket: "nama-project-anda.appspot.com",
-      messagingSenderId: "1234567890",
-      appId: "1:1234567890:web:xxxxxxxxxxxxxxxx"
+      apiKey: "MASUKKAN_API_KEY_ANDA",
+      authDomain: "project-anda.firebaseapp.com",
+      projectId: "project-anda",
+      storageBucket: "project-anda.appspot.com",
+      messagingSenderId: "123456789",
+      appId: "1:123456789:web:xxxxxxxxxxxxxxxx"
     };
 
     firebase.initializeApp(firebaseConfig);
     const db = firebase.firestore();
 
     let currentProduct = null;
-    let selectedMethod = '';
+    let selectedPaymentMethod = "";
 
-    // Load Products
+    function navigate(page) {
+      document.querySelectorAll('#home-page, #produk-page, #dashboard-page').forEach(p => p.classList.add('hidden'));
+      document.getElementById(page + '-page').classList.remove('hidden');
+      if (page === 'produk') loadProducts();
+      if (page === 'dashboard') loadHistory();
+    }
+
     async function loadProducts() {
       const grid = document.getElementById('product-grid');
-      grid.innerHTML = '<p class="col-span-full text-center py-20 text-gray-400">Loading stok real-time...</p>';
+      grid.innerHTML = `<p class="text-center py-20 col-span-full">Loading stok real-time...</p>`;
 
-      try {
-        const snapshot = await db.collection("products").get();
-        let html = '';
-
-        snapshot.forEach(doc => {
-          const p = doc.data();
-          html += `
-            <div class="bg-gray-900 border border-gray-800 rounded-3xl p-8 card-hover">
-              <div class="text-6xl mb-5">${p.flag}</div>
-              <h3 class="text-2xl font-bold">${p.country}</h3>
-              <p class="text-cyan-400">${p.service}</p>
-              <div class="mt-6 mb-8">
-                <span class="text-4xl font-bold">Rp ${p.price.toLocaleString('id-ID')}</span>
-              </div>
-              <div class="flex justify-between items-center">
-                <div>
-                  Stok: <span class="text-green-400 font-bold text-xl">${p.stock}</span>
-                </div>
-                <button onclick="openPaymentModal('\( {doc.id}', ' \){p.country}', \( {p.price}, ' \){p.flag}')" 
-                        class="bg-cyan-500 hover:bg-cyan-600 text-black px-8 py-4 rounded-2xl font-semibold">
-                  Beli
-                </button>
-              </div>
+      const snap = await db.collection("products").get();
+      let html = "";
+      snap.forEach(doc => {
+        const p = doc.data();
+        html += `
+          <div class="bg-gray-900 border border-gray-800 rounded-3xl p-8 card-hover">
+            <div class="text-6xl mb-6">${p.flag}</div>
+            <h3 class="text-2xl font-bold">${p.country}</h3>
+            <p class="text-cyan-400">${p.service}</p>
+            <div class="my-8 text-4xl font-bold">Rp ${p.price.toLocaleString('id-ID')}</div>
+            <div class="flex justify-between items-center">
+              <span>Stok: <span class="text-green-400 font-bold">${p.stock}</span></span>
+              <button onclick="buyNow('\( {doc.id}', ' \){p.country}', \( {p.price}, ' \){p.flag}')" class="bg-cyan-500 hover:bg-cyan-600 text-black px-8 py-4 rounded-2xl font-semibold">Beli</button>
             </div>
-          `;
-        });
-
-        grid.innerHTML = html || '<p class="col-span-full text-center py-20 text-gray-400">Stok sedang kosong</p>';
-      } catch (e) {
-        grid.innerHTML = '<p class="col-span-full text-red-400 text-center py-20">Gagal memuat data</p>';
-      }
+          </div>`;
+      });
+      grid.innerHTML = html;
     }
 
-    // Open Payment Modal
-    function openPaymentModal(docId, country, price, flag) {
-      currentProduct = { docId, country, price, flag };
-      
-      document.getElementById('product-info').innerHTML = `
-        <div class="flex gap-5 items-center">
-          <div class="text-5xl">${flag}</div>
+    function buyNow(id, country, price, flag) {
+      currentProduct = { id, country, price, flag };
+      document.getElementById('product-detail').innerHTML = `
+        <div class="flex gap-6 items-center">
+          <span class="text-6xl">${flag}</span>
           <div>
-            <p class="font-bold text-xl">${country}</p>
-            <p class="text-cyan-400">Nomor OTP</p>
-            <p class="text-2xl font-bold text-white">Rp ${price.toLocaleString('id-ID')}</p>
+            <p class="text-xl font-bold">${country}</p>
+            <p class="text-3xl font-bold text-cyan-400">Rp ${price.toLocaleString('id-ID')}</p>
           </div>
-        </div>
-      `;
-
+        </div>`;
       document.getElementById('paymentModal').classList.remove('hidden');
-      document.getElementById('qris-section').classList.add('hidden');
-      document.getElementById('pay-button').classList.add('hidden');
-    }
-
-    function closePaymentModal() {
-      document.getElementById('paymentModal').classList.add('hidden');
     }
 
     function selectPayment(method) {
-      selectedMethod = method;
-      document.querySelectorAll('.payment-btn').forEach(btn => {
-        btn.classList.remove('border-cyan-500', 'bg-gray-800');
-      });
-
-      event.currentTarget.classList.add('border-cyan-500', 'bg-gray-800');
-
-      document.getElementById('qris-section').classList.toggle('hidden', method !== 'qris');
-      document.getElementById('pay-button').classList.remove('hidden');
-      
+      selectedPaymentMethod = method;
+      document.getElementById('qris-area').classList.toggle('hidden', method !== 'qris');
+      document.getElementById('confirm-pay-btn').classList.remove('hidden');
       if (method === 'qris') {
-        document.getElementById('total-price').textContent = `Rp ${currentProduct.price.toLocaleString('id-ID')}`;
+        document.getElementById('pay-amount').innerHTML = `Total: Rp ${currentProduct.price.toLocaleString('id-ID')}`;
       }
     }
 
-    // Confirm Payment (Simulasi)
-    async function confirmPayment() {
-      if (!currentProduct) return;
-
-      const productRef = db.collection("products").doc(currentProduct.docId);
-
+    async function confirmOrder() {
       try {
         await db.runTransaction(async (transaction) => {
-          const doc = await transaction.get(productRef);
-          if (!doc.exists()) throw "Produk tidak ditemukan";
-          
+          const ref = db.collection("products").doc(currentProduct.id);
+          const doc = await transaction.get(ref);
           const newStock = doc.data().stock - 1;
           if (newStock < 0) throw "Stok habis!";
-          
-          transaction.update(productRef, { stock: newStock });
+          transaction.update(ref, { stock: newStock });
         });
 
-        alert(`✅ Pembayaran dengan ${selectedMethod.toUpperCase()} berhasil!\n\nNomor virtual akan dikirim ke dashboard Anda.`);
-        closePaymentModal();
-        loadProducts(); // Refresh stok
-      } catch (error) {
-        alert("❌ " + error);
+        alert(`✅ Pembelian ${currentProduct.country} BERHASIL!\nMetode: ${selectedPaymentMethod.toUpperCase()}`);
+        closePayment();
+        loadProducts();
+        loadHistory();
+      } catch (err) {
+        alert("❌ " + err);
       }
     }
 
-    // Modal Login & Register
-    function showLogin() {
-      alert("Login Page akan dibuka (Demo)");
+    function closePayment() {
+      document.getElementById('paymentModal').classList.add('hidden');
     }
 
-    function showRegister() {
-      alert("Silakan daftar melalui admin atau hubungi kami.");
+    function loadHistory() {
+      document.getElementById('history-list').innerHTML = `
+        <div class="bg-gray-900 p-6 rounded-3xl flex justify-between items-center">
+          <div>
+            <p class="font-semibold">Indonesia • WhatsApp</p>
+            <p class="text-sm text-gray-400">+62 812-3456-7890</p>
+          </div>
+          <div class="text-right">
+            <span class="text-green-400 font-bold">Sukses</span><br>
+            <span class="text-sm text-gray-400">25 Mei 2026</span>
+          </div>
+        </div>`;
     }
 
-    // Initialize
-    window.onload = loadProducts;
+    function showLoginModal() { document.getElementById('loginModal').classList.remove('hidden'); }
+    function showRegisterModal() { document.getElementById('registerModal').classList.remove('hidden'); }
+    function switchToRegister() { closeAllModals(); showRegisterModal(); }
+    function switchToLogin() { closeAllModals(); showLoginModal(); }
+
+    function closeAllModals() {
+      document.getElementById('loginModal').classList.add('hidden');
+      document.getElementById('registerModal').classList.add('hidden');
+    }
+
+    function login() {
+      alert("✅ Login berhasil! (Mode Demo)");
+      closeAllModals();
+      navigate('dashboard');
+    }
+
+    function register() {
+      alert("✅ Akun berhasil dibuat!\nSilakan login.");
+      closeAllModals();
+    }
+
+    // Start
+    window.onload = () => {
+      navigate('home');
+    };
   </script>
 </body>
 </html>
