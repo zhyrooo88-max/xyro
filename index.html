@@ -3,12 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-    <title>Xyro OTP | Solusi OTP & Produk Digital</title>
-    <!-- Font Awesome 6 (free) -->
+    <title>Xyro OTP | Platform OTP & Produk Digital</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-    <!-- Google Fonts: Inter -->
-    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700&display=swap" rel="stylesheet">
-    <!-- QR Code Library -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700;14..32,800&display=swap" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/qrcodejs@1.0.0/qrcode.min.js"></script>
     <style>
         * {
@@ -19,18 +16,112 @@
 
         body {
             font-family: 'Inter', sans-serif;
-            background: #f5f7fc;
+            background: #f0f4f8;
             color: #1e293b;
-            padding: 24px 20px 60px;
+            min-height: 100vh;
         }
 
-        /* Container utama */
+        /* Auth Pages Style */
+        .auth-container {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            padding: 20px;
+        }
+
+        .auth-card {
+            background: white;
+            border-radius: 48px;
+            padding: 40px;
+            max-width: 480px;
+            width: 100%;
+            box-shadow: 0 25px 50px -12px rgba(0,0,0,0.25);
+        }
+
+        .auth-logo {
+            text-align: center;
+            margin-bottom: 32px;
+        }
+
+        .auth-logo .logo-icon {
+            background: linear-gradient(135deg, #2563eb, #7c3aed);
+            width: 70px;
+            height: 70px;
+            border-radius: 35px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 36px;
+            color: white;
+            margin-bottom: 16px;
+        }
+
+        .auth-logo h1 {
+            font-size: 32px;
+            background: linear-gradient(135deg, #1e293b, #2563eb);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+
+        .auth-input {
+            width: 100%;
+            padding: 14px 18px;
+            border: 2px solid #e2e8f0;
+            border-radius: 24px;
+            font-size: 16px;
+            transition: all 0.3s;
+            margin-bottom: 16px;
+        }
+
+        .auth-input:focus {
+            outline: none;
+            border-color: #2563eb;
+            box-shadow: 0 0 0 3px rgba(37,99,235,0.1);
+        }
+
+        .auth-btn {
+            width: 100%;
+            background: linear-gradient(135deg, #2563eb, #7c3aed);
+            color: white;
+            border: none;
+            padding: 14px;
+            border-radius: 32px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: transform 0.2s;
+        }
+
+        .auth-btn:hover {
+            transform: translateY(-2px);
+        }
+
+        .auth-link {
+            text-align: center;
+            margin-top: 20px;
+            color: #64748b;
+        }
+
+        .auth-link a {
+            color: #2563eb;
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+        /* Main App Style (setelah login) */
+        .main-app {
+            display: none;
+        }
+
         .container {
-            max-width: 1280px;
+            max-width: 1400px;
             margin: 0 auto;
+            padding: 24px 20px 40px;
         }
 
-        /* Header & Logo menarik */
         .header {
             display: flex;
             align-items: center;
@@ -41,7 +132,7 @@
             background: white;
             padding: 18px 28px;
             border-radius: 48px;
-            box-shadow: 0 8px 20px rgba(0,0,0,0.02), 0 2px 6px rgba(0,0,0,0.05);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.05);
         }
 
         .logo-area {
@@ -60,40 +151,36 @@
             justify-content: center;
             color: white;
             font-size: 26px;
-            box-shadow: 0 10px 15px -3px rgba(37,99,235,0.3);
         }
 
         .logo-text h1 {
             font-size: 1.9rem;
             font-weight: 800;
-            letter-spacing: -0.5px;
             background: linear-gradient(135deg, #1e293b, #2563eb);
             -webkit-background-clip: text;
             background-clip: text;
             color: transparent;
         }
 
-        .logo-text span {
-            font-size: 0.8rem;
-            font-weight: 500;
-            color: #4b5563;
-            display: block;
-        }
-
-        .badge-stock {
-            background: #eef2ff;
-            padding: 8px 18px;
+        .user-info {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            background: #f1f5f9;
+            padding: 8px 20px;
             border-radius: 40px;
+        }
+
+        .logout-btn {
+            background: #ef4444;
+            color: white;
+            border: none;
+            padding: 8px 20px;
+            border-radius: 40px;
+            cursor: pointer;
             font-weight: 600;
-            font-size: 0.85rem;
-            color: #1e40af;
         }
 
-        .badge-stock i {
-            margin-right: 6px;
-        }
-
-        /* Grid utama: produk + payment + api */
         .dashboard-grid {
             display: grid;
             grid-template-columns: 1fr 0.9fr;
@@ -104,18 +191,14 @@
         @media (max-width: 850px) {
             .dashboard-grid {
                 grid-template-columns: 1fr;
-                gap: 24px;
             }
         }
 
-        /* Kartu putih stylenya soft */
         .card {
             background: white;
             border-radius: 32px;
             padding: 24px 28px;
-            box-shadow: 0 12px 30px rgba(0,0,0,0.05);
-            transition: 0.2s;
-            border: 1px solid rgba(0,0,0,0.03);
+            box-shadow: 0 12px 30px rgba(0,0,0,0.08);
         }
 
         .card-title {
@@ -129,13 +212,6 @@
             padding-left: 16px;
         }
 
-        .card-sub {
-            color: #5b6e8c;
-            margin-bottom: 24px;
-            font-size: 0.9rem;
-        }
-
-        /* Stok produk list */
         .product-list {
             display: flex;
             flex-direction: column;
@@ -151,19 +227,7 @@
             justify-content: space-between;
             align-items: center;
             flex-wrap: wrap;
-            transition: all 0.2s;
-            border: 1px solid #eef2ff;
-        }
-
-        .product-info h3 {
-            font-weight: 700;
-            font-size: 1.1rem;
-        }
-
-        .product-info p {
-            font-size: 0.75rem;
-            color: #5b6e8c;
-            margin-top: 4px;
+            gap: 12px;
         }
 
         .stock-badge {
@@ -183,7 +247,6 @@
         .product-price {
             font-weight: 800;
             font-size: 1.25rem;
-            margin: 0 15px;
         }
 
         .btn-buy {
@@ -195,15 +258,18 @@
             font-weight: 600;
             cursor: pointer;
             transition: 0.2s;
-            font-size: 0.85rem;
         }
 
-        .btn-buy:hover {
+        .btn-buy:hover:not(:disabled) {
             background: #1d4ed8;
             transform: scale(0.97);
         }
 
-        /* API section */
+        .btn-buy:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
         .api-demo {
             background: #f1f5f9;
             border-radius: 24px;
@@ -215,6 +281,7 @@
             display: flex;
             gap: 12px;
             margin: 15px 0;
+            flex-wrap: wrap;
         }
 
         .api-input-group input {
@@ -223,36 +290,8 @@
             border-radius: 60px;
             border: 1px solid #cbd5e1;
             font-family: monospace;
-            background: white;
         }
 
-        button {
-            background: #0f172a;
-            border: none;
-            padding: 10px 20px;
-            border-radius: 40px;
-            font-weight: 500;
-            color: white;
-            cursor: pointer;
-        }
-
-        button.small {
-            background: #334155;
-            padding: 6px 14px;
-            font-size: 0.8rem;
-        }
-
-        .api-result {
-            background: #0f172a;
-            color: #e2e8f0;
-            padding: 14px;
-            border-radius: 20px;
-            font-size: 0.8rem;
-            font-family: monospace;
-            word-break: break-all;
-        }
-
-        /* QRIS & payment */
         .qris-area {
             text-align: center;
             margin: 20px 0;
@@ -264,15 +303,6 @@
             padding: 12px;
             background: white;
             border-radius: 28px;
-            box-shadow: 0 6px 14px rgba(0,0,0,0.05);
-        }
-
-        .payment-status {
-            margin-top: 20px;
-            background: #eef2ff;
-            padding: 14px;
-            border-radius: 20px;
-            font-weight: 500;
         }
 
         .invoice-box {
@@ -282,9 +312,11 @@
             margin-top: 15px;
         }
 
-        hr {
-            margin: 20px 0;
-            border-color: #e9eef3;
+        .transaction-log {
+            max-height: 140px;
+            overflow-y: auto;
+            font-size: 0.8rem;
+            color: #2c3e66;
         }
 
         footer {
@@ -293,338 +325,481 @@
             color: #5e6f8d;
             font-size: 0.8rem;
         }
+
+        .alert {
+            padding: 12px;
+            border-radius: 16px;
+            margin-bottom: 16px;
+            display: none;
+        }
+
+        .alert.error {
+            background: #fee2e2;
+            color: #dc2626;
+            display: block;
+        }
+
+        .alert.success {
+            background: #dcfce7;
+            color: #16a34a;
+            display: block;
+        }
     </style>
 </head>
 <body>
-<div class="container">
-    <!-- Header Logo menarik + otomatis stock info -->
-    <div class="header">
-        <div class="logo-area">
-            <div class="logo-icon">
-                <i class="fas fa-bolt"></i>
-            </div>
-            <div class="logo-text">
+    <!-- Login/Register Page -->
+    <div id="authPage" class="auth-container">
+        <div class="auth-card">
+            <div class="auth-logo">
+                <div class="logo-icon">
+                    <i class="fas fa-bolt"></i>
+                </div>
                 <h1>XYRO OTP</h1>
-                <span>One Time Password • Digital Hub</span>
+                <p style="color: #64748b; margin-top: 8px;">One Time Password · Digital Hub</p>
             </div>
-        </div>
-        <div class="badge-stock">
-            <i class="fas fa-database"></i> <span id="totalStockIndicator">Sync stok...</span>
-        </div>
-    </div>
-
-    <div class="dashboard-grid">
-        <!-- Kiri: Produk + Stok Otomatis -->
-        <div class="card">
-            <div class="card-title">
-                <i class="fas fa-boxes"></i> Katalog Produk
-            </div>
-            <div class="card-sub">Layanan OTP & Voucher — stok otomatis via API internal</div>
-            <div id="productListContainer" class="product-list">
-                <!-- produk akan di render dengan javascript -->
-            </div>
-            <div class="api-demo">
-                <div style="display: flex; justify-content: space-between; align-items:center;">
-                    <span><i class="fas fa-microchip"></i> <strong>API Otomatis (Update Stok)</strong></span>
-                    <button id="syncStockBtn" class="small"><i class="fas fa-sync-alt"></i> Sync via API</button>
+            
+            <div id="authAlert" class="alert"></div>
+            
+            <!-- Login Form -->
+            <div id="loginForm">
+                <input type="text" id="loginUsername" class="auth-input" placeholder="Username" autocomplete="username">
+                <input type="password" id="loginPassword" class="auth-input" placeholder="Password" autocomplete="current-password">
+                <button class="auth-btn" onclick="handleLogin()">Login</button>
+                <div class="auth-link">
+                    Belum punya akun? <a href="#" onclick="showRegister()">Daftar Sekarang</a>
                 </div>
-                <div class="api-input-group" style="margin-top: 12px;">
-                    <input type="text" id="apiProductId" placeholder="Product ID (1=sms_otp, 2=wa_otp, 3=email_otp)" value="1">
-                    <input type="number" id="apiNewStock" placeholder="Stok baru" value="25">
-                    <button id="updateStockApiBtn">Update Stok API</button>
-                </div>
-                <div id="apiMessage" class="api-result" style="margin-top: 12px;">⚡ API ready: /update-stock (simulasi)</div>
             </div>
-        </div>
-
-        <!-- Kanan: QRIS Payment & Otomatisasi -->
-        <div class="card">
-            <div class="card-title">
-                <i class="fas fa-qrcode"></i> Pembayaran QRIS
-            </div>
-            <div class="card-sub">Scan QRIS untuk menyelesaikan pesanan, otomatis kurangi stok setelah sukses.</div>
-            <div class="qris-area">
-                <div id="qrcode"></div>
-                <div style="margin-top: 10px; font-size:0.8rem;">Nominal: <span id="qrAmount">Rp 0</span></div>
-            </div>
-            <div class="invoice-box">
-                <div style="display: flex; justify-content: space-between;">
-                    <span><strong>Pesanan saat ini:</strong></span>
-                    <span id="selectedProductName">-</span>
+            
+            <!-- Register Form (hidden initially) -->
+            <div id="registerForm" style="display: none;">
+                <input type="text" id="regUsername" class="auth-input" placeholder="Username">
+                <input type="email" id="regEmail" class="auth-input" placeholder="Email">
+                <input type="password" id="regPassword" class="auth-input" placeholder="Password (min. 6 karakter)">
+                <input type="password" id="regConfirmPassword" class="auth-input" placeholder="Konfirmasi Password">
+                <button class="auth-btn" onclick="handleRegister()">Daftar</button>
+                <div class="auth-link">
+                    Sudah punya akun? <a href="#" onclick="showLogin()">Login disini</a>
                 </div>
-                <div style="display: flex; justify-content: space-between; margin-top:8px;">
-                    <span>Harga:</span>
-                    <span id="selectedProductPrice">Rp 0</span>
-                </div>
-                <div style="margin-top: 15px;">
-                    <button id="confirmPaymentBtn" style="background:#0d9488; width:100%;"><i class="fas fa-check-circle"></i> Simulasi Bayar QRIS (Otomatis)</button>
-                </div>
-                <div id="paymentNotification" class="payment-status" style="margin-top: 15px; display: none;"></div>
-            </div>
-            <hr>
-            <div>
-                <i class="fas fa-robot"></i> <strong>Sistem Otomatis:</strong> Pembayaran QRIS sukses -> produk berkurang stok & tercatat.
             </div>
         </div>
     </div>
 
-    <!-- Riwayat / info transaksi sederhana -->
-    <div class="card" style="margin-top: 8px;">
-        <div class="card-title"><i class="fas fa-history"></i> Log Transaksi & API</div>
-        <div id="transactionLog" style="max-height: 140px; overflow-y: auto; font-size: 0.8rem; color:#2c3e66;">
-            ✔️ Siap melayani order otomatis.
+    <!-- Main App (after login) -->
+    <div id="mainApp" class="main-app">
+        <div class="container">
+            <div class="header">
+                <div class="logo-area">
+                    <div class="logo-icon">
+                        <i class="fas fa-bolt"></i>
+                    </div>
+                    <div class="logo-text">
+                        <h1>XYRO OTP</h1>
+                        <span>One Time Password · Digital Hub</span>
+                    </div>
+                </div>
+                <div class="user-info">
+                    <i class="fas fa-user-circle"></i>
+                    <span id="currentUsername">User</span>
+                    <button class="logout-btn" onclick="handleLogout()"><i class="fas fa-sign-out-alt"></i> Logout</button>
+                </div>
+            </div>
+
+            <div class="dashboard-grid">
+                <div class="card">
+                    <div class="card-title">
+                        <i class="fas fa-boxes"></i> Katalog Produk
+                    </div>
+                    <div id="productListContainer" class="product-list"></div>
+                    <div class="api-demo">
+                        <div style="display: flex; justify-content: space-between; align-items:center;">
+                            <span><i class="fas fa-microchip"></i> <strong>API Otomatis Update Stok</strong></span>
+                            <button id="syncStockBtn" style="background:#334155; padding:6px 14px; border-radius:40px;"><i class="fas fa-sync-alt"></i> Sync via API</button>
+                        </div>
+                        <div class="api-input-group">
+                            <input type="text" id="apiProductId" placeholder="Product ID (1-3)" value="1">
+                            <input type="number" id="apiNewStock" placeholder="Stok baru" value="25">
+                            <button id="updateStockApiBtn" style="background:#0f172a;">Update Stok API</button>
+                        </div>
+                        <div id="apiMessage" style="background:#0f172a; color:#e2e8f0; padding:12px; border-radius:20px; font-size:0.8rem;">⚡ API ready: update-stock endpoint aktif</div>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-title">
+                        <i class="fas fa-qrcode"></i> Pembayaran QRIS
+                    </div>
+                    <div class="qris-area">
+                        <div id="qrcode"></div>
+                        <div style="margin-top: 10px;"><strong>Nominal: <span id="qrAmount">Rp 0</span></strong></div>
+                    </div>
+                    <div class="invoice-box">
+                        <div style="display: flex; justify-content: space-between;">
+                            <span>Pesanan:</span>
+                            <span id="selectedProductName">-</span>
+                        </div>
+                        <div style="display: flex; justify-content: space-between; margin-top:8px;">
+                            <span>Harga:</span>
+                            <span id="selectedProductPrice">Rp 0</span>
+                        </div>
+                        <button id="confirmPaymentBtn" style="background:#0d9488; width:100%; margin-top:15px; padding:12px; border-radius:40px; color:white; border:none; cursor:pointer;">
+                            <i class="fas fa-check-circle"></i> Simulasi Bayar QRIS (Otomatis)
+                        </button>
+                        <div id="paymentNotification" style="margin-top: 15px; padding:12px; border-radius:20px; display: none;"></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-title"><i class="fas fa-history"></i> Log Transaksi & API</div>
+                <div id="transactionLog" class="transaction-log">✔️ Siap melayani order otomatis.</div>
+            </div>
+            <footer>
+                <i class="fas fa-shield-alt"></i> Xyro OTP — Platform terintegrasi QRIS & API dinamis | Keamanan terjamin
+            </footer>
         </div>
     </div>
-    <footer>
-        <i class="fas fa-shield-alt"></i> Xyro OTP — Platform terintegrasi QRIS & API dinamis | Putih elegan
-    </footer>
-</div>
 
-<script>
-    // ----- DATA PRODUK AWAL (stok dinamis) -----
-    let products = [
-        { id: 1, name: "SMS OTP (Global)", price: 2500, stock: 48, category: "otp", desc: "Kode verifikasi SMS" },
-        { id: 2, name: "WhatsApp OTP", price: 3000, stock: 32, category: "otp", desc: "OTP via WhatsApp" },
-        { id: 3, name: "Email OTP Premium", price: 1800, stock: 67, category: "otp", desc: "Instan ke email" }
-    ];
-
-    // Variable untuk menyimpan produk yang sedang dipilih user untuk dibayar
-    let selectedProductForPayment = null;
-
-    // Fungsi render semua produk di UI (list stok & tombol beli)
-    function renderProducts() {
-        const container = document.getElementById('productListContainer');
-        if (!container) return;
-        container.innerHTML = '';
-        let totalStockAll = 0;
-        products.forEach(prod => {
-            totalStockAll += prod.stock;
-            const stockClass = prod.stock < 10 ? 'low' : '';
-            const stockText = prod.stock <= 0 ? 'HABIS' : `Stok: ${prod.stock}`;
-            const disabledAttr = prod.stock <= 0 ? 'disabled style="opacity:0.5; cursor:not-allowed;"' : '';
-            const productDiv = document.createElement('div');
-            productDiv.className = 'product-item';
-            productDiv.innerHTML = `
-                <div class="product-info">
-                    <h3><i class="fas fa-key"></i> ${prod.name}</h3>
-                    <p>${prod.desc}</p>
-                </div>
-                <div class="stock-badge ${stockClass}">${stockText}</div>
-                <div class="product-price">Rp ${prod.price.toLocaleString()}</div>
-                <button class="btn-buy" data-id="${prod.id}" ${disabledAttr}>Pilih & Bayar</button>
-            `;
-            container.appendChild(productDiv);
-        });
-        // total stok indikator
-        document.getElementById('totalStockIndicator').innerHTML = `<i class="fas fa-cubes"></i> Total stok: ${totalStockAll}`;
-
-        // event listener tombol beli
-        document.querySelectorAll('.btn-buy').forEach(btn => {
-            btn.addEventListener('click', (e) => {
-                const prodId = parseInt(btn.getAttribute('data-id'));
-                const product = products.find(p => p.id === prodId);
-                if (product && product.stock > 0) {
-                    selectedProductForPayment = product;
-                    updatePaymentPanel();
-                    addLog(`🛒 Memilih produk: ${product.name} (Rp ${product.price.toLocaleString()})`, 'info');
-                } else {
-                    addLog(`❌ Gagal pilih: Stok habis!`, 'error');
-                    alert('Stok produk habis, tidak dapat memesan.');
-                }
-            });
-        });
-    }
-
-    // Update panel pembayaran dengan info produk terpilih & generate QRIS
-    function updatePaymentPanel() {
-        if (!selectedProductForPayment) {
-            document.getElementById('selectedProductName').innerText = '-';
-            document.getElementById('selectedProductPrice').innerText = 'Rp 0';
-            document.getElementById('qrAmount').innerText = 'Rp 0';
-            // generate qris kosong atau default
-            generateQRCode(0);
-            return;
+    <script>
+        // ==================== SISTEM AUTHENTIKASI ====================
+        let currentUser = null;
+        
+        // User database (simulasi localStorage)
+        function getUsers() {
+            const users = localStorage.getItem('xyro_users');
+            return users ? JSON.parse(users) : [];
         }
-        const price = selectedProductForPayment.price;
-        document.getElementById('selectedProductName').innerText = selectedProductForPayment.name;
-        document.getElementById('selectedProductPrice').innerText = `Rp ${price.toLocaleString()}`;
-        document.getElementById('qrAmount').innerText = `Rp ${price.toLocaleString()}`;
-        // generate QRIS simulation (grossir statis + nominal)
-        generateQRCode(price);
-    }
-
-    // Generate QR Code simulasi QRIS menggunakan library QRCode.js
-    function generateQRCode(amount) {
-        const qrContainer = document.getElementById('qrcode');
-        qrContainer.innerHTML = ""; // clear
-        if (amount <= 0) {
-            qrContainer.innerHTML = '<div style="padding:20px; background:#f1f5f9; border-radius:20px;">🔘 Pilih produk dulu</div>';
-            return;
+        
+        function saveUsers(users) {
+            localStorage.setItem('xyro_users', JSON.stringify(users));
         }
-        // Data QRIS simulasi: merchant XYRO OTP + nominal unik
-        const qrisData = `QRIS://xyro.otp/pay?merchant=XYRO_OTP&amount=${amount}&orderID=${Date.now()}`;
-        new QRCode(qrContainer, {
-            text: qrisData,
-            width: 150,
-            height: 150,
-            colorDark: "#000000",
-            colorLight: "#ffffff",
-            correctLevel: QRCode.CorrectLevel.M
-        });
-        addLog(`📱 QRIS diperbarui: nominal Rp ${amount.toLocaleString()}`, 'info');
-    }
-
-    // Fungsi utama: proses pembayaran sukses -> kurangi stok otomatis, update produk, simpan log
-    function processPaymentSuccess() {
-        if (!selectedProductForPayment) {
-            alert('Silakan pilih produk terlebih dahulu.');
-            return false;
+        
+        function saveSession(user) {
+            localStorage.setItem('xyro_current_user', JSON.stringify(user));
         }
-        const product = selectedProductForPayment;
-        if (product.stock <= 0) {
-            alert(`Stok ${product.name} habis! tidak bisa diproses.`);
-            addLog(`⚠️ Gagal bayar: stok ${product.name} habis`, 'error');
-            return false;
+        
+        function getSession() {
+            const session = localStorage.getItem('xyro_current_user');
+            return session ? JSON.parse(session) : null;
         }
-
-        // KURANGI STOK OTOMATIS
-        product.stock -= 1;
-        // Update stok di array global
-        const index = products.findIndex(p => p.id === product.id);
-        if (index !== -1) products[index].stock = product.stock;
-
-        // refresh tampilan produk & total stok
-        renderProducts();
-
-        // catat transaksi
-        const transactionMsg = `✅ Pembayaran QRIS berhasil! Produk: ${product.name} (Rp ${product.price.toLocaleString()}) - Stok tersisa: ${product.stock}`;
-        addLog(transactionMsg, 'success');
-
-        // notifikasi di panel QRIS
-        const notifDiv = document.getElementById('paymentNotification');
-        notifDiv.innerHTML = `<i class="fas fa-check-circle"></i> ${transactionMsg}`;
-        notifDiv.style.display = 'block';
-        notifDiv.style.background = "#dcfce7";
-        notifDiv.style.color = "#14532d";
-        setTimeout(() => {
-            notifDiv.style.display = 'none';
-        }, 4000);
-
-        // reset selected product after payment? agar user bisa lanjut pilih lain (opsional)
-        selectedProductForPayment = null;
-        updatePaymentPanel();
-        // Generate ulang log bahwa stok berubah
-        return true;
-    }
-
-    // Simulasi API otomatis update stok produk (via endpoint internal mock)
-    function apiUpdateStock(productId, newStockValue) {
-        return new Promise((resolve, reject) => {
+        
+        function showRegister() {
+            document.getElementById('loginForm').style.display = 'none';
+            document.getElementById('registerForm').style.display = 'block';
+            document.getElementById('authAlert').style.display = 'none';
+        }
+        
+        function showLogin() {
+            document.getElementById('registerForm').style.display = 'none';
+            document.getElementById('loginForm').style.display = 'block';
+            document.getElementById('authAlert').style.display = 'none';
+        }
+        
+        function showAlert(message, type) {
+            const alertDiv = document.getElementById('authAlert');
+            alertDiv.textContent = message;
+            alertDiv.className = `alert ${type}`;
             setTimeout(() => {
-                const prodIdNum = parseInt(productId);
-                const newStock = parseInt(newStockValue);
-                if (isNaN(prodIdNum) || isNaN(newStock) || newStock < 0) {
-                    reject(new Error("ID produk atau stok tidak valid"));
-                    return;
-                }
-                const product = products.find(p => p.id === prodIdNum);
-                if (!product) {
-                    reject(new Error(`Produk dengan ID ${prodIdNum} tidak ditemukan`));
-                    return;
-                }
-                product.stock = newStock;
-                renderProducts(); // refresh UI langsung
-                resolve({ success: true, message: `Stok produk ${product.name} diperbarui menjadi ${newStock} via API` });
-            }, 300);
-        });
-    }
-
-    // Event listener untuk confirm payment (simulasi bayar QRIS)
-    document.getElementById('confirmPaymentBtn')?.addEventListener('click', () => {
-        processPaymentSuccess();
-    });
-
-    // API manual via tombol update stok (API otomatis)
-    document.getElementById('updateStockApiBtn')?.addEventListener('click', async () => {
-        const productIdInput = document.getElementById('apiProductId').value;
-        const newStockInput = document.getElementById('apiNewStock').value;
-        const msgDiv = document.getElementById('apiMessage');
-        msgDiv.innerHTML = '<i class="fas fa-spinner fa-pulse"></i> Memproses update stok ...';
-        try {
-            const result = await apiUpdateStock(productIdInput, newStockInput);
-            msgDiv.innerHTML = `✅ ${result.message}`;
-            addLog(`🔁 API: ${result.message}`, 'api');
-            // setelah update stok, jika produk yg sedang dipilih stoknya habis, reset pilihan
-            if (selectedProductForPayment) {
-                const updatedProd = products.find(p => p.id === selectedProductForPayment.id);
-                if (updatedProd && updatedProd.stock <= 0) {
-                    selectedProductForPayment = null;
-                    updatePaymentPanel();
-                    addLog(`⚠️ Produk yang dipilih sebelumnya sudah habis stok, pilihan direset.`, 'warn');
-                } else if (updatedProd) {
-                    selectedProductForPayment = updatedProd;
-                    updatePaymentPanel();
-                }
-            }
-        } catch (err) {
-            msgDiv.innerHTML = `❌ Gagal: ${err.message}`;
-            addLog(`❌ API Error: ${err.message}`, 'error');
+                alertDiv.style.display = 'none';
+            }, 3000);
         }
-    });
-
-    // Tombol sync stok (simulasi request ke external API untuk mengambil stok terbaru)
-    document.getElementById('syncStockBtn')?.addEventListener('click', async () => {
-        const msgDiv = document.getElementById('apiMessage');
-        msgDiv.innerHTML = '<i class="fas fa-sync-alt fa-spin"></i> Menyinkronkan stok dari server ...';
-        // Simulasi fetch API eksternal (misal endpoint fiktif)
-        setTimeout(() => {
-            // simulasi data dari server: update stok produk jadi random +10 (agar terlihat auto)
-            products.forEach(prod => {
-                prod.stock += Math.floor(Math.random() * 8);
-                if (prod.stock > 200) prod.stock = 200;
-            });
-            renderProducts();
-            msgDiv.innerHTML = `✅ Sinkronasi berhasil! Stok produk terupdate otomatis.`;
-            addLog(`🔄 Sinkronasi stok via external API (simulasi)`, 'api');
-            if (selectedProductForPayment) {
-                const stillExist = products.find(p => p.id === selectedProductForPayment.id);
-                if (stillExist && stillExist.stock > 0) {
-                    selectedProductForPayment = stillExist;
-                    updatePaymentPanel();
-                } else if (stillExist && stillExist.stock <= 0) {
-                    selectedProductForPayment = null;
-                    updatePaymentPanel();
-                    addLog(`⚠️ Produk pilihan anda stok habis setelah sinkron, silakan pilih ulang`, 'warn');
-                }
+        
+        function handleRegister() {
+            const username = document.getElementById('regUsername').value.trim();
+            const email = document.getElementById('regEmail').value.trim();
+            const password = document.getElementById('regPassword').value;
+            const confirmPass = document.getElementById('regConfirmPassword').value;
+            
+            if (!username || !email || !password) {
+                showAlert('Semua field harus diisi!', 'error');
+                return;
             }
-        }, 600);
-    });
-
-    // Logging transaksi
-    function addLog(message, type = 'info') {
-        const logDiv = document.getElementById('transactionLog');
-        const time = new Date().toLocaleTimeString();
-        let icon = '📌';
-        if (type === 'success') icon = '✅';
-        if (type === 'error') icon = '❌';
-        if (type === 'api') icon = '⚡';
-        if (type === 'warn') icon = '⚠️';
-        const logEntry = document.createElement('div');
-        logEntry.innerHTML = `${icon} [${time}] ${message}`;
-        logDiv.appendChild(logEntry);
-        logDiv.scrollTop = logDiv.scrollHeight;
-        while (logDiv.children.length > 20) logDiv.removeChild(logDiv.firstChild);
-    }
-
-    // Inisialisasi awal
-    function init() {
-        renderProducts();
-        selectedProductForPayment = null;
-        updatePaymentPanel();
-        addLog("🚀 Xyro OTP siap | Support API otomatis & QRIS | UI Putih Premium", "success");
-    }
-
-    init();
-</script>
+            
+            if (password.length < 6) {
+                showAlert('Password minimal 6 karakter!', 'error');
+                return;
+            }
+            
+            if (password !== confirmPass) {
+                showAlert('Password dan konfirmasi tidak cocok!', 'error');
+                return;
+            }
+            
+            const users = getUsers();
+            if (users.find(u => u.username === username)) {
+                showAlert('Username sudah terdaftar!', 'error');
+                return;
+            }
+            
+            const newUser = {
+                id: Date.now(),
+                username: username,
+                email: email,
+                password: password,
+                balance: 0,
+                registeredAt: new Date().toISOString()
+            };
+            
+            users.push(newUser);
+            saveUsers(users);
+            showAlert('Registrasi berhasil! Silakan login.', 'success');
+            showLogin();
+            document.getElementById('regUsername').value = '';
+            document.getElementById('regEmail').value = '';
+            document.getElementById('regPassword').value = '';
+            document.getElementById('regConfirmPassword').value = '';
+        }
+        
+        function handleLogin() {
+            const username = document.getElementById('loginUsername').value.trim();
+            const password = document.getElementById('loginPassword').value;
+            
+            if (!username || !password) {
+                showAlert('Username dan password harus diisi!', 'error');
+                return;
+            }
+            
+            const users = getUsers();
+            const user = users.find(u => u.username === username && u.password === password);
+            
+            if (!user) {
+                showAlert('Username atau password salah!', 'error');
+                return;
+            }
+            
+            currentUser = user;
+            saveSession(user);
+            document.getElementById('authPage').style.display = 'none';
+            document.getElementById('mainApp').style.display = 'block';
+            document.getElementById('currentUsername').textContent = user.username;
+            initApp();
+        }
+        
+        function handleLogout() {
+            localStorage.removeItem('xyro_current_user');
+            currentUser = null;
+            document.getElementById('mainApp').style.display = 'none';
+            document.getElementById('authPage').style.display = 'flex';
+            document.getElementById('loginUsername').value = '';
+            document.getElementById('loginPassword').value = '';
+        }
+        
+        // Check session on load
+        const savedSession = getSession();
+        if (savedSession) {
+            currentUser = savedSession;
+            document.getElementById('authPage').style.display = 'none';
+            document.getElementById('mainApp').style.display = 'block';
+            document.getElementById('currentUsername').textContent = savedSession.username;
+            initApp();
+        }
+        
+        // ==================== APLIKASI UTAMA ====================
+        let products = [
+            { id: 1, name: "SMS OTP (Global)", price: 2500, stock: 48, desc: "Kode verifikasi SMS instant" },
+            { id: 2, name: "WhatsApp OTP", price: 3000, stock: 32, desc: "OTP via WhatsApp" },
+            { id: 3, name: "Email OTP Premium", price: 1800, stock: 67, desc: "Instan ke email terdaftar" }
+        ];
+        
+        let selectedProductForPayment = null;
+        
+        function renderProducts() {
+            const container = document.getElementById('productListContainer');
+            if (!container) return;
+            container.innerHTML = '';
+            products.forEach(prod => {
+                const stockClass = prod.stock < 10 ? 'low' : '';
+                const stockText = prod.stock <= 0 ? 'HABIS' : `Stok: ${prod.stock}`;
+                const disabled = prod.stock <= 0;
+                const productDiv = document.createElement('div');
+                productDiv.className = 'product-item';
+                productDiv.innerHTML = `
+                    <div>
+                        <h3><i class="fas fa-key"></i> ${prod.name}</h3>
+                        <p style="font-size:12px; color:#64748b;">${prod.desc}</p>
+                    </div>
+                    <div class="stock-badge ${stockClass}">${stockText}</div>
+                    <div class="product-price">Rp ${prod.price.toLocaleString()}</div>
+                    <button class="btn-buy" data-id="${prod.id}" ${disabled ? 'disabled' : ''}>Pilih & Bayar</button>
+                `;
+                container.appendChild(productDiv);
+            });
+            
+            document.querySelectorAll('.btn-buy').forEach(btn => {
+                btn.addEventListener('click', (e) => {
+                    const prodId = parseInt(btn.getAttribute('data-id'));
+                    const product = products.find(p => p.id === prodId);
+                    if (product && product.stock > 0) {
+                        selectedProductForPayment = product;
+                        updatePaymentPanel();
+                        addLog(`🛒 Memilih produk: ${product.name} (Rp ${product.price.toLocaleString()})`, 'info');
+                    } else {
+                        addLog(`❌ Stok habis, tidak bisa memilih`, 'error');
+                    }
+                });
+            });
+        }
+        
+        function updatePaymentPanel() {
+            if (!selectedProductForPayment) {
+                document.getElementById('selectedProductName').innerText = '-';
+                document.getElementById('selectedProductPrice').innerText = 'Rp 0';
+                document.getElementById('qrAmount').innerText = 'Rp 0';
+                generateQRCode(0);
+                return;
+            }
+            const price = selectedProductForPayment.price;
+            document.getElementById('selectedProductName').innerText = selectedProductForPayment.name;
+            document.getElementById('selectedProductPrice').innerText = `Rp ${price.toLocaleString()}`;
+            document.getElementById('qrAmount').innerText = `Rp ${price.toLocaleString()}`;
+            generateQRCode(price);
+        }
+        
+        function generateQRCode(amount) {
+            const qrContainer = document.getElementById('qrcode');
+            qrContainer.innerHTML = "";
+            if (amount <= 0) {
+                qrContainer.innerHTML = '<div style="padding:20px; background:#f1f5f9; border-radius:20px;">🔘 Pilih produk dulu</div>';
+                return;
+            }
+            const qrisData = `QRIS://xyro.otp/pay?merchant=XYRO_OTP&user=${currentUser.username}&amount=${amount}&orderID=${Date.now()}`;
+            new QRCode(qrContainer, {
+                text: qrisData,
+                width: 160,
+                height: 160,
+                colorDark: "#000000",
+                colorLight: "#ffffff",
+                correctLevel: QRCode.CorrectLevel.M
+            });
+        }
+        
+        function processPaymentSuccess() {
+            if (!selectedProductForPayment) {
+                alert('Silakan pilih produk terlebih dahulu.');
+                return false;
+            }
+            const product = selectedProductForPayment;
+            if (product.stock <= 0) {
+                alert(`Stok ${product.name} habis!`);
+                addLog(`⚠️ Gagal bayar: stok ${product.name} habis`, 'error');
+                return false;
+            }
+            
+            product.stock -= 1;
+            const index = products.findIndex(p => p.id === product.id);
+            if (index !== -1) products[index].stock = product.stock;
+            
+            renderProducts();
+            
+            const transactionMsg = `✅ Pembayaran QRIS BERHASIL! Produk: ${product.name} (Rp ${product.price.toLocaleString()}) - Sisa stok: ${product.stock}`;
+            addLog(transactionMsg, 'success');
+            
+            const notifDiv = document.getElementById('paymentNotification');
+            notifDiv.innerHTML = `<i class="fas fa-check-circle"></i> ${transactionMsg}`;
+            notifDiv.style.display = 'block';
+            notifDiv.style.background = "#dcfce7";
+            notifDiv.style.color = "#14532d";
+            setTimeout(() => {
+                notifDiv.style.display = 'none';
+            }, 4000);
+            
+            selectedProductForPayment = null;
+            updatePaymentPanel();
+            return true;
+        }
+        
+        function apiUpdateStock(productId, newStockValue) {
+            return new Promise((resolve, reject) => {
+                setTimeout(() => {
+                    const prodIdNum = parseInt(productId);
+                    const newStock = parseInt(newStockValue);
+                    if (isNaN(prodIdNum) || isNaN(newStock) || newStock < 0) {
+                        reject(new Error("ID atau stok tidak valid"));
+                        return;
+                    }
+                    const product = products.find(p => p.id === prodIdNum);
+                    if (!product) {
+                        reject(new Error(`Produk ID ${prodIdNum} tidak ditemukan`));
+                        return;
+                    }
+                    product.stock = newStock;
+                    renderProducts();
+                    resolve({ success: true, message: `Stok ${product.name} => ${newStock}` });
+                }, 300);
+            });
+        }
+        
+        function addLog(message, type = 'info') {
+            const logDiv = document.getElementById('transactionLog');
+            const time = new Date().toLocaleTimeString();
+            let icon = '📌';
+            if (type === 'success') icon = '✅';
+            if (type === 'error') icon = '❌';
+            if (type === 'api') icon = '⚡';
+            const logEntry = document.createElement('div');
+            logEntry.innerHTML = `${icon} [${time}] ${message}`;
+            logDiv.appendChild(logEntry);
+            logDiv.scrollTop = logDiv.scrollHeight;
+            while (logDiv.children.length > 25) logDiv.removeChild(logDiv.firstChild);
+        }
+        
+        function initApp() {
+            renderProducts();
+            selectedProductForPayment = null;
+            updatePaymentPanel();
+            addLog(`🚀 Selamat datang ${currentUser.username} | Xyro OTP siap digunakan`, 'success');
+            
+            // Event listeners
+            document.getElementById('confirmPaymentBtn').onclick = () => processPaymentSuccess();
+            document.getElementById('updateStockApiBtn').onclick = async () => {
+                const productId = document.getElementById('apiProductId').value;
+                const newStock = document.getElementById('apiNewStock').value;
+                const msgDiv = document.getElementById('apiMessage');
+                msgDiv.innerHTML = '<i class="fas fa-spinner fa-pulse"></i> Proses update...';
+                try {
+                    const result = await apiUpdateStock(productId, newStock);
+                    msgDiv.innerHTML = `✅ ${result.message}`;
+                    addLog(`🔁 API: ${result.message}`, 'api');
+                    if (selectedProductForPayment) {
+                        const updated = products.find(p => p.id === selectedProductForPayment.id);
+                        if (updated && updated.stock <= 0) {
+                            selectedProductForPayment = null;
+                            updatePaymentPanel();
+                            addLog(`⚠️ Produk pilihan habis stok, reset pilihan`, 'warn');
+                        } else if (updated) {
+                            selectedProductForPayment = updated;
+                            updatePaymentPanel();
+                        }
+                    }
+                } catch (err) {
+                    msgDiv.innerHTML = `❌ Gagal: ${err.message}`;
+                    addLog(`❌ API Error: ${err.message}`, 'error');
+                }
+            };
+            
+            document.getElementById('syncStockBtn').onclick = () => {
+                const msgDiv = document.getElementById('apiMessage');
+                msgDiv.innerHTML = '<i class="fas fa-sync-alt fa-spin"></i> Sinkronisasi...';
+                setTimeout(() => {
+                    products.forEach(prod => {
+                        prod.stock += Math.floor(Math.random() * 10);
+                        if (prod.stock > 200) prod.stock = 200;
+                    });
+                    renderProducts();
+                    msgDiv.innerHTML = `✅ Sinkronasi stok berhasil!`;
+                    addLog(`🔄 Sinkronasi stok via external API`, 'api');
+                    if (selectedProductForPayment) {
+                        const stillExist = products.find(p => p.id === selectedProductForPayment.id);
+                        if (stillExist && stillExist.stock > 0) {
+                            selectedProductForPayment = stillExist;
+                            updatePaymentPanel();
+                        } else if (stillExist && stillExist.stock <= 0) {
+                            selectedProductForPayment = null;
+                            updatePaymentPanel();
+                        }
+                    }
+                }, 600);
+            };
+        }
+    </script>
 </body>
 </html>
