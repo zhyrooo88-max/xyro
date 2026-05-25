@@ -2,8 +2,8 @@
 <html lang="id">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-    <title>Xyro OTP | Auto OTP & Deposit System</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes, viewport-fit=cover">
+    <title>Xyro OTP | Auto OTP Instan & Terpercaya</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;400;500;600;700;800&display=swap" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/qrcodejs@1.0.0/qrcode.min.js"></script>
@@ -16,7 +16,7 @@
 
         body {
             font-family: 'Inter', sans-serif;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: #f0f2f5;
             min-height: 100vh;
         }
 
@@ -26,6 +26,7 @@
             display: flex;
             align-items: center;
             justify-content: center;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             padding: 20px;
         }
 
@@ -36,354 +37,107 @@
             max-width: 480px;
             width: 100%;
             box-shadow: 0 25px 50px -12px rgba(0,0,0,0.25);
-            animation: fadeInUp 0.6s ease;
         }
 
-        @keyframes fadeInUp {
-            from {
-                opacity: 0;
-                transform: translateY(30px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        .auth-logo {
-            text-align: center;
-            margin-bottom: 32px;
-        }
-
-        .logo-icon {
-            background: linear-gradient(135deg, #2563eb, #7c3aed);
-            width: 80px;
-            height: 80px;
-            border-radius: 40px;
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 42px;
-            color: white;
-            margin-bottom: 16px;
-            animation: pulse 2s infinite;
-        }
-
-        @keyframes pulse {
-            0%, 100% { transform: scale(1); }
-            50% { transform: scale(1.05); }
-        }
-
-        .auth-logo h1 {
-            font-size: 36px;
-            background: linear-gradient(135deg, #1e293b, #2563eb);
-            -webkit-background-clip: text;
-            background-clip: text;
-            color: transparent;
-        }
-
-        .auth-input {
-            width: 100%;
-            padding: 14px 18px;
-            border: 2px solid #e2e8f0;
-            border-radius: 24px;
-            font-size: 16px;
-            transition: all 0.3s;
-            margin-bottom: 16px;
-        }
-
-        .auth-input:focus {
-            outline: none;
-            border-color: #2563eb;
-            box-shadow: 0 0 0 3px rgba(37,99,235,0.1);
-        }
-
-        .auth-btn {
-            width: 100%;
-            background: linear-gradient(135deg, #2563eb, #7c3aed);
-            color: white;
-            border: none;
-            padding: 14px;
-            border-radius: 32px;
-            font-size: 16px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: transform 0.2s;
-        }
-
-        .auth-btn:hover {
-            transform: translateY(-2px);
-        }
+        .auth-logo { text-align: center; margin-bottom: 32px; }
+        .logo-icon-big { background: linear-gradient(135deg, #2563eb, #7c3aed); width: 80px; height: 80px; border-radius: 40px; display: inline-flex; align-items: center; justify-content: center; font-size: 42px; color: white; margin-bottom: 16px; }
+        .auth-logo h1 { font-size: 36px; background: linear-gradient(135deg, #1e293b, #2563eb); -webkit-background-clip: text; background-clip: text; color: transparent; }
+        .auth-input { width: 100%; padding: 14px 18px; border: 2px solid #e2e8f0; border-radius: 24px; font-size: 16px; margin-bottom: 16px; }
+        .auth-input:focus { outline: none; border-color: #2563eb; }
+        .auth-btn { width: 100%; background: linear-gradient(135deg, #2563eb, #7c3aed); color: white; border: none; padding: 14px; border-radius: 32px; font-weight: 600; cursor: pointer; transition: transform 0.2s; }
+        .auth-btn:hover { transform: translateY(-2px); }
+        .auth-link { text-align: center; margin-top: 20px; }
 
         /* Main App */
-        .main-app {
-            display: none;
-        }
+        .main-app { display: none; background: #f0f2f5; min-height: 100vh; }
+        .container { max-width: 1400px; margin: 0 auto; padding: 20px; }
 
-        .container {
-            max-width: 1600px;
-            margin: 0 auto;
-            padding: 20px;
-        }
+        /* Maintenance Mode */
+        .maintenance-banner { background: linear-gradient(135deg, #f59e0b, #ea580c); color: white; padding: 12px; text-align: center; border-radius: 20px; margin-bottom: 20px; font-weight: 600; }
 
-        /* Header */
-        .header {
-            background: white;
-            border-radius: 32px;
-            padding: 20px 30px;
-            margin-bottom: 24px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            flex-wrap: wrap;
-            gap: 20px;
-            box-shadow: 0 8px 20px rgba(0,0,0,0.1);
-        }
+        /* Top Navigation */
+        .top-nav { background: white; border-radius: 32px; padding: 12px 24px; margin-bottom: 24px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 15px; box-shadow: 0 4px 12px rgba(0,0,0,0.05); }
+        .nav-logo { display: flex; align-items: center; gap: 12px; }
+        .nav-logo-icon { background: linear-gradient(135deg, #2563eb, #7c3aed); width: 45px; height: 45px; border-radius: 25px; display: flex; align-items: center; justify-content: center; font-size: 24px; color: white; }
+        .nav-links { display: flex; gap: 8px; flex-wrap: wrap; }
+        .nav-link { padding: 8px 18px; border-radius: 30px; cursor: pointer; transition: all 0.3s; font-weight: 500; }
+        .nav-link:hover, .nav-link.active { background: linear-gradient(135deg, #2563eb, #7c3aed); color: white; }
+        .user-section { display: flex; align-items: center; gap: 15px; background: #f1f5f9; padding: 6px 20px; border-radius: 40px; }
+        .balance-badge { background: #10b981; color: white; padding: 6px 16px; border-radius: 30px; font-weight: 700; }
+        .logout-btn-small { background: #ef4444; color: white; border: none; padding: 6px 16px; border-radius: 30px; cursor: pointer; font-weight: 600; }
 
-        .logo-area {
-            display: flex;
-            align-items: center;
-            gap: 15px;
-        }
+        /* Hero Section */
+        .hero-section { background: linear-gradient(135deg, #2563eb, #7c3aed); border-radius: 32px; padding: 40px; margin-bottom: 32px; color: white; text-align: center; }
+        .hero-title { font-size: 2rem; margin-bottom: 16px; }
+        .hero-buttons { display: flex; gap: 16px; justify-content: center; margin-top: 24px; flex-wrap: wrap; }
+        .hero-btn { background: rgba(255,255,255,0.2); padding: 12px 28px; border-radius: 40px; border: 1px solid rgba(255,255,255,0.3); cursor: pointer; transition: 0.3s; }
+        .hero-btn:hover { background: white; color: #2563eb; }
 
-        .logo-icon-small {
-            background: linear-gradient(135deg, #2563eb, #7c3aed);
-            width: 50px;
-            height: 50px;
-            border-radius: 25px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 28px;
-            color: white;
-        }
+        /* Server Grid - 11 items (1-10 + ALL) */
+        .section-title { font-size: 1.5rem; font-weight: 700; margin-bottom: 20px; margin-top: 20px; display: flex; align-items: center; gap: 10px; }
+        .server-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(100px, 1fr)); gap: 12px; margin-bottom: 30px; }
+        .server-card { background: white; border-radius: 20px; padding: 16px 8px; text-align: center; cursor: pointer; transition: all 0.3s; border: 2px solid transparent; font-weight: 600; box-shadow: 0 2px 8px rgba(0,0,0,0.05); }
+        .server-card i { font-size: 24px; display: block; margin-bottom: 8px; }
+        .server-card.active { background: linear-gradient(135deg, #2563eb, #7c3aed); color: white; border-color: #fff; transform: scale(1.02); }
 
-        .balance-card {
-            background: linear-gradient(135deg, #10b981, #059669);
-            padding: 10px 25px;
-            border-radius: 40px;
-            color: white;
-            font-weight: 700;
-        }
+        /* Two Column Layout */
+        .two-columns { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; margin-bottom: 32px; }
+        @media (max-width: 900px) { .two-columns { grid-template-columns: 1fr; } }
 
-        .logout-btn {
-            background: #ef4444;
-            color: white;
-            border: none;
-            padding: 10px 24px;
-            border-radius: 40px;
-            cursor: pointer;
-            font-weight: 600;
-        }
+        .white-card { background: white; border-radius: 32px; padding: 24px; box-shadow: 0 4px 12px rgba(0,0,0,0.05); }
 
-        /* Grid Layout */
-        .dashboard-grid {
-            display: grid;
-            grid-template-columns: 1fr 1.2fr;
-            gap: 24px;
-            margin-bottom: 24px;
-        }
+        /* Operator & Service Grid */
+        .operator-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(110px, 1fr)); gap: 12px; margin-bottom: 24px; }
+        .operator-item { background: #f8fafc; border-radius: 20px; padding: 14px 8px; text-align: center; cursor: pointer; transition: all 0.3s; border: 1px solid #e2e8f0; }
+        .operator-item.selected, .operator-item:hover { background: linear-gradient(135deg, #2563eb, #7c3aed); color: white; }
 
-        @media (max-width: 1024px) {
-            .dashboard-grid {
-                grid-template-columns: 1fr;
-            }
-        }
+        .service-list { display: flex; flex-direction: column; gap: 12px; max-height: 300px; overflow-y: auto; }
+        .service-item { background: #f8fafc; border-radius: 20px; padding: 14px 18px; display: flex; justify-content: space-between; align-items: center; cursor: pointer; transition: all 0.3s; }
+        .service-item.selected { background: linear-gradient(135deg, #10b981, #059669); color: white; }
+        .service-price { font-weight: 800; font-size: 1.2rem; }
 
-        .card {
-            background: white;
-            border-radius: 32px;
-            padding: 24px;
-            box-shadow: 0 8px 20px rgba(0,0,0,0.08);
-        }
+        /* Order Panel */
+        .order-panel { background: linear-gradient(135deg, #1e293b, #0f172a); color: white; border-radius: 32px; padding: 24px; margin-top: 20px; }
+        .waiting-number { background: rgba(255,255,255,0.1); border-radius: 20px; padding: 20px; text-align: center; margin: 15px 0; }
+        .waiting-number h3 { font-size: 2rem; font-family: monospace; letter-spacing: 4px; }
+        .otp-result-box { background: #10b981; border-radius: 20px; padding: 20px; text-align: center; margin-top: 15px; }
 
-        .card-title {
-            font-size: 1.4rem;
-            font-weight: 700;
-            margin-bottom: 20px;
-            border-left: 5px solid #2563eb;
-            padding-left: 15px;
-        }
+        /* Deposit & QRIS */
+        .deposit-area { text-align: center; }
+        #qrcode { display: inline-flex; justify-content: center; padding: 12px; background: white; border-radius: 24px; margin: 15px 0; }
 
-        /* Server Selection */
-        .server-grid {
-            display: grid;
-            grid-template-columns: repeat(5, 1fr);
-            gap: 12px;
-            margin-bottom: 24px;
-        }
+        /* Testimoni & Social */
+        .testimoni-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 16px; margin: 20px 0; }
+        .testimoni-card { background: #f8fafc; border-radius: 24px; padding: 18px; border-left: 4px solid #2563eb; }
+        .whatsapp-btn { background: #25D366; color: white; padding: 14px 28px; border-radius: 40px; display: inline-flex; align-items: center; gap: 10px; text-decoration: none; font-weight: 600; margin-top: 16px; }
 
-        .server-btn {
-            background: #f1f5f9;
-            border: 2px solid #e2e8f0;
-            padding: 12px;
-            border-radius: 20px;
-            cursor: pointer;
-            text-align: center;
-            font-weight: 600;
-            transition: all 0.3s;
-        }
+        /* API Settings (Developer Only - Hidden by default) */
+        .dev-only { display: none; background: #1e293b; color: white; border-radius: 24px; padding: 20px; margin-top: 20px; }
+        .dev-toggle { background: #334155; border: none; color: white; padding: 8px 16px; border-radius: 30px; cursor: pointer; margin-bottom: 10px; }
+        .api-input-dev { width: 100%; padding: 10px; border-radius: 16px; margin-bottom: 10px; background: #0f172a; color: white; border: 1px solid #475569; }
 
-        .server-btn.active {
-            background: linear-gradient(135deg, #2563eb, #7c3aed);
-            color: white;
-            border-color: transparent;
-        }
-
-        /* Operator List */
-        .operator-grid {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 12px;
-            margin-bottom: 24px;
-        }
-
-        .operator-btn {
-            background: #f8fafc;
-            border: 1px solid #e2e8f0;
-            padding: 12px;
-            border-radius: 20px;
-            cursor: pointer;
-            text-align: center;
-            transition: all 0.3s;
-        }
-
-        .operator-btn:hover, .operator-btn.selected {
-            background: linear-gradient(135deg, #2563eb, #7c3aed);
-            color: white;
-        }
-
-        /* Service List */
-        .service-list {
-            margin-bottom: 20px;
-        }
-
-        .service-item {
-            background: #f8fafc;
-            padding: 12px;
-            border-radius: 16px;
-            margin-bottom: 10px;
-            cursor: pointer;
-            transition: all 0.3s;
-        }
-
-        .service-item:hover, .service-item.selected {
-            background: linear-gradient(135deg, #2563eb, #7c3aed);
-            color: white;
-        }
-
-        /* Order Form */
-        .order-form {
-            background: #f8fafc;
-            padding: 20px;
-            border-radius: 24px;
-            margin-top: 20px;
-        }
-
-        .order-input {
-            width: 100%;
-            padding: 12px;
-            border: 2px solid #e2e8f0;
-            border-radius: 20px;
-            margin-bottom: 12px;
-            font-size: 14px;
-        }
-
-        .order-btn {
-            width: 100%;
-            background: linear-gradient(135deg, #10b981, #059669);
-            color: white;
-            border: none;
-            padding: 14px;
-            border-radius: 28px;
-            font-weight: 700;
-            cursor: pointer;
-        }
-
-        /* API Settings */
-        .api-settings {
-            background: #1e293b;
-            color: white;
-            padding: 20px;
-            border-radius: 24px;
-            margin-top: 20px;
-        }
-
-        .api-input {
-            width: 100%;
-            padding: 10px;
-            border-radius: 16px;
-            border: none;
-            margin-bottom: 10px;
-            font-family: monospace;
-        }
-
-        /* OTP Result */
-        .otp-result {
-            background: #f1f5f9;
-            padding: 20px;
-            border-radius: 24px;
-            margin-top: 20px;
-            text-align: center;
-        }
-
-        .otp-code {
-            font-size: 32px;
-            font-weight: 800;
-            font-family: monospace;
-            letter-spacing: 5px;
-            color: #2563eb;
-        }
-
-        .alert {
-            padding: 12px;
-            border-radius: 16px;
-            margin-bottom: 16px;
-            display: none;
-        }
-
-        .loading {
-            display: inline-block;
-            width: 20px;
-            height: 20px;
-            border: 3px solid #f3f3f3;
-            border-top: 3px solid #2563eb;
-            border-radius: 50%;
-            animation: spin 1s linear infinite;
-        }
-
-        @keyframes spin {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
-        }
+        footer { text-align: center; margin-top: 40px; padding: 20px; color: #64748b; }
+        .loading-spinner { display: inline-block; width: 20px; height: 20px; border: 3px solid #f3f3f3; border-top: 3px solid #2563eb; border-radius: 50%; animation: spin 1s linear infinite; }
+        @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
     </style>
 </head>
 <body>
     <!-- Auth Page -->
     <div id="authPage" class="auth-container">
         <div class="auth-card">
-            <div class="auth-logo">
-                <div class="logo-icon"><i class="fas fa-bolt"></i></div>
-                <h1>XYRO OTP</h1>
-                <p style="color: #64748b;">Auto OTP & Deposit System</p>
-            </div>
-            <div id="authAlert" class="alert"></div>
+            <div class="auth-logo"><div class="logo-icon-big"><i class="fas fa-bolt"></i></div><h1>XYRO OTP</h1><p style="color:#64748b;">Auto OTP Instan & Terpercaya</p></div>
             <div id="loginForm">
                 <input type="text" id="loginUsername" class="auth-input" placeholder="Username">
                 <input type="password" id="loginPassword" class="auth-input" placeholder="Password">
                 <button class="auth-btn" onclick="handleLogin()">Login</button>
-                <div class="auth-link" style="text-align:center; margin-top:16px;">
-                    Belum punya akun? <a href="#" onclick="showRegister()">Daftar</a>
-                </div>
+                <div class="auth-link">Belum punya akun? <a href="#" onclick="showRegister()">Daftar</a></div>
             </div>
             <div id="registerForm" style="display:none;">
                 <input type="text" id="regUsername" class="auth-input" placeholder="Username">
                 <input type="email" id="regEmail" class="auth-input" placeholder="Email">
                 <input type="password" id="regPassword" class="auth-input" placeholder="Password (min 6)">
                 <button class="auth-btn" onclick="handleRegister()">Daftar</button>
-                <div class="auth-link" style="text-align:center; margin-top:16px;">
-                    Sudah punya akun? <a href="#" onclick="showLogin()">Login</a>
-                </div>
+                <div class="auth-link">Sudah punya akun? <a href="#" onclick="showLogin()">Login</a></div>
             </div>
         </div>
     </div>
@@ -391,164 +145,85 @@
     <!-- Main App -->
     <div id="mainApp" class="main-app">
         <div class="container">
-            <div class="header">
-                <div class="logo-area">
-                    <div class="logo-icon-small"><i class="fas fa-bolt"></i></div>
-                    <div>
-                        <h2>XYRO OTP</h2>
-                        <small>Auto Send OTP System</small>
-                    </div>
-                </div>
-                <div>
-                    <span class="balance-card"><i class="fas fa-wallet"></i> Deposit: Rp <span id="userBalance">0</span></span>
-                    <button class="logout-btn" onclick="handleLogout()" style="margin-left:15px;"><i class="fas fa-sign-out-alt"></i> Logout</button>
-                </div>
+            <!-- Maintenance Banner -->
+            <div id="maintenanceBanner" class="maintenance-banner" style="display:none;"><i class="fas fa-tools"></i> Maintenance Mode: Sistem sedang update, layanan akan kembali dalam beberapa menit.</div>
+            
+            <!-- Top Navigation -->
+            <div class="top-nav">
+                <div class="nav-logo"><div class="nav-logo-icon"><i class="fas fa-bolt"></i></div><div><strong>XYRO OTP</strong><small style="display:block;">Auto OTP</small></div></div>
+                <div class="nav-links"><span class="nav-link active" data-page="home"><i class="fas fa-home"></i> Home</span><span class="nav-link" data-page="deposit"><i class="fas fa-wallet"></i> Deposit</span><span class="nav-link" data-page="activity"><i class="fas fa-history"></i> Aktivitas</span><span class="nav-link" data-page="profile"><i class="fas fa-user"></i> Profil</span></div>
+                <div class="user-section"><i class="fas fa-user-circle"></i> <span id="navUsername">User</span> <span class="balance-badge"><i class="fas fa-coins"></i> Rp <span id="navBalance">0</span></span><button class="logout-btn-small" onclick="handleLogout()"><i class="fas fa-sign-out-alt"></i></button></div>
             </div>
 
-            <div class="dashboard-grid">
-                <!-- Left Panel: Order & Services -->
-                <div class="card">
-                    <div class="card-title"><i class="fas fa-server"></i> Pilih Server (1-10)</div>
-                    <div class="server-grid" id="serverGrid"></div>
-                    
-                    <div class="card-title"><i class="fas fa-building"></i> Pilih Operator</div>
-                    <div class="operator-grid" id="operatorGrid"></div>
-                    
-                    <div class="card-title"><i class="fas fa-tasks"></i> Pilih Layanan</div>
-                    <div class="service-list" id="serviceList"></div>
-                    
-                    <div class="order-form">
-                        <h4 style="margin-bottom:12px;"><i class="fas fa-phone"></i> Auto Send OTP</h4>
-                        <input type="text" id="phoneNumber" class="order-input" placeholder="Masukkan nomor telepon (contoh: 628123456789)">
-                        <div id="orderStatus" style="margin-bottom:12px; font-size:12px;"></div>
-                        <button class="order-btn" onclick="processOrder()" id="orderBtn"><i class="fas fa-paper-plane"></i> Order & Auto Send OTP</button>
-                    </div>
+            <!-- Home Page Content -->
+            <div id="homePage">
+                <!-- Hero -->
+                <div class="hero-section"><div class="hero-title"><i class="fas fa-bolt"></i> Auto OTP Instan & Terpercaya</div><p>Server terbaik 1-10 + ALL SERVER | Layanan tercepat se-Indonesia</p><div class="hero-buttons"><div class="hero-btn" onclick="scrollToServer()"><i class="fas fa-server"></i> Pilih Server</div><a href="https://wa.me/628123456789" target="_blank" class="hero-btn"><i class="fab fa-whatsapp"></i> WhatsApp Channel</a></div></div>
+
+                <!-- Server: 1-10 + ALL SERVER -->
+                <div class="section-title" id="serverSection"><i class="fas fa-server"></i> Pilih Server <span style="font-size:0.8rem; background:#e2e8f0; padding:4px 12px; border-radius:20px;">1 - 10 + ALL SERVER</span></div>
+                <div class="server-grid" id="serverGrid"></div>
+
+                <!-- Two Columns: Operator & Layanan -->
+                <div class="two-columns">
+                    <div class="white-card"><div class="section-title" style="margin-top:0;"><i class="fas fa-building"></i> Pilih Operator</div><div class="operator-grid" id="operatorGrid"></div></div>
+                    <div class="white-card"><div class="section-title" style="margin-top:0;"><i class="fas fa-tasks"></i> Pilih Layanan</div><div class="service-list" id="serviceList"></div></div>
                 </div>
 
-                <!-- Right Panel: Deposit, OTP Result, API Settings -->
-                <div>
-                    <div class="card">
-                        <div class="card-title"><i class="fas fa-qrcode"></i> Deposit Saldo</div>
-                        <div id="qrcode" style="display:flex; justify-content:center; margin-bottom:20px;"></div>
-                        <div style="text-align:center">
-                            <p>Minimal Deposit: Rp 10.000</p>
-                            <input type="number" id="depositAmount" class="order-input" placeholder="Nominal Deposit" style="width:100%; margin-top:10px;">
-                            <button class="auth-btn" onclick="processDeposit()" style="margin-top:10px;"><i class="fas fa-money-bill"></i> Deposit Sekarang</button>
-                        </div>
-                    </div>
-
-                    <div class="card" id="otpResultCard" style="display:none;">
-                        <div class="card-title"><i class="fas fa-envelope-open-text"></i> Hasil OTP</div>
-                        <div class="otp-result">
-                            <div id="otpLoading" style="display:none;"><div class="loading"></div> Mengirim OTP...</div>
-                            <div id="otpDisplay">
-                                <p>Status: <span id="otpStatus">-</span></p>
-                                <p>Kode OTP: <span id="otpCode" class="otp-code">-</span></p>
-                                <p>Waktu: <span id="otpTime">-</span></p>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="api-settings">
-                        <div class="card-title" style="color:white;"><i class="fas fa-plug"></i> API Settings (External)</div>
-                        <input type="text" id="apiEndpoint" class="api-input" placeholder="API Endpoint (contoh: https://api.smsprovider.com/otp)">
-                        <input type="text" id="apiKey" class="api-input" placeholder="API Key">
-                        <button onclick="saveApiSettings()" class="auth-btn" style="background:#10b981;"><i class="fas fa-save"></i> Simpan API Settings</button>
-                        <p style="font-size:11px; margin-top:10px; color:#94a3b8;">*API external untuk auto send OTP & auto refund jika gagal</p>
-                    </div>
+                <!-- Order Panel - Auto OTP tanpa input nomor -->
+                <div class="order-panel"><h3><i class="fas fa-magic"></i> Order OTP Instan</h3><p>Pilih server → operator → layanan, lalu klik ORDER. Nomor akan dibuat otomatis (Virtual Number)</p>
+                    <div id="orderStatusArea" class="waiting-number" style="display:none;"><div class="loading-spinner"></div> Menunggu nomor virtual...</div>
+                    <div id="waitingNumberDisplay" class="waiting-number" style="display:none;"><i class="fas fa-phone-alt"></i> Nomor Tujuan: <h3 id="virtualNumber">-</h3><small>Menunggu OTP masuk...</small></div>
+                    <div id="otpResultDisplay" class="otp-result-box" style="display:none;"><i class="fas fa-check-circle"></i> OTP BERHASIL!<h2 id="finalOtpCode">----</h2><span id="otpTimeInfo"></span></div>
+                    <button id="orderButton" class="auth-btn" style="background:#10b981; margin-top:15px;" onclick="processOrderAuto()"><i class="fas fa-paper-plane"></i> ORDER OTP SEKARANG</button>
                 </div>
+
+                <!-- Testimoni & Social -->
+                <div class="section-title" style="margin-top:30px;"><i class="fas fa-star"></i> Testimoni Pelanggan</div>
+                <div class="testimoni-grid"><div class="testimoni-card"><i class="fas fa-user-circle"></i> <strong>Andi_Sby</strong><p>"OTP masuk cepet banget, rekomen!"</p><small>⭐ 5.0</small></div><div class="testimoni-card"><i class="fas fa-user-circle"></i> <strong>Jaka_OTP</strong><p>"Server all server mantap, auto dapet OTP"</p><small>⭐ 5.0</small></div><div class="testimoni-card"><i class="fas fa-user-circle"></i> <strong>Rina_99</strong><p>"Terpercaya, deposit mudah via QRIS"</p><small>⭐ 5.0</small></div></div>
+                <div style="text-align:center;"><a href="https://wa.me/628123456789" target="_blank" class="whatsapp-btn"><i class="fab fa-whatsapp"></i> Gabung Channel WhatsApp Xyro OTP</a></div>
             </div>
 
-            <!-- Transaction Log -->
-            <div class="card" style="margin-top:20px;">
-                <div class="card-title"><i class="fas fa-history"></i> Log Transaksi & Auto Refund</div>
-                <div id="transactionLog" style="max-height:200px; overflow-y:auto; font-size:13px;"></div>
-            </div>
+            <!-- Deposit Page -->
+            <div id="depositPage" style="display:none;"><div class="white-card"><div class="section-title"><i class="fas fa-qrcode"></i> Deposit Saldo</div><div class="deposit-area"><div id="qrcodeDeposit"></div><input type="number" id="depositAmount" class="auth-input" placeholder="Minimal Rp 10.000" style="width:100%; margin:10px 0;"><button class="auth-btn" onclick="processDeposit()"><i class="fas fa-money-bill"></i> Deposit Sekarang</button></div></div></div>
+
+            <!-- Activity Page -->
+            <div id="activityPage" style="display:none;"><div class="white-card"><div class="section-title"><i class="fas fa-history"></i> Riwayat Transaksi</div><div id="activityLog" style="max-height:400px; overflow-y:auto;"></div></div></div>
+
+            <!-- Profile Page -->
+            <div id="profilePage" style="display:none;"><div class="white-card"><div class="section-title"><i class="fas fa-user"></i> Profil Saya</div><p><strong>Username:</strong> <span id="profileUsername"></span></p><p><strong>Email:</strong> <span id="profileEmail"></span></p><p><strong>Total Deposit:</strong> Rp <span id="totalDeposit">0</span></p><p><strong>Total Order:</strong> <span id="totalOrder">0</span></p></div></div>
+
+            <!-- Developer Only API Settings (Hidden for public) -->
+            <div id="devPanel" class="dev-only"><button class="dev-toggle" onclick="toggleDevPanel()"><i class="fas fa-code"></i> Developer API Settings</button><div id="devContent"><input type="text" id="apiEndpoint" class="api-input-dev" placeholder="API Endpoint (contoh: https://api.smsprovider.com/send)"><input type="text" id="apiKey" class="api-input-dev" placeholder="API Key"><button class="auth-btn" onclick="saveApiSettings()" style="background:#10b981;">Simpan API Eksternal</button><p style="font-size:11px; margin-top:8px;">*API external untuk auto send OTP & auto refund jika gagal</p></div></div>
+            <footer><i class="fas fa-shield-alt"></i> Xyro OTP | Auto OTP Instan | Aman & Terpercaya | © 2024</footer>
         </div>
     </div>
 
     <script>
-        // User System
+        // ========== SISTEM DATA ==========
         let currentUser = null;
         let selectedServer = null;
         let selectedOperator = null;
         let selectedService = null;
-        let userOrders = [];
+        let isMaintenance = false;
+        let apiSettings = { endpoint: localStorage.getItem('xyro_api_endpoint') || '', apiKey: localStorage.getItem('xyro_api_key') || '' };
 
-        // API Settings
-        let apiSettings = {
-            endpoint: localStorage.getItem('xyro_api_endpoint') || '',
-            apiKey: localStorage.getItem('xyro_api_key') || ''
-        };
+        const operators = [{ id: 1, name: "Telkomsel", icon: "📱" },{ id: 2, name: "Indosat", icon: "📱" },{ id: 3, name: "XL/Axis", icon: "📱" },{ id: 4, name: "Tri", icon: "📱" },{ id: 5, name: "Smartfren", icon: "📱" }];
+        const services = { 1: [{ id: 101, name: "WhatsApp OTP", price: 2500 },{ id: 102, name: "SMS OTP", price: 2000 },{ id: 103, name: "Call OTP", price: 3500 }],2: [{ id: 201, name: "WhatsApp OTP", price: 2300 },{ id: 202, name: "SMS OTP", price: 1800 }],3: [{ id: 301, name: "WhatsApp OTP", price: 2200 },{ id: 302, name: "SMS OTP", price: 1900 }],4: [{ id: 401, name: "WhatsApp OTP", price: 2100 },{ id: 402, name: "SMS OTP", price: 1700 }],5: [{ id: 501, name: "SMS OTP", price: 2500 }] };
 
-        // Products/Services
-        const operators = [
-            { id: 1, name: "Telkomsel", icon: "📱" },
-            { id: 2, name: "Indosat", icon: "📱" },
-            { id: 3, name: "XL/Axis", icon: "📱" },
-            { id: 4, name: "Tri", icon: "📱" },
-            { id: 5, name: "Smartfren", icon: "📱" }
-        ];
-
-        const services = {
-            1: [
-                { id: 101, name: "WhatsApp OTP", price: 2500, desc: "Verifikasi WhatsApp" },
-                { id: 102, name: "SMS OTP", price: 2000, desc: "SMS Kode Verifikasi" },
-                { id: 103, name: "Call OTP", price: 3500, desc: "Panggilan Suara OTP" }
-            ],
-            2: [
-                { id: 201, name: "WhatsApp OTP", price: 2300, desc: "Verifikasi WhatsApp" },
-                { id: 202, name: "SMS OTP", price: 1800, desc: "SMS Kode Verifikasi" }
-            ],
-            3: [
-                { id: 301, name: "WhatsApp OTP", price: 2200, desc: "Verifikasi WhatsApp" },
-                { id: 302, name: "SMS OTP", price: 1900, desc: "SMS Kode Verifikasi" }
-            ],
-            4: [
-                { id: 401, name: "WhatsApp OTP", price: 2100, desc: "Verifikasi WhatsApp" },
-                { id: 402, name: "SMS OTP", price: 1700, desc: "SMS Kode Verifikasi" }
-            ],
-            5: [
-                { id: 501, name: "SMS OTP", price: 2500, desc: "SMS Kode Verifikasi" }
-            ]
-        };
-
-        // Auth Functions
-        function getUsers() {
-            return JSON.parse(localStorage.getItem('xyro_users') || '[]');
-        }
-
-        function saveUsers(users) {
-            localStorage.setItem('xyro_users', JSON.stringify(users));
-        }
-
-        function showRegister() {
-            document.getElementById('loginForm').style.display = 'none';
-            document.getElementById('registerForm').style.display = 'block';
-        }
-
-        function showLogin() {
-            document.getElementById('registerForm').style.display = 'none';
-            document.getElementById('loginForm').style.display = 'block';
-        }
-
+        function getUsers() { return JSON.parse(localStorage.getItem('xyro_users') || '[]'); }
+        function saveUsers(users) { localStorage.setItem('xyro_users', JSON.stringify(users)); }
+        function showRegister() { document.getElementById('loginForm').style.display = 'none'; document.getElementById('registerForm').style.display = 'block'; }
+        function showLogin() { document.getElementById('registerForm').style.display = 'none'; document.getElementById('loginForm').style.display = 'block'; }
+        
         function handleRegister() {
             const username = document.getElementById('regUsername').value.trim();
             const email = document.getElementById('regEmail').value.trim();
             const password = document.getElementById('regPassword').value;
-            
-            if (!username || !email || !password || password.length < 6) {
-                alert('Isi semua field dengan benar!');
-                return;
-            }
-            
+            if (!username || !email || !password || password.length < 6) { alert('Isi dengan benar (password min 6 char)!'); return; }
             const users = getUsers();
-            if (users.find(u => u.username === username)) {
-                alert('Username sudah terdaftar!');
-                return;
-            }
-            
-            users.push({ id: Date.now(), username, email, password, balance: 0, orders: [] });
+            if (users.find(u => u.username === username)) { alert('Username sudah ada!'); return; }
+            users.push({ id: Date.now(), username, email, password, balance: 0, orders: [], totalDeposit: 0 });
             saveUsers(users);
             alert('Registrasi berhasil! Silakan login.');
             showLogin();
@@ -559,275 +234,140 @@
             const password = document.getElementById('loginPassword').value;
             const users = getUsers();
             const user = users.find(u => u.username === username && u.password === password);
-            
-            if (!user) {
-                alert('Username atau password salah!');
-                return;
-            }
-            
+            if (!user) { alert('Username atau password salah!'); return; }
             currentUser = user;
             localStorage.setItem('xyro_current_user', JSON.stringify(user));
             document.getElementById('authPage').style.display = 'none';
             document.getElementById('mainApp').style.display = 'block';
-            document.getElementById('userBalance').innerText = user.balance.toLocaleString();
+            document.getElementById('navUsername').innerText = user.username;
+            document.getElementById('navBalance').innerText = user.balance.toLocaleString();
+            document.getElementById('profileUsername').innerText = user.username;
+            document.getElementById('profileEmail').innerText = user.email;
+            document.getElementById('totalDeposit').innerText = user.totalDeposit || 0;
+            document.getElementById('totalOrder').innerText = (user.orders || []).length;
             initApp();
         }
 
-        function handleLogout() {
-            localStorage.removeItem('xyro_current_user');
-            currentUser = null;
-            document.getElementById('mainApp').style.display = 'none';
-            document.getElementById('authPage').style.display = 'flex';
-        }
+        function handleLogout() { localStorage.removeItem('xyro_current_user'); currentUser = null; document.getElementById('mainApp').style.display = 'none'; document.getElementById('authPage').style.display = 'flex'; }
 
-        // Save API Settings
-        function saveApiSettings() {
-            apiSettings.endpoint = document.getElementById('apiEndpoint').value;
-            apiSettings.apiKey = document.getElementById('apiKey').value;
-            localStorage.setItem('xyro_api_endpoint', apiSettings.endpoint);
-            localStorage.setItem('xyro_api_key', apiSettings.apiKey);
-            addLog('API Settings saved!', 'success');
-        }
-
-        // Render Servers (1-10)
         function renderServers() {
             const container = document.getElementById('serverGrid');
             container.innerHTML = '';
-            for (let i = 1; i <= 10; i++) {
-                const btn = document.createElement('div');
-                btn.className = 'server-btn' + (selectedServer === i ? ' active' : '');
-                btn.innerHTML = `<i class="fas fa-server"></i><br>Server ${i}`;
-                btn.onclick = () => {
-                    selectedServer = i;
-                    renderServers();
-                    renderOperators();
-                };
-                container.appendChild(btn);
-            }
+            for (let i = 1; i <= 10; i++) { container.innerHTML += `<div class="server-card ${selectedServer === i ? 'active' : ''}" onclick="selectServer(${i})"><i class="fas fa-database"></i> Server ${i}</div>`; }
+            container.innerHTML += `<div class="server-card ${selectedServer === 'all' ? 'active' : ''}" onclick="selectServer('all')"><i class="fas fa-globe"></i> ALL SERVER</div>`;
         }
+        function selectServer(server) { selectedServer = server; renderServers(); addLog(`Server ${server} dipilih`, 'info'); }
+        function renderOperators() { const container = document.getElementById('operatorGrid'); container.innerHTML = ''; operators.forEach(op => { container.innerHTML += `<div class="operator-item ${selectedOperator === op.id ? 'selected' : ''}" onclick="selectOperator(${op.id})">${op.icon} ${op.name}</div>`; }); }
+        function selectOperator(id) { selectedOperator = id; selectedService = null; renderOperators(); renderServices(); }
+        function renderServices() { const container = document.getElementById('serviceList'); if (!selectedOperator) { container.innerHTML = '<p>Pilih operator dulu</p>'; return; } const svcs = services[selectedOperator] || []; container.innerHTML = ''; svcs.forEach(svc => { container.innerHTML += `<div class="service-item ${selectedService === svc.id ? 'selected' : ''}" onclick="selectService(${svc.id}, '${svc.name}', ${svc.price})"><span><strong>${svc.name}</strong></span><span class="service-price">Rp ${svc.price.toLocaleString()}</span></div>`; }); }
+        function selectService(id, name, price) { selectedService = { id, name, price }; renderServices(); addLog(`Layanan ${name} dipilih - Rp ${price.toLocaleString()}`, 'info'); }
 
-        function renderOperators() {
-            const container = document.getElementById('operatorGrid');
-            container.innerHTML = '';
-            operators.forEach(op => {
-                const btn = document.createElement('div');
-                btn.className = 'operator-btn' + (selectedOperator === op.id ? ' selected' : '');
-                btn.innerHTML = `${op.icon} ${op.name}`;
-                btn.onclick = () => {
-                    selectedOperator = op.id;
-                    renderOperators();
-                    renderServices();
-                };
-                container.appendChild(btn);
-            });
-        }
-
-        function renderServices() {
-            const container = document.getElementById('serviceList');
-            container.innerHTML = '';
-            if (!selectedOperator) {
-                container.innerHTML = '<p style="color:#94a3b8;">Pilih operator terlebih dahulu</p>';
-                return;
-            }
-            const serviceList = services[selectedOperator] || [];
-            serviceList.forEach(svc => {
-                const div = document.createElement('div');
-                div.className = 'service-item' + (selectedService === svc.id ? ' selected' : '');
-                div.innerHTML = `<strong>${svc.name}</strong><br><small>Rp ${svc.price.toLocaleString()} - ${svc.desc}</small>`;
-                div.onclick = () => {
-                    selectedService = svc.id;
-                    renderServices();
-                };
-                container.appendChild(div);
-            });
-        }
-
-        // Process Order & Auto Send OTP
-        async function processOrder() {
-            const phone = document.getElementById('phoneNumber').value.trim();
-            if (!selectedServer) { alert('Pilih server dulu (1-10)!'); return; }
+        async function processOrderAuto() {
+            if (isMaintenance) { alert('Sistem sedang maintenance, coba lagi nanti!'); return; }
+            if (!selectedServer) { alert('Pilih server dulu!'); return; }
             if (!selectedOperator) { alert('Pilih operator!'); return; }
             if (!selectedService) { alert('Pilih layanan!'); return; }
-            if (!phone) { alert('Masukkan nomor telepon!'); return; }
-            
-            const service = getServiceById(selectedService);
-            if (!service) return;
-            
-            if (currentUser.balance < service.price) {
-                alert(`Saldo tidak mencukupi! Deposit minimal Rp ${(service.price - currentUser.balance).toLocaleString()}`);
-                return;
-            }
-            
-            // Process payment
-            currentUser.balance -= service.price;
-            updateUserBalance();
-            
-            const orderId = 'ORD-' + Date.now() + '-' + Math.floor(Math.random() * 1000);
-            const order = {
-                id: orderId,
-                server: selectedServer,
-                operator: operators.find(o => o.id === selectedOperator)?.name,
-                service: service.name,
-                phone: phone,
-                price: service.price,
-                status: 'processing',
-                timestamp: new Date().toISOString()
-            };
-            
-            userOrders.unshift(order);
-            addLog(`💰 Order #${orderId}: ${service.name} ke ${phone} - Rp ${service.price.toLocaleString()}`, 'info');
-            
-            // Show OTP result card
-            document.getElementById('otpResultCard').style.display = 'block';
-            document.getElementById('otpLoading').style.display = 'block';
-            document.getElementById('otpStatus').innerText = 'Mengirim OTP...';
-            document.getElementById('otpCode').innerText = '----';
-            
-            // Auto Send OTP via API
-            const otpResult = await sendOTPviaAPI(phone, service.name);
-            
-            document.getElementById('otpLoading').style.display = 'none';
-            
+            if (currentUser.balance < selectedService.price) { alert(`Saldo tidak cukup! Deposit minimal Rp ${(selectedService.price - currentUser.balance).toLocaleString()}`); return; }
+
+            // Generate Virtual Number Otomatis
+            document.getElementById('orderStatusArea').style.display = 'block';
+            document.getElementById('waitingNumberDisplay').style.display = 'none';
+            document.getElementById('otpResultDisplay').style.display = 'none';
+            document.getElementById('orderButton').disabled = true;
+
+            await new Promise(r => setTimeout(r, 1500));
+            const virtualNum = '62' + Math.floor(8e10 + Math.random() * 9e10).toString().slice(0, 12);
+            document.getElementById('orderStatusArea').style.display = 'none';
+            document.getElementById('waitingNumberDisplay').style.display = 'block';
+            document.getElementById('virtualNumber').innerHTML = virtualNum;
+
+            // Kurangi saldo
+            currentUser.balance -= selectedService.price;
+            const orderId = 'ORD-' + Date.now();
+            const order = { id: orderId, server: selectedServer, operator: operators.find(o=>o.id===selectedOperator)?.name, service: selectedService.name, phone: virtualNum, price: selectedService.price, status: 'processing', timestamp: new Date().toISOString() };
+            if (!currentUser.orders) currentUser.orders = [];
+            currentUser.orders.unshift(order);
+            updateUserData();
+
+            // Kirim OTP via API eksternal
+            const otpResult = await sendOTPviaAPI(virtualNum, selectedService.name);
+            document.getElementById('waitingNumberDisplay').style.display = 'none';
             if (otpResult.success) {
                 order.status = 'success';
                 order.otpCode = otpResult.otp;
-                order.otpTime = new Date().toLocaleTimeString();
-                document.getElementById('otpStatus').innerHTML = '<span style="color:#10b981;">✅ BERHASIL</span>';
-                document.getElementById('otpCode').innerText = otpResult.otp;
-                document.getElementById('otpTime').innerText = order.otpTime;
-                addLog(`✅ OTP berhasil dikirim ke ${phone}: Kode ${otpResult.otp}`, 'success');
+                document.getElementById('otpResultDisplay').style.display = 'block';
+                document.getElementById('finalOtpCode').innerHTML = otpResult.otp;
+                document.getElementById('otpTimeInfo').innerHTML = new Date().toLocaleTimeString();
+                addLog(`✅ OTP ${selectedService.name} ke ${virtualNum} berhasil: ${otpResult.otp}`, 'success');
             } else {
-                // Auto Refund if OTP failed
-                currentUser.balance += service.price;
-                updateUserBalance();
+                // Auto Refund
+                currentUser.balance += selectedService.price;
                 order.status = 'failed';
-                document.getElementById('otpStatus').innerHTML = '<span style="color:#ef4444;">❌ GAGAL - Auto Refund</span>';
-                document.getElementById('otpCode').innerText = 'GAGAL';
-                addLog(`❌ OTP GAGAL ke ${phone} - Auto refund Rp ${service.price.toLocaleString()}`, 'error');
+                addLog(`❌ OTP GAGAL ke ${virtualNum} - Auto refund Rp ${selectedService.price.toLocaleString()}`, 'error');
+                alert(`OTP gagal dikirim! Saldo dikembalikan Rp ${selectedService.price.toLocaleString()}`);
             }
-            
-            // Save order to user
-            const users = getUsers();
-            const userIndex = users.findIndex(u => u.username === currentUser.username);
-            if (userIndex !== -1) {
-                users[userIndex].orders = userOrders;
-                users[userIndex].balance = currentUser.balance;
-                saveUsers(users);
-            }
-            
-            // Clear selection after order
-            document.getElementById('phoneNumber').value = '';
+            updateUserData();
+            document.getElementById('orderButton').disabled = false;
+            document.getElementById('navBalance').innerText = currentUser.balance.toLocaleString();
+            renderActivity();
         }
-        
-        async function sendOTPviaAPI(phone, serviceName) {
+
+        async function sendOTPviaAPI(phone, service) {
             return new Promise((resolve) => {
-                // Simulasi API call dengan timeout
                 setTimeout(() => {
                     if (apiSettings.endpoint && apiSettings.apiKey) {
-                        // Simulasi sukses rate 85%
-                        const random = Math.random();
-                        if (random < 0.85) {
-                            const otpCode = Math.floor(100000 + Math.random() * 900000).toString();
-                            resolve({ success: true, otp: otpCode });
-                        } else {
-                            resolve({ success: false, error: 'API timeout / no response' });
-                        }
-                    } else {
-                        // Demo mode - selalu sukses dengan OTP dummy
-                        const otpCode = Math.floor(100000 + Math.random() * 900000).toString();
-                        resolve({ success: true, otp: otpCode });
-                    }
+                        let successRate = Math.random() < 0.85;
+                        if (successRate) resolve({ success: true, otp: Math.floor(100000 + Math.random() * 900000).toString() });
+                        else resolve({ success: false });
+                    } else { resolve({ success: true, otp: Math.floor(100000 + Math.random() * 900000).toString() }); }
                 }, 2000);
             });
         }
-        
-        function getServiceById(serviceId) {
-            for (let op in services) {
-                const found = services[op].find(s => s.id === serviceId);
-                if (found) return found;
-            }
-            return null;
-        }
-        
-        // Deposit System with QRIS
+
         function processDeposit() {
-            const amount = parseInt(document.getElementById('depositAmount').value);
-            if (!amount || amount < 10000) {
-                alert('Minimal deposit Rp 10.000');
-                return;
-            }
-            
-            // Generate QRIS for deposit
-            const qrisData = `QRIS://xyro.deposit?user=${currentUser.username}&amount=${amount}&time=${Date.now()}`;
-            const qrContainer = document.getElementById('qrcode');
+            let amount = parseInt(document.getElementById('depositAmount').value);
+            if (!amount || amount < 10000) { alert('Minimal Rp 10.000'); return; }
+            const qrContainer = document.getElementById('qrcodeDeposit');
             qrContainer.innerHTML = '';
-            new QRCode(qrContainer, {
-                text: qrisData,
-                width: 180,
-                height: 180,
-                colorDark: "#000000",
-                colorLight: "#ffffff"
-            });
-            
-            // Simulasi pembayaran (demo - auto success after 3 seconds)
-            addLog(`🏦 Menunggu pembayaran deposit Rp ${amount.toLocaleString()} via QRIS...`, 'info');
+            new QRCode(qrContainer, { text: `QRIS://xyro.deposit?user=${currentUser.username}&amount=${amount}`, width: 180, height: 180 });
+            addLog(`🏦 Menunggu pembayaran deposit Rp ${amount.toLocaleString()}`, 'info');
             setTimeout(() => {
                 currentUser.balance += amount;
-                updateUserBalance();
-                addLog(`✅ Deposit Rp ${amount.toLocaleString()} BERHASIL! Saldo sekarang Rp ${currentUser.balance.toLocaleString()}`, 'success');
-                
-                // Update user in database
-                const users = getUsers();
-                const userIndex = users.findIndex(u => u.username === currentUser.username);
-                if (userIndex !== -1) {
-                    users[userIndex].balance = currentUser.balance;
-                    saveUsers(users);
-                }
-                
+                currentUser.totalDeposit = (currentUser.totalDeposit || 0) + amount;
+                updateUserData();
+                document.getElementById('navBalance').innerText = currentUser.balance.toLocaleString();
+                document.getElementById('totalDeposit').innerText = currentUser.totalDeposit;
+                addLog(`✅ Deposit Rp ${amount.toLocaleString()} BERHASIL!`, 'success');
+                alert(`Deposit sukses! Saldo: Rp ${currentUser.balance.toLocaleString()}`);
                 document.getElementById('depositAmount').value = '';
+                showPage('home');
             }, 3000);
         }
-        
-        function updateUserBalance() {
-            document.getElementById('userBalance').innerText = currentUser.balance.toLocaleString();
+
+        function updateUserData() {
+            const users = getUsers();
+            const idx = users.findIndex(u => u.username === currentUser.username);
+            if (idx !== -1) { users[idx] = currentUser; saveUsers(users); localStorage.setItem('xyro_current_user', JSON.stringify(currentUser)); }
         }
-        
-        function addLog(message, type) {
-            const logDiv = document.getElementById('transactionLog');
-            const time = new Date().toLocaleTimeString();
-            const icon = type === 'success' ? '✅' : (type === 'error' ? '❌' : '📌');
-            logDiv.innerHTML = `<div>${icon} [${time}] ${message}</div>` + logDiv.innerHTML;
-        }
+
+        function addLog(msg, type) { let logDiv = document.getElementById('activityLog'); if(logDiv){ const time = new Date().toLocaleTimeString(); logDiv.innerHTML = `<div>${type==='success'?'✅':(type==='error'?'❌':'📌')} [${time}] ${msg}</div>` + logDiv.innerHTML; } }
+        function renderActivity() { if(document.getElementById('activityLog')){ document.getElementById('activityLog').innerHTML = ''; (currentUser.orders || []).forEach(o => { addLog(`${o.status==='success'?'✅':'❌'} Order ${o.id}: ${o.service} ke ${o.phone} - Rp ${o.price.toLocaleString()} ${o.status}`, o.status==='success'?'success':'error'); }); } }
+
+        function showPage(page) { document.getElementById('homePage').style.display = page === 'home' ? 'block' : 'none'; document.getElementById('depositPage').style.display = page === 'deposit' ? 'block' : 'none'; document.getElementById('activityPage').style.display = page === 'activity' ? 'block' : 'none'; document.getElementById('profilePage').style.display = page === 'profile' ? 'block' : 'none'; if(page === 'activity') renderActivity(); if(page === 'profile'){ document.getElementById('profileUsername').innerText = currentUser.username; document.getElementById('profileEmail').innerText = currentUser.email; document.getElementById('totalDeposit').innerText = currentUser.totalDeposit || 0; document.getElementById('totalOrder').innerText = (currentUser.orders || []).length; } }
+        function scrollToServer() { document.getElementById('serverSection').scrollIntoView({ behavior: 'smooth' }); }
+        function saveApiSettings() { apiSettings.endpoint = document.getElementById('apiEndpoint').value; apiSettings.apiKey = document.getElementById('apiKey').value; localStorage.setItem('xyro_api_endpoint', apiSettings.endpoint); localStorage.setItem('xyro_api_key', apiSettings.apiKey); addLog('API Settings tersimpan (developer only)', 'success'); }
+        function toggleDevPanel() { const devContent = document.getElementById('devContent'); if(devContent) devContent.style.display = devContent.style.display === 'none' ? 'block' : 'none'; }
         
         function initApp() {
-            renderServers();
-            renderOperators();
-            renderServices();
-            document.getElementById('apiEndpoint').value = apiSettings.endpoint;
-            document.getElementById('apiKey').value = apiSettings.apiKey;
-            
-            // Load user orders
-            const users = getUsers();
-            const userData = users.find(u => u.username === currentUser.username);
-            if (userData && userData.orders) {
-                userOrders = userData.orders;
-                userOrders.forEach(order => {
-                    addLog(`📜 Order #${order.id}: ${order.service} - ${order.status}`, 'info');
-                });
-            }
-            
-            addLog(`🎉 Selamat datang ${currentUser.username}! Sistem auto OTP siap digunakan.`, 'success');
+            renderServers(); renderOperators(); renderServices(); selectedServer = null; selectedOperator = null; selectedService = null;
+            document.querySelectorAll('.nav-link').forEach(link => { link.onclick = () => { document.querySelectorAll('.nav-link').forEach(l=>l.classList.remove('active')); link.classList.add('active'); showPage(link.dataset.page); }; });
+            document.getElementById('apiEndpoint').value = apiSettings.endpoint; document.getElementById('apiKey').value = apiSettings.apiKey;
+            if(currentUser && currentUser.isDev) document.getElementById('devPanel').style.display = 'block';
+            addLog(`🚀 Xyro OTP siap! Server 1-10 + ALL SERVER aktif`, 'success');
         }
-        
-        // Check existing session
-        const savedUser = localStorage.getItem('xyro_current_user');
-        if (savedUser) {
-            currentUser = JSON.parse(savedUser);
-            document.getElementById('authPage').style.display = 'none';
-            document.getElementById('mainApp').style.display = 'block';
-            document.getElementById('userBalance').innerText = currentUser.balance.toLocaleString();
-            initApp();
-        }
+
+        const saved = localStorage.getItem('xyro_current_user');
+        if (saved) { currentUser = JSON.parse(saved); document.getElementById('authPage').style.display = 'none'; document.getElementById('mainApp').style.display = 'block'; document.getElementById('navUsername').innerText = currentUser.username; document.getElementById('navBalance').innerText = currentUser.balance.toLocaleString(); initApp(); }
     </script>
 </body>
 </html>
