@@ -69,32 +69,50 @@
         .sidebar .brand {
             display: flex;
             align-items: center;
-            gap: 10px;
+            gap: 12px;
             padding-bottom: 18px;
             border-bottom: 1px solid #15151a;
             margin-bottom: 18px;
         }
 
-        .sidebar .brand i {
-            font-size: 28px;
-            color: #64c8ff;
+        .sidebar .brand .logo-img {
+            width: 42px;
+            height: 42px;
+            border-radius: 10px;
+            object-fit: cover;
+            border: 1px solid rgba(100, 200, 255, 0.15);
+            flex-shrink: 0;
             animation: floatAnim 3s infinite ease-in-out;
         }
 
-        .sidebar .brand h1 {
+        .sidebar .brand .brand-text h1 {
             font-size: 18px;
             font-weight: 700;
             background: linear-gradient(135deg, #64c8ff, #4a9eff);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
+            line-height: 1.2;
         }
 
-        .sidebar .brand small {
+        .sidebar .brand .brand-text small {
             font-size: 10px;
             color: #4a6a7a;
             -webkit-text-fill-color: #4a6a7a;
             display: block;
             margin-top: -2px;
+        }
+
+        .sidebar .brand .brand-text .badge-free {
+            display: inline-block;
+            background: linear-gradient(135deg, #64c8ff22, #4a9eff22);
+            border: 1px solid rgba(100, 200, 255, 0.15);
+            border-radius: 12px;
+            padding: 1px 10px;
+            font-size: 8px;
+            color: #64c8ff;
+            -webkit-text-fill-color: #64c8ff;
+            letter-spacing: 0.5px;
+            margin-top: 2px;
         }
 
         .sidebar .nav-section {
@@ -824,10 +842,11 @@
         </button>
 
         <div class="brand">
-            <i class="fas fa-robot"></i>
-            <div>
+            <img src="https://tmpfiles.org/dl/w5w208zoufDP/tourl-4243736651.png" alt="Xyrooo FX Logo" class="logo-img" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex'" />
+            <div class="brand-text">
                 <h1>Xyrooo FX</h1>
                 <small>REST API Platform</small>
+                <span class="badge-free">✦ FREE · NO KEY</span>
             </div>
         </div>
 
@@ -943,7 +962,7 @@
                     </div>
                 </div>
 
-                <!-- FEATURE UPDATES - DENGAN TOGGLE -->
+                <!-- FEATURE UPDATES -->
                 <div class="feature-table glow-card">
                     <div class="table-header">
                         <h3><i class="fas fa-rocket"></i> Feature Updates</h3>
@@ -1012,7 +1031,7 @@
             </div>
         </div>
 
-        <!-- DASHBOARD 2 - SERVICES DENGAN TOGGLE -->
+        <!-- DASHBOARD 2 -->
         <div class="dash-two" id="dashboard2">
             <div class="services-section glow-card">
                 <div class="section-header">
@@ -1111,7 +1130,7 @@
         }
 
         // ============================================================
-        //  TOGGLE FUNCTIONS - EXPAND/COLLAPSE
+        //  TOGGLE FUNCTIONS
         // ============================================================
         let featureExpanded = true;
         let services1Expanded = true;
@@ -1165,9 +1184,7 @@
             }
         }
 
-        // Reset semua toggle ke keadaan expand
         function resetAll() {
-            // Feature table
             const featureWrapper = document.getElementById('featureWrapper');
             const featureBtn = document.getElementById('featureToggleBtn');
             const featureText = document.getElementById('featureToggleText');
@@ -1176,7 +1193,6 @@
             featureBtn.querySelector('i').className = 'fas fa-chevron-up';
             featureExpanded = true;
             
-            // Services 1
             const s1Wrapper = document.getElementById('servicesWrapper1');
             const s1Btn = document.getElementById('servicesToggle1');
             s1Wrapper.classList.remove('collapsed');
@@ -1184,7 +1200,6 @@
             s1Btn.querySelector('span').textContent = 'Sembunyikan';
             services1Expanded = true;
             
-            // Services 2
             const s2Wrapper = document.getElementById('servicesWrapper2');
             const s2Btn = document.getElementById('servicesToggle2');
             s2Wrapper.classList.remove('collapsed');
