@@ -3,516 +3,688 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>XYRO REST API - 800+ Real API</title>
+    <title>XYROOO FX - REST API</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
     <style>
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: 'Segoe UI', system-ui, sans-serif;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
         }
 
         body {
             background: #0a0a0a;
-            color: #f0f0f0;
+            color: #e0e0e0;
             min-height: 100vh;
-            padding: 20px;
         }
 
-        /* SCROLLBAR */
         ::-webkit-scrollbar {
-            width: 6px;
+            width: 5px;
         }
         ::-webkit-scrollbar-track {
-            background: #1a1a1a;
+            background: #111;
         }
         ::-webkit-scrollbar-thumb {
-            background: #3a3a3a;
+            background: #6c63ff55;
             border-radius: 10px;
         }
 
-        .container {
-            max-width: 1400px;
-            margin: 0 auto;
-        }
-
-        /* HEADER */
-        .header {
+        /* LAYOUT */
+        .app {
             display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 20px 30px;
-            background: #111;
-            border-radius: 20px;
-            border: 1px solid #222;
-            margin-bottom: 30px;
-            flex-wrap: wrap;
-            gap: 15px;
+            min-height: 100vh;
         }
 
-        .logo {
+        /* SIDEBAR */
+        .sidebar {
+            width: 240px;
+            background: #0d0d0d;
+            border-right: 1px solid #1a1a1a;
+            padding: 20px 16px;
+            position: fixed;
+            height: 100vh;
+            overflow-y: auto;
+            z-index: 100;
+            transition: transform 0.3s ease;
+        }
+
+        .sidebar-brand {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding-bottom: 24px;
+            border-bottom: 1px solid #1a1a1a;
+            margin-bottom: 20px;
+        }
+
+        .sidebar-brand i {
+            font-size: 28px;
+            color: #6c63ff;
+        }
+
+        .sidebar-brand h1 {
+            font-size: 20px;
+            font-weight: 700;
+        }
+        .sidebar-brand h1 span {
+            color: #6c63ff;
+        }
+
+        .sidebar .nav-section {
+            margin-bottom: 20px;
+        }
+
+        .sidebar .nav-section .label {
+            font-size: 11px;
+            text-transform: uppercase;
+            color: #444;
+            letter-spacing: 1px;
+            margin-bottom: 8px;
+            font-weight: 600;
+        }
+
+        .sidebar .nav-item {
             display: flex;
             align-items: center;
             gap: 12px;
-        }
-
-        .logo i {
-            font-size: 32px;
-            color: #6c63ff;
-        }
-
-        .logo h1 {
-            font-size: 26px;
-            font-weight: 700;
-            letter-spacing: 1px;
-        }
-        .logo h1 span {
-            color: #6c63ff;
-        }
-
-        .badge {
-            background: #1a1a2e;
-            padding: 8px 18px;
-            border-radius: 30px;
-            border: 1px solid #6c63ff55;
+            padding: 10px 14px;
+            border-radius: 10px;
+            color: #888;
+            text-decoration: none;
             font-size: 14px;
-            color: #aaa;
-        }
-        .badge i {
-            color: #6c63ff;
-            margin-right: 8px;
+            transition: 0.15s;
+            cursor: pointer;
+            margin-bottom: 2px;
         }
 
-        .search-box {
-            display: flex;
-            gap: 10px;
+        .sidebar .nav-item:hover {
             background: #1a1a1a;
-            padding: 8px 16px;
-            border-radius: 40px;
-            border: 1px solid #2a2a2a;
+            color: #ddd;
+        }
+
+        .sidebar .nav-item.active {
+            background: #6c63ff22;
+            color: #6c63ff;
+            border: 1px solid #6c63ff33;
+        }
+
+        .sidebar .nav-item i {
+            width: 20px;
+            font-size: 15px;
+        }
+
+        .sidebar .category-list {
+            display: flex;
+            flex-direction: column;
+            gap: 2px;
+        }
+
+        .sidebar .category-list .cat-item {
+            padding: 6px 14px 6px 34px;
+            font-size: 13px;
+            color: #777;
+            cursor: pointer;
+            border-radius: 6px;
+            transition: 0.15s;
+        }
+
+        .sidebar .category-list .cat-item:hover {
+            color: #ddd;
+            background: #141414;
+        }
+
+        .sidebar .category-list .cat-item.active {
+            color: #6c63ff;
+            background: #6c63ff11;
+        }
+
+        .upgrade-btn {
+            display: flex;
             align-items: center;
+            justify-content: center;
+            gap: 10px;
+            background: linear-gradient(135deg, #6c63ff, #5a52e0);
+            color: #fff;
+            padding: 12px;
+            border-radius: 12px;
+            border: none;
+            width: 100%;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            margin-top: 12px;
+            transition: 0.2s;
+        }
+
+        .upgrade-btn:hover {
+            transform: scale(1.02);
+            box-shadow: 0 5px 20px rgba(108, 99, 255, 0.3);
+        }
+
+        /* MAIN CONTENT */
+        .main {
+            margin-left: 240px;
             flex: 1;
-            max-width: 400px;
-            min-width: 200px;
+            padding: 24px 32px;
+            max-width: calc(100% - 240px);
         }
-        .search-box i {
-            color: #555;
+
+        /* HEADER */
+        .topbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding-bottom: 20px;
+            border-bottom: 1px solid #1a1a1a;
+            margin-bottom: 24px;
+            flex-wrap: wrap;
+            gap: 12px;
         }
-        .search-box input {
+
+        .topbar .page-title h2 {
+            font-size: 22px;
+            font-weight: 600;
+        }
+        .topbar .page-title p {
+            color: #666;
+            font-size: 13px;
+            margin-top: 2px;
+        }
+
+        .topbar .search-box {
+            display: flex;
+            align-items: center;
+            background: #141414;
+            border: 1px solid #1e1e1e;
+            border-radius: 30px;
+            padding: 8px 18px;
+            gap: 10px;
+            min-width: 240px;
+        }
+        .topbar .search-box i {
+            color: #444;
+        }
+        .topbar .search-box input {
             background: transparent;
             border: none;
             outline: none;
             color: #fff;
             width: 100%;
-            padding: 8px 0;
-            font-size: 14px;
+            font-size: 13px;
         }
-        .search-box input::placeholder {
+        .topbar .search-box input::placeholder {
             color: #444;
         }
 
-        /* STATS */
-        .stats {
+        /* STATS CARDS */
+        .stats-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
-            gap: 15px;
-            margin-bottom: 30px;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 16px;
+            margin-bottom: 24px;
         }
+
         .stat-card {
             background: #111;
-            border: 1px solid #222;
-            border-radius: 16px;
-            padding: 18px 20px;
-            text-align: center;
-            transition: 0.2s;
-        }
-        .stat-card:hover {
-            border-color: #6c63ff66;
-            background: #161616;
-        }
-        .stat-card .number {
-            font-size: 28px;
-            font-weight: 700;
-            color: #6c63ff;
-        }
-        .stat-card .label {
-            font-size: 13px;
-            color: #888;
-            margin-top: 4px;
-        }
-
-        /* FILTER CHIPS */
-        .filter-bar {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 10px;
-            margin-bottom: 25px;
-            align-items: center;
-        }
-        .filter-bar .chip {
-            background: #181818;
-            border: 1px solid #2a2a2a;
-            padding: 8px 18px;
-            border-radius: 30px;
-            font-size: 13px;
-            cursor: pointer;
-            transition: 0.15s;
-            color: #aaa;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-        .filter-bar .chip:hover {
-            border-color: #6c63ff88;
-            color: #fff;
-        }
-        .filter-bar .chip.active {
-            background: #6c63ff22;
-            border-color: #6c63ff;
-            color: #fff;
-        }
-        .filter-bar .chip i {
-            font-size: 12px;
-        }
-
-        /* API GRID */
-        .api-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-            gap: 18px;
-            margin-bottom: 30px;
-        }
-
-        .api-card {
-            background: #111;
-            border: 1px solid #1e1e1e;
-            border-radius: 18px;
-            padding: 20px 22px;
-            transition: 0.2s ease;
-            position: relative;
-            overflow: hidden;
-            cursor: default;
-        }
-        .api-card:hover {
-            border-color: #6c63ff77;
-            transform: translateY(-3px);
-            box-shadow: 0 10px 30px rgba(108, 99, 255, 0.05);
-        }
-
-        .api-card .top {
-            display: flex;
-            justify-content: space-between;
-            align-items: flex-start;
-            gap: 10px;
-        }
-        .api-card .api-name {
-            font-size: 17px;
-            font-weight: 600;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-        .api-card .api-name i {
-            color: #6c63ff;
-            font-size: 18px;
-            width: 24px;
-        }
-        .api-card .method {
-            font-size: 11px;
-            font-weight: 700;
-            padding: 4px 14px;
-            border-radius: 30px;
-            background: #1a1a2e;
-            color: #6c63ff;
-            border: 1px solid #6c63ff33;
-            letter-spacing: 0.5px;
-            white-space: nowrap;
-        }
-        .api-card .method.get {
-            color: #4ecdc4;
-            border-color: #4ecdc455;
-        }
-        .api-card .method.post {
-            color: #ff6b6b;
-            border-color: #ff6b6b55;
-        }
-        .api-card .method.put {
-            color: #ffd93d;
-            border-color: #ffd93d55;
-        }
-        .api-card .method.delete {
-            color: #ff4757;
-            border-color: #ff475755;
-        }
-
-        .api-card .desc {
-            color: #aaa;
-            font-size: 14px;
-            margin: 12px 0 16px;
-            line-height: 1.5;
-            display: -webkit-box;
-            -webkit-line-clamp: 2;
-            -webkit-box-orient: vertical;
-            overflow: hidden;
-        }
-
-        .api-card .endpoint {
-            background: #0d0d0d;
-            border-radius: 10px;
-            padding: 10px 14px;
-            font-family: 'Courier New', monospace;
-            font-size: 13px;
-            color: #6c63ff;
             border: 1px solid #1a1a1a;
-            overflow: hidden;
-            text-overflow: ellipsis;
-            white-space: nowrap;
-            margin-bottom: 14px;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-        .api-card .endpoint i {
-            color: #444;
-            font-size: 12px;
+            border-radius: 14px;
+            padding: 18px 20px;
         }
 
-        .api-card .footer-card {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            flex-wrap: wrap;
-            gap: 8px;
-        }
-        .api-card .tags {
-            display: flex;
-            gap: 6px;
-            flex-wrap: wrap;
-        }
-        .api-card .tags span {
-            background: #1a1a1a;
-            padding: 3px 12px;
-            border-radius: 30px;
-            font-size: 10px;
-            color: #777;
-            border: 1px solid #222;
+        .stat-card .stat-label {
+            font-size: 12px;
+            color: #666;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
         }
 
-        .btn-action {
-            background: transparent;
-            border: 1px solid #2a2a2a;
-            color: #ccc;
-            padding: 6px 16px;
-            border-radius: 30px;
-            font-size: 12px;
-            cursor: pointer;
-            transition: 0.15s;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-        .btn-action:hover {
-            background: #6c63ff22;
-            border-color: #6c63ff;
+        .stat-card .stat-value {
+            font-size: 26px;
+            font-weight: 700;
+            margin-top: 4px;
             color: #fff;
         }
-        .btn-action i {
-            font-size: 12px;
-        }
 
-        /* BOTTOM NATIVE FLOW */
-        .native-flow {
-            background: #111;
-            border: 1px solid #222;
-            border-radius: 20px;
-            padding: 25px 30px;
-            margin-top: 30px;
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: space-between;
-            align-items: center;
-            gap: 20px;
-        }
-        .native-flow .info h3 {
-            font-size: 18px;
-            margin-bottom: 6px;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-        .native-flow .info h3 i {
+        .stat-card .stat-value.purple {
             color: #6c63ff;
         }
-        .native-flow .info p {
-            color: #888;
-            font-size: 14px;
+        .stat-card .stat-value.green {
+            color: #4ecdc4;
         }
-        .native-flow .actions {
+        .stat-card .stat-value.orange {
+            color: #ffd93d;
+        }
+        .stat-card .stat-value.red {
+            color: #ff6b6b;
+        }
+
+        /* API KEY CHECK */
+        .api-key-section {
+            background: #111;
+            border: 1px solid #1a1a1a;
+            border-radius: 14px;
+            padding: 20px 24px;
+            margin-bottom: 24px;
+        }
+
+        .api-key-section h3 {
+            font-size: 16px;
+            margin-bottom: 6px;
+        }
+
+        .api-key-section p {
+            color: #888;
+            font-size: 13px;
+            margin-bottom: 14px;
+        }
+
+        .api-key-input {
             display: flex;
-            gap: 12px;
+            gap: 10px;
             flex-wrap: wrap;
         }
-        .native-flow .actions button {
-            background: #1a1a1a;
-            border: 1px solid #2a2a2a;
-            color: #ddd;
-            padding: 10px 24px;
-            border-radius: 40px;
+
+        .api-key-input input {
+            flex: 1;
+            min-width: 200px;
+            background: #0a0a0a;
+            border: 1px solid #222;
+            border-radius: 10px;
+            padding: 10px 16px;
+            color: #fff;
             font-size: 14px;
+            outline: none;
+            transition: 0.15s;
+        }
+
+        .api-key-input input:focus {
+            border-color: #6c63ff;
+        }
+
+        .api-key-input button {
+            background: #6c63ff;
+            border: none;
+            color: #fff;
+            padding: 10px 28px;
+            border-radius: 10px;
+            font-weight: 600;
             cursor: pointer;
             transition: 0.15s;
-            display: flex;
-            align-items: center;
-            gap: 10px;
         }
-        .native-flow .actions button:hover {
-            background: #6c63ff22;
-            border-color: #6c63ff;
-            color: #fff;
-        }
-        .native-flow .actions button.primary {
-            background: #6c63ff;
-            border-color: #6c63ff;
-            color: #fff;
-        }
-        .native-flow .actions button.primary:hover {
+
+        .api-key-input button:hover {
             background: #5a52e0;
         }
 
-        /* TOAST */
-        .toast {
-            position: fixed;
-            bottom: 30px;
-            right: 30px;
-            background: #1a1a1a;
-            border: 1px solid #6c63ff55;
-            padding: 16px 28px;
-            border-radius: 16px;
-            color: #fff;
-            font-size: 14px;
-            box-shadow: 0 15px 40px rgba(0,0,0,0.6);
-            transform: translateY(120px);
-            opacity: 0;
-            transition: 0.3s ease;
-            backdrop-filter: blur(10px);
+        .api-info {
             display: flex;
-            align-items: center;
-            gap: 12px;
-            z-index: 999;
-        }
-        .toast.show {
-            transform: translateY(0);
-            opacity: 1;
-        }
-        .toast i {
-            color: #6c63ff;
-            font-size: 20px;
+            gap: 24px;
+            margin-top: 14px;
+            flex-wrap: wrap;
         }
 
-        @media (max-width: 700px) {
-            .header {
-                flex-direction: column;
-                align-items: stretch;
+        .api-info .info-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 13px;
+            color: #888;
+        }
+
+        .api-info .info-item i {
+            color: #6c63ff;
+            font-size: 14px;
+        }
+
+        /* WELCOME */
+        .welcome-section {
+            background: #111;
+            border: 1px solid #1a1a1a;
+            border-radius: 14px;
+            padding: 20px 24px;
+            margin-bottom: 24px;
+        }
+
+        .welcome-section h3 {
+            font-size: 18px;
+            margin-bottom: 6px;
+        }
+
+        .welcome-section p {
+            color: #888;
+            font-size: 13px;
+            line-height: 1.6;
+        }
+
+        /* FEATURE UPDATES TABLE */
+        .table-section {
+            background: #111;
+            border: 1px solid #1a1a1a;
+            border-radius: 14px;
+            padding: 20px 24px;
+            overflow-x: auto;
+        }
+
+        .table-section h3 {
+            font-size: 16px;
+            margin-bottom: 14px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 13px;
+        }
+
+        table thead th {
+            text-align: left;
+            padding: 10px 12px;
+            color: #666;
+            font-weight: 600;
+            border-bottom: 1px solid #1e1e1e;
+            font-size: 12px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        table tbody td {
+            padding: 10px 12px;
+            border-bottom: 1px solid #161616;
+            color: #ccc;
+        }
+
+        table tbody tr:hover td {
+            background: #161616;
+        }
+
+        table tbody .feature-name {
+            font-weight: 600;
+            color: #fff;
+        }
+
+        table tbody .date {
+            color: #666;
+            font-size: 12px;
+            white-space: nowrap;
+        }
+
+        table tbody .notes {
+            color: #888;
+            font-size: 12px;
+        }
+
+        .btn-view {
+            background: transparent;
+            border: 1px solid #2a2a2a;
+            color: #888;
+            padding: 4px 16px;
+            border-radius: 20px;
+            font-size: 11px;
+            cursor: pointer;
+            transition: 0.15s;
+        }
+
+        .btn-view:hover {
+            background: #6c63ff22;
+            border-color: #6c63ff;
+            color: #fff;
+        }
+
+        /* MOBILE TOGGLE */
+        .menu-toggle {
+            display: none;
+            background: #141414;
+            border: 1px solid #1e1e1e;
+            color: #fff;
+            padding: 8px 14px;
+            border-radius: 10px;
+            font-size: 18px;
+            cursor: pointer;
+        }
+
+        .sidebar-overlay {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(0,0,0,0.7);
+            z-index: 99;
+        }
+
+        /* RESPONSIVE */
+        @media (max-width: 768px) {
+            .sidebar {
+                transform: translateX(-100%);
+                width: 280px;
             }
-            .search-box {
+
+            .sidebar.open {
+                transform: translateX(0);
+            }
+
+            .sidebar-overlay.show {
+                display: block;
+            }
+
+            .main {
+                margin-left: 0;
                 max-width: 100%;
+                padding: 16px;
             }
-            .native-flow {
+
+            .menu-toggle {
+                display: block;
+            }
+
+            .topbar {
                 flex-direction: column;
                 align-items: stretch;
             }
-            .native-flow .actions {
-                justify-content: center;
+            .topbar .search-box {
+                width: 100%;
+            }
+
+            .stats-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .api-key-input {
+                flex-direction: column;
+            }
+            .api-key-input input {
+                min-width: unset;
+            }
+
+            .api-info {
+                flex-direction: column;
+                gap: 8px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .stats-grid {
+                grid-template-columns: 1fr;
+            }
+            table {
+                font-size: 12px;
+            }
+            table thead th, table tbody td {
+                padding: 8px 8px;
             }
         }
     </style>
 </head>
 <body>
 
-<div class="container">
+<div class="app">
 
-    <!-- HEADER -->
-    <header class="header">
-        <div class="logo">
-            <i class="fas fa-robot"></i>
-            <h1>XYRO<span>API</span></h1>
+    <!-- SIDEBAR OVERLAY -->
+    <div class="sidebar-overlay" id="sidebarOverlay" onclick="closeSidebar()"></div>
+
+    <!-- SIDEBAR -->
+    <aside class="sidebar" id="sidebar">
+        <div class="sidebar-brand">
+            <i class="fas fa-bolt"></i>
+            <h1>XYROOO<span>FX</span></h1>
         </div>
-        <div class="badge">
-            <i class="fas fa-database"></i> 800+ Real API
+
+        <div class="nav-section">
+            <div class="label">MAIN</div>
+            <a class="nav-item active" onclick="navigate('dashboard')">
+                <i class="fas fa-th-large"></i> Dashboard
+            </a>
+            <a class="nav-item" onclick="navigate('pricing')">
+                <i class="fas fa-tags"></i> Pricing
+            </a>
+            <a class="nav-item" onclick="navigate('docs')">
+                <i class="fas fa-book"></i> Documentation
+            </a>
         </div>
-        <div class="search-box">
-            <i class="fas fa-search"></i>
-            <input type="text" id="searchInput" placeholder="Cari API, misal: user, auth, payment..." />
+
+        <div class="nav-section">
+            <div class="label">API CATEGORIES</div>
+            <div class="category-list" id="categoryList">
+                <div class="cat-item active" data-cat="all">📋 All Categories</div>
+                <div class="cat-item" data-cat="AI">🤖 Artificial Intelligence</div>
+                <div class="cat-item" data-cat="Anime">🎌 Anime</div>
+                <div class="cat-item" data-cat="Convert">🔄 Convert</div>
+                <div class="cat-item" data-cat="Database">🗄️ Database</div>
+                <div class="cat-item" data-cat="Downloader">⬇️ Downloader</div>
+                <div class="cat-item" data-cat="Games">🎮 Games</div>
+                <div class="cat-item" data-cat="Islami">🕌 Islami</div>
+                <div class="cat-item" data-cat="Maker">🛠️ Maker</div>
+                <div class="cat-item" data-cat="News">📰 News</div>
+                <div class="cat-item" data-cat="Information">ℹ️ Information</div>
+                <div class="cat-item" data-cat="Primbon">🔮 Primbon</div>
+                <div class="cat-item" data-cat="Random">🎲 Random</div>
+                <div class="cat-item" data-cat="Search">🔍 Search</div>
+                <div class="cat-item" data-cat="Stalker">👀 Stalker</div>
+            </div>
         </div>
-    </header>
 
-    <!-- STATS -->
-    <div class="stats" id="statsContainer">
-        <div class="stat-card"><div class="number" id="totalApi">0</div><div class="label">Total API</div></div>
-        <div class="stat-card"><div class="number" id="totalCategories">0</div><div class="label">Kategori</div></div>
-        <div class="stat-card"><div class="number">⚡</div><div class="label">Response < 200ms</div></div>
-        <div class="stat-card"><div class="number">🛡️</div><div class="label">SSL / Auth</div></div>
-    </div>
+        <button class="upgrade-btn" onclick="upgradePremium()">
+            <i class="fas fa-crown"></i> Upgrade Premium
+        </button>
+    </aside>
 
-    <!-- FILTER -->
-    <div class="filter-bar" id="filterBar">
-        <div class="chip active" data-filter="all"><i class="fas fa-th-list"></i> Semua</div>
-        <!-- akan diisi JS -->
-    </div>
+    <!-- MAIN CONTENT -->
+    <main class="main" id="mainContent">
 
-    <!-- API GRID -->
-    <div class="api-grid" id="apiGrid"></div>
-
-    <!-- NATIVE FLOW INTERACTIVE -->
-    <div class="native-flow">
-        <div class="info">
-            <h3><i class="fas fa-bolt"></i> Native Flow Interactive</h3>
-            <p>Dukungan penuh untuk 800+ endpoint real-time. Klik tombol untuk uji coba.</p>
+        <!-- TOPBAR -->
+        <div class="topbar">
+            <div class="page-title">
+                <h2 id="pageTitle">Dashboard</h2>
+                <p id="pageSubtitle">Kelola dan pantau API Anda</p>
+            </div>
+            <div style="display:flex; gap:10px; align-items:center;">
+                <button class="menu-toggle" onclick="toggleSidebar()">
+                    <i class="fas fa-bars"></i>
+                </button>
+                <div class="search-box">
+                    <i class="fas fa-search"></i>
+                    <input type="text" id="globalSearch" placeholder="Cari API..." oninput="filterBySearch(this.value)" />
+                </div>
+            </div>
         </div>
-        <div class="actions">
-            <button onclick="testRandomApi()"><i class="fas fa-play"></i> Test Random API</button>
-            <button onclick="showAllEndpoints()"><i class="fas fa-code"></i> Tampilkan Semua</button>
-            <button class="primary" onclick="exportCollection()"><i class="fas fa-download"></i> Export Collection</button>
-        </div>
-    </div>
 
+        <!-- DASHBOARD CONTENT -->
+        <div id="dashboardContent">
+
+            <!-- STATS -->
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-label">YOUR IP ADDRESS</div>
+                    <div class="stat-value" style="font-size:18px;">103.155.201.59</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-label">TOTAL USERS</div>
+                    <div class="stat-value purple">21,253</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-label">REQUEST TODAY</div>
+                    <div class="stat-value green">35,721</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-label">TOTAL REQUEST</div>
+                    <div class="stat-value orange">48,708,092</div>
+                </div>
+            </div>
+
+            <!-- API KEY CHECK -->
+            <div class="api-key-section">
+                <h3>🔑 Check API Key</h3>
+                <p>Masukkan API Key Anda untuk memeriksa status dan limit.</p>
+                <div class="api-key-input">
+                    <input type="text" id="apiKeyInput" placeholder="Enter your API key..." />
+                    <button onclick="checkApiKey()"><i class="fas fa-check"></i> Check</button>
+                </div>
+                <div class="api-info" id="apiInfo">
+                    <span class="info-item"><i class="fas fa-key"></i> API Key: <span id="displayApiKey">••••••••</span></span>
+                    <span class="info-item"><i class="fas fa-chart-bar"></i> Limit: <span id="displayLimit">10,000/hari</span></span>
+                    <span class="info-item"><i class="fas fa-clock"></i> Expiration: <span id="displayExpiration">2026-12-31</span></span>
+                </div>
+            </div>
+
+            <!-- WELCOME -->
+            <div class="welcome-section">
+                <h3>👋 Welcome to XYROOO FX API</h3>
+                <p>
+                    Thank you for using the services of XYROOO FX API!!<br />
+                    Please use an API key that is hard to guess, just like a strong password. !
+                </p>
+            </div>
+
+            <!-- FEATURE UPDATES -->
+            <div class="table-section">
+                <h3>📌 Feature Updates</h3>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>FEATURE</th>
+                            <th>DATE</th>
+                            <th>NOTES</th>
+                            <th>PREVIEW</th>
+                        </tr>
+                    </thead>
+                    <tbody id="updatesTable">
+                        <!-- diisi JS -->
+                    </tbody>
+                </table>
+            </div>
+
+        </div>
+
+        <!-- API LIST (hidden by default, muncul pas search atau klik kategori) -->
+        <div id="apiListContent" style="display:none;">
+            <div class="api-grid" id="apiGrid" style="display:grid; grid-template-columns:repeat(auto-fill, minmax(280px,1fr)); gap:14px; margin-top:16px;"></div>
+        </div>
+
+    </main>
 </div>
 
 <!-- TOAST -->
-<div class="toast" id="toast"><i class="fas fa-check-circle"></i> <span id="toastMessage">API siap digunakan</span></div>
+<div id="toast" style="position:fixed; bottom:24px; right:24px; background:#141414; border:1px solid #6c63ff44; padding:14px 24px; border-radius:12px; color:#fff; font-size:13px; box-shadow:0 10px 30px rgba(0,0,0,0.5); transform:translateY(100px); opacity:0; transition:0.3s ease; display:flex; align-items:center; gap:12px; z-index:999; backdrop-filter:blur(10px);">
+    <i class="fas fa-check-circle" style="color:#6c63ff; font-size:18px;"></i>
+    <span id="toastMessage">Ready</span>
+</div>
 
 <script>
     // ============================================================
-    //  GENERATE 800+ REAL API (dinamis, no template)
+    //  DATA
     // ============================================================
     const categories = [
-        'Auth', 'User', 'Payment', 'Social', 'Analytics', 'Storage',
-        'AI', 'ML', 'IoT', 'Blockchain', 'Gaming', 'Health',
-        'Education', 'Finance', 'E-commerce', 'Travel', 'Weather',
-        'News', 'Messaging', 'CRM', 'ERP', 'HR', 'Project', 'Security'
+        'AI', 'Anime', 'Convert', 'Database', 'Downloader', 'Games',
+        'Islami', 'Maker', 'News', 'Information', 'Primbon', 'Random',
+        'Search', 'Stalker'
     ];
 
-    const methods = ['GET', 'POST', 'PUT', 'DELETE'];
-    const methodColors = {
-        'GET': 'get',
-        'POST': 'post',
-        'PUT': 'put',
-        'DELETE': 'delete'
-    };
-
-    // 800+ API items
     const apiData = [];
     for (let i = 1; i <= 820; i++) {
         const cat = categories[Math.floor(Math.random() * categories.length)];
-        const method = methods[Math.floor(Math.random() * methods.length)];
+        const method = ['GET', 'POST', 'PUT', 'DELETE'][Math.floor(Math.random() * 4)];
         const name = `${cat}${i}`;
-        const desc = `Endpoint ${method} untuk layanan ${cat} dengan response real-time dan autentikasi.`;
+        const desc = `Endpoint ${method} untuk layanan ${cat} dengan response real-time.`;
         const endpoint = `/api/v2/${cat.toLowerCase()}/${i}`;
-        const tags = [cat, method, 'v2'];
-        if (i % 3 === 0) tags.push('beta');
-        if (i % 5 === 0) tags.push('stable');
-        if (i % 7 === 0) tags.push('premium');
 
         apiData.push({
             id: i,
@@ -521,162 +693,169 @@
             method: method,
             desc: desc,
             endpoint: endpoint,
-            tags: tags,
-            icon: getIcon(cat)
+            tags: [cat, method, i % 3 === 0 ? 'beta' : 'stable']
         });
     }
 
-    function getIcon(cat) {
-        const map = {
-            'Auth': 'fa-key',
-            'User': 'fa-user',
-            'Payment': 'fa-credit-card',
-            'Social': 'fa-share-alt',
-            'Analytics': 'fa-chart-line',
-            'Storage': 'fa-database',
-            'AI': 'fa-brain',
-            'ML': 'fa-robot',
-            'IoT': 'fa-wifi',
-            'Blockchain': 'fa-link',
-            'Gaming': 'fa-gamepad',
-            'Health': 'fa-heartbeat',
-            'Education': 'fa-graduation-cap',
-            'Finance': 'fa-coins',
-            'E-commerce': 'fa-shopping-cart',
-            'Travel': 'fa-plane',
-            'Weather': 'fa-cloud-sun',
-            'News': 'fa-newspaper',
-            'Messaging': 'fa-comment-dots',
-            'CRM': 'fa-address-book',
-            'ERP': 'fa-cubes',
-            'HR': 'fa-users',
-            'Project': 'fa-tasks',
-            'Security': 'fa-shield-alt'
-        };
-        return map[cat] || 'fa-plug';
+    // Feature updates
+    const updates = [
+        { feature: 'Tovid', date: '2026-06-22 21:32:25', notes: 'Fix Features' },
+        { feature: 'Add Features', date: '2026-05-25 17:16:36', notes: 'Sticker Circle' },
+        { feature: 'Tebakan', date: '2026-05-25 17:14:59', notes: 'fix tebak hewan, bendera, pemain bola' },
+        { feature: 'Anime', date: '2026-05-03 14:20:54', notes: 'Fix' },
+        { feature: 'Brat 3', date: '2026-04-27 15:17:07', notes: 'Add New Features' }
+    ];
+
+    // ============================================================
+    //  RENDER UPDATES
+    // ============================================================
+    function renderUpdates() {
+        const tbody = document.getElementById('updatesTable');
+        tbody.innerHTML = updates.map(u => `
+            <tr>
+                <td class="feature-name">${u.feature}</td>
+                <td class="date">${u.date}</td>
+                <td class="notes">${u.notes}</td>
+                <td><button class="btn-view" onclick="showToast('📋 Preview ${u.feature}')">View</button></td>
+            </tr>
+        `).join('');
     }
 
     // ============================================================
-    //  RENDER
+    //  RENDER API GRID
     // ============================================================
-    let currentFilter = 'all';
-    let searchTerm = '';
+    let currentCategory = 'all';
+    let searchQuery = '';
 
-    function render() {
-        // filter & search
+    function renderApiGrid() {
+        const grid = document.getElementById('apiGrid');
         let filtered = apiData;
-        if (currentFilter !== 'all') {
-            filtered = filtered.filter(api => api.category === currentFilter);
+
+        if (currentCategory !== 'all') {
+            filtered = filtered.filter(api => api.category === currentCategory);
         }
-        if (searchTerm.trim() !== '') {
-            const term = searchTerm.toLowerCase().trim();
+
+        if (searchQuery.trim() !== '') {
+            const q = searchQuery.toLowerCase().trim();
             filtered = filtered.filter(api =>
-                api.name.toLowerCase().includes(term) ||
-                api.category.toLowerCase().includes(term) ||
-                api.desc.toLowerCase().includes(term) ||
-                api.endpoint.toLowerCase().includes(term) ||
-                api.tags.some(t => t.toLowerCase().includes(term))
+                api.name.toLowerCase().includes(q) ||
+                api.category.toLowerCase().includes(q) ||
+                api.desc.toLowerCase().includes(q) ||
+                api.endpoint.toLowerCase().includes(q)
             );
         }
 
-        // grid
-        const grid = document.getElementById('apiGrid');
         grid.innerHTML = filtered.map(api => `
-            <div class="api-card" data-id="${api.id}">
-                <div class="top">
-                    <div class="api-name">
-                        <i class="fas ${api.icon}"></i>
-                        ${api.name}
-                    </div>
-                    <span class="method ${methodColors[api.method] || ''}">${api.method}</span>
+            <div style="background:#111; border:1px solid #1a1a1a; border-radius:12px; padding:14px 16px;">
+                <div style="display:flex; justify-content:space-between; align-items:center; gap:8px;">
+                    <span style="font-weight:600; font-size:14px;">${api.name}</span>
+                    <span style="font-size:10px; font-weight:700; padding:2px 12px; border-radius:20px; background:#1a1a2e; color:#6c63ff; border:1px solid #6c63ff33;">${api.method}</span>
                 </div>
-                <div class="desc">${api.desc}</div>
-                <div class="endpoint">
-                    <i class="fas fa-link"></i> ${api.endpoint}
+                <div style="color:#888; font-size:12px; margin:6px 0 10px;">${api.desc}</div>
+                <div style="background:#0a0a0a; border-radius:8px; padding:6px 12px; font-size:11px; color:#6c63ff; border:1px solid #181818; font-family:monospace; overflow:hidden; text-overflow:ellipsis; white-space:nowrap;">
+                    ${api.endpoint}
                 </div>
-                <div class="footer-card">
-                    <div class="tags">
-                        ${api.tags.slice(0,4).map(t => `<span>#${t}</span>`).join('')}
-                        ${api.tags.length > 4 ? `<span>+${api.tags.length-4}</span>` : ''}
+                <div style="display:flex; justify-content:space-between; align-items:center; margin-top:10px;">
+                    <div style="display:flex; gap:4px; flex-wrap:wrap;">
+                        ${api.tags.slice(0,3).map(t => `<span style="background:#161616; padding:2px 10px; border-radius:20px; font-size:9px; color:#666; border:1px solid #1e1e1e;">#${t}</span>`).join('')}
                     </div>
-                    <button class="btn-action" onclick="testApi('${api.name}', '${api.endpoint}', '${api.method}')">
+                    <button class="btn-view" onclick="showToast('📡 Testing ${api.name}...')" style="padding:4px 14px; font-size:11px;">
                         <i class="fas fa-play"></i> Test
                     </button>
                 </div>
             </div>
         `).join('');
 
-        // update stats
-        document.getElementById('totalApi').textContent = apiData.length;
-        const uniqueCats = new Set(apiData.map(a => a.category));
-        document.getElementById('totalCategories').textContent = uniqueCats.size;
+        // toggle visibility
+        const listContent = document.getElementById('apiListContent');
+        const dashContent = document.getElementById('dashboardContent');
+        if (currentCategory !== 'all' || searchQuery.trim() !== '') {
+            listContent.style.display = 'block';
+            dashContent.style.display = 'none';
+            document.getElementById('pageTitle').textContent = `API: ${currentCategory === 'all' ? 'Search Results' : currentCategory}`;
+            document.getElementById('pageSubtitle').textContent = `${filtered.length} endpoint ditemukan`;
+        } else {
+            listContent.style.display = 'none';
+            dashContent.style.display = 'block';
+            document.getElementById('pageTitle').textContent = 'Dashboard';
+            document.getElementById('pageSubtitle').textContent = 'Kelola dan pantau API Anda';
+        }
     }
 
     // ============================================================
-    //  FILTER CHIPS
+    //  NAVIGATION & FILTER
     // ============================================================
-    function buildFilters() {
-        const bar = document.getElementById('filterBar');
-        const unique = [...new Set(apiData.map(a => a.category))].sort();
-        let html = `<div class="chip active" data-filter="all"><i class="fas fa-th-list"></i> Semua</div>`;
-        unique.forEach(cat => {
-            html += `<div class="chip" data-filter="${cat}"><i class="fas ${getIcon(cat)}"></i> ${cat}</div>`;
-        });
-        bar.innerHTML = html;
+    function navigate(page) {
+        // reset
+        document.querySelectorAll('.nav-item').forEach(el => el.classList.remove('active'));
+        document.querySelectorAll('.cat-item').forEach(el => el.classList.remove('active'));
 
-        bar.querySelectorAll('.chip').forEach(chip => {
-            chip.addEventListener('click', function() {
-                bar.querySelectorAll('.chip').forEach(c => c.classList.remove('active'));
-                this.classList.add('active');
-                currentFilter = this.dataset.filter;
-                render();
-            });
-        });
+        if (page === 'dashboard') {
+            currentCategory = 'all';
+            searchQuery = '';
+            document.getElementById('globalSearch').value = '';
+            document.querySelector('.nav-item').classList.add('active');
+            document.querySelector('.cat-item[data-cat="all"]').classList.add('active');
+            renderApiGrid();
+            closeSidebar();
+        } else if (page === 'pricing') {
+            showToast('💎 Halaman Pricing (Premium)');
+        } else if (page === 'docs') {
+            showToast('📖 Dokumentasi API');
+        }
     }
 
-    // ============================================================
-    //  SEARCH
-    // ============================================================
-    document.getElementById('searchInput').addEventListener('input', function(e) {
-        searchTerm = this.value;
-        render();
+    // Category click
+    document.querySelectorAll('.cat-item').forEach(el => {
+        el.addEventListener('click', function() {
+            document.querySelectorAll('.cat-item').forEach(c => c.classList.remove('active'));
+            this.classList.add('active');
+            currentCategory = this.dataset.cat;
+            searchQuery = document.getElementById('globalSearch').value;
+            renderApiGrid();
+            closeSidebar();
+        });
     });
 
+    function filterBySearch(value) {
+        searchQuery = value;
+        // reset category highlight
+        document.querySelectorAll('.cat-item').forEach(c => c.classList.remove('active'));
+        document.querySelector('.cat-item[data-cat="all"]').classList.add('active');
+        currentCategory = 'all';
+        renderApiGrid();
+    }
+
     // ============================================================
-    //  INTERACTIVE NATIVE FLOW
+    //  SIDEBAR TOGGLE
     // ============================================================
-    function testApi(name, endpoint, method) {
-        showToast(`📡 Testing ${method} ${name} → ${endpoint} (200 OK)`);
+    function toggleSidebar() {
+        document.getElementById('sidebar').classList.toggle('open');
+        document.getElementById('sidebarOverlay').classList.toggle('show');
     }
 
-    function testRandomApi() {
-        const random = apiData[Math.floor(Math.random() * apiData.length)];
-        testApi(random.name, random.endpoint, random.method);
+    function closeSidebar() {
+        document.getElementById('sidebar').classList.remove('open');
+        document.getElementById('sidebarOverlay').classList.remove('show');
     }
 
-    function showAllEndpoints() {
-        const count = apiData.length;
-        showToast(`📋 Menampilkan ${count} endpoint siap pakai.`);
-        // scroll ke atas
-        window.scrollTo({ top: 0, behavior: 'smooth' });
+    // ============================================================
+    //  API KEY CHECK
+    // ============================================================
+    function checkApiKey() {
+        const input = document.getElementById('apiKeyInput').value;
+        if (input.trim() === '') {
+            showToast('⚠️ Masukkan API Key terlebih dahulu');
+            return;
+        }
+        document.getElementById('displayApiKey').textContent = input.substring(0, 8) + '••••••••';
+        document.getElementById('displayLimit').textContent = '10,000/hari';
+        document.getElementById('displayExpiration').textContent = '2026-12-31';
+        showToast('✅ API Key valid!');
     }
 
-    function exportCollection() {
-        const json = JSON.stringify(apiData.map(a => ({
-            name: a.name,
-            method: a.method,
-            endpoint: a.endpoint,
-            category: a.category,
-            tags: a.tags
-        })), null, 2);
-        const blob = new Blob([json], { type: 'application/json' });
-        const url = URL.createObjectURL(blob);
-        const a = document.createElement('a');
-        a.href = url;
-        a.download = 'xyro_api_collection.json';
-        a.click();
-        URL.revokeObjectURL(url);
-        showToast(`📦 Collection exported (${apiData.length} endpoints)`);
+    function upgradePremium() {
+        showToast('💎 Upgrade ke Premium untuk akses unlimited!');
     }
 
     // ============================================================
@@ -686,25 +865,34 @@
 
     function showToast(msg) {
         const toast = document.getElementById('toast');
-        const span = document.getElementById('toastMessage');
-        span.textContent = msg;
-        toast.classList.add('show');
+        document.getElementById('toastMessage').textContent = msg;
+        toast.style.transform = 'translateY(0)';
+        toast.style.opacity = '1';
         clearTimeout(toastTimeout);
         toastTimeout = setTimeout(() => {
-            toast.classList.remove('show');
+            toast.style.transform = 'translateY(100px)';
+            toast.style.opacity = '0';
         }, 3000);
     }
 
     // ============================================================
     //  INIT
     // ============================================================
-    buildFilters();
-    render();
+    renderUpdates();
+    renderApiGrid();
 
-    // welcome toast
+    // default active
+    document.querySelector('.nav-item').classList.add('active');
+
+    // initial toast
     setTimeout(() => {
-        showToast(`🚀 XYRO API siap | ${apiData.length} endpoint aktif`);
-    }, 400);
+        showToast('🚀 XYROOO FX API siap digunakan!');
+    }, 500);
+
+    // close sidebar on escape
+    document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape') closeSidebar();
+    });
 </script>
 
 </body>
