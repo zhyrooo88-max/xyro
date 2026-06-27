@@ -20,11 +20,11 @@
             overflow-x: hidden;
         }
 
-        /* ANIMASI BIRU MUDA - GLOW EFFECT */
+        /* ANIMASI BIRU MUDA */
         @keyframes glowPulse {
-            0% { box-shadow: 0 0 10px rgba(100, 200, 255, 0.1); }
-            50% { box-shadow: 0 0 30px rgba(100, 200, 255, 0.25); }
-            100% { box-shadow: 0 0 10px rgba(100, 200, 255, 0.1); }
+            0% { box-shadow: 0 0 10px rgba(100, 200, 255, 0.05); }
+            50% { box-shadow: 0 0 30px rgba(100, 200, 255, 0.15); }
+            100% { box-shadow: 0 0 10px rgba(100, 200, 255, 0.05); }
         }
 
         @keyframes floatAnim {
@@ -33,19 +33,14 @@
             100% { transform: translateY(0px); }
         }
 
-        @keyframes shimmer {
-            0% { background-position: -200% 0; }
-            100% { background-position: 200% 0; }
-        }
-
         .glow-card {
             animation: glowPulse 3s infinite ease-in-out;
-            border: 1px solid rgba(100, 200, 255, 0.15);
+            border: 1px solid rgba(100, 200, 255, 0.08);
         }
 
         .glow-card:hover {
-            border-color: rgba(100, 200, 255, 0.4);
-            box-shadow: 0 0 40px rgba(100, 200, 255, 0.15);
+            border-color: rgba(100, 200, 255, 0.25);
+            box-shadow: 0 0 40px rgba(100, 200, 255, 0.08);
         }
 
         ::-webkit-scrollbar { width: 5px; }
@@ -59,21 +54,21 @@
             position: fixed;
             left: 0;
             top: 0;
-            width: 230px;
+            width: 250px;
             height: 100vh;
             background: #0b0b0e;
             border-right: 1px solid #15151a;
             padding: 20px 16px;
             overflow-y: auto;
-            z-index: 100;
-            transition: transform 0.3s ease;
+            z-index: 1000;
+            transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
         .sidebar .brand {
             display: flex;
             align-items: center;
             gap: 10px;
-            padding-bottom: 20px;
+            padding-bottom: 18px;
             border-bottom: 1px solid #15151a;
             margin-bottom: 18px;
         }
@@ -121,26 +116,28 @@
             border-radius: 10px;
             color: #8899aa;
             text-decoration: none;
-            font-size: 14px;
+            font-size: 13px;
             transition: 0.2s;
             cursor: pointer;
             margin-bottom: 2px;
+            border: 1px solid transparent;
         }
 
         .sidebar .nav-item:hover {
             background: #14141a;
             color: #c8d8e8;
+            border-color: rgba(100, 200, 255, 0.05);
         }
 
         .sidebar .nav-item.active {
-            background: rgba(100, 200, 255, 0.08);
+            background: rgba(100, 200, 255, 0.06);
             color: #64c8ff;
-            border: 1px solid rgba(100, 200, 255, 0.15);
+            border-color: rgba(100, 200, 255, 0.1);
         }
 
         .sidebar .nav-item i {
             width: 20px;
-            font-size: 15px;
+            font-size: 14px;
             color: #4a7a8a;
         }
 
@@ -158,7 +155,7 @@
             font-weight: 600;
             font-size: 13px;
             cursor: pointer;
-            border: 1px solid rgba(100, 200, 255, 0.2);
+            border: 1px solid rgba(100, 200, 255, 0.15);
             transition: 0.3s;
             margin-top: 10px;
             display: flex;
@@ -169,17 +166,37 @@
 
         .sidebar .upgrade-btn:hover {
             background: linear-gradient(135deg, #64c8ff33, #4a9eff33);
-            border-color: rgba(100, 200, 255, 0.4);
+            border-color: rgba(100, 200, 255, 0.3);
             transform: scale(1.02);
+        }
+
+        /* ===== OVERLAY ===== */
+        .sidebar-overlay {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.6);
+            z-index: 999;
+            cursor: pointer;
+            backdrop-filter: blur(4px);
+            -webkit-backdrop-filter: blur(4px);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .sidebar-overlay.active {
+            display: block;
+            opacity: 1;
         }
 
         /* ===== MAIN CONTENT ===== */
         .main-content {
-            margin-left: 230px;
+            margin-left: 250px;
             padding: 20px 24px 40px;
+            transition: margin-left 0.3s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
-        /* HEADER TOP */
+        /* TOP HEADER */
         .top-header {
             display: flex;
             justify-content: space-between;
@@ -206,6 +223,13 @@
             color: #64c8ff;
             font-size: 22px;
             cursor: pointer;
+            padding: 4px 8px;
+            border-radius: 8px;
+            transition: 0.2s;
+        }
+
+        .top-header .left .menu-toggle:hover {
+            background: rgba(100, 200, 255, 0.05);
         }
 
         .top-header .left h2 {
@@ -217,6 +241,7 @@
             display: flex;
             align-items: center;
             gap: 16px;
+            flex-wrap: wrap;
         }
 
         .top-header .right .search-box {
@@ -257,7 +282,7 @@
             font-family: monospace;
         }
 
-        /* ===== DASHBOARD GRID ===== */
+        /* DASHBOARD GRID */
         .dash-grid {
             display: grid;
             grid-template-columns: 2fr 1fr;
@@ -269,7 +294,6 @@
             .dash-grid { grid-template-columns: 1fr; }
         }
 
-        /* STATS CARDS */
         .stats-grid {
             display: grid;
             grid-template-columns: repeat(4, 1fr);
@@ -309,10 +333,9 @@
         .stat-card .stat-icon {
             float: right;
             font-size: 28px;
-            color: rgba(100, 200, 255, 0.1);
+            color: rgba(100, 200, 255, 0.08);
         }
 
-        /* API KEY CHECK */
         .api-key-section {
             background: #0d0d10;
             border: 1px solid #15151a;
@@ -367,7 +390,6 @@
             box-shadow: 0 0 30px rgba(100, 200, 255, 0.2);
         }
 
-        /* WELCOME */
         .welcome-box {
             background: #0d0d10;
             border: 1px solid #15151a;
@@ -405,7 +427,6 @@
             font-weight: 600;
         }
 
-        /* FEATURE UPDATES TABLE */
         .feature-table {
             background: #0d0d10;
             border: 1px solid #15151a;
@@ -464,7 +485,6 @@
             font-weight: 600;
         }
 
-        /* ===== DASHBOARD 2 - SERVICES ===== */
         .dash-two {
             display: grid;
             grid-template-columns: 1fr 1fr;
@@ -527,7 +547,6 @@
             color: #64c8ff;
         }
 
-        /* ===== NATIVE FLOW BUTTONS ===== */
         .native-flow-bar {
             display: flex;
             flex-wrap: wrap;
@@ -591,7 +610,24 @@
             transform: translateY(-2px);
         }
 
-        /* ===== TOAST ===== */
+        .github-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            color: #64c8ff;
+            text-decoration: none;
+            font-size: 13px;
+            padding: 6px 16px;
+            border-radius: 30px;
+            border: 1px solid rgba(100, 200, 255, 0.15);
+            transition: 0.3s;
+        }
+
+        .github-link:hover {
+            background: rgba(100, 200, 255, 0.05);
+            border-color: rgba(100, 200, 255, 0.3);
+        }
+
         .toast {
             position: fixed;
             bottom: 30px;
@@ -609,7 +645,7 @@
             display: flex;
             align-items: center;
             gap: 12px;
-            z-index: 999;
+            z-index: 9999;
             backdrop-filter: blur(20px);
         }
 
@@ -627,11 +663,16 @@
         @media (max-width: 768px) {
             .sidebar {
                 transform: translateX(-100%);
-                width: 260px;
+                width: 280px;
             }
 
             .sidebar.open {
                 transform: translateX(0);
+            }
+
+            .sidebar-overlay.active {
+                display: block;
+                opacity: 1;
             }
 
             .main-content {
@@ -656,36 +697,36 @@
             }
         }
 
-        /* overlay mobile */
-        .sidebar-overlay {
+        @media (min-width: 769px) {
+            .sidebar-overlay {
+                display: none !important;
+            }
+        }
+
+        /* tombol close di sidebar untuk mobile */
+        .sidebar-close {
             display: none;
-            position: fixed;
-            inset: 0;
-            background: rgba(0,0,0,0.5);
-            z-index: 99;
-        }
-
-        .sidebar-overlay.active {
-            display: block;
-        }
-
-        /* github link */
-        .github-link {
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
+            position: absolute;
+            top: 16px;
+            right: 16px;
+            background: none;
+            border: none;
             color: #64c8ff;
-            text-decoration: none;
-            font-size: 13px;
-            padding: 6px 16px;
-            border-radius: 30px;
-            border: 1px solid rgba(100, 200, 255, 0.15);
-            transition: 0.3s;
+            font-size: 24px;
+            cursor: pointer;
+            padding: 4px 8px;
+            border-radius: 8px;
+            transition: 0.2s;
         }
 
-        .github-link:hover {
+        .sidebar-close:hover {
             background: rgba(100, 200, 255, 0.05);
-            border-color: rgba(100, 200, 255, 0.3);
+        }
+
+        @media (max-width: 768px) {
+            .sidebar-close {
+                display: block;
+            }
         }
     </style>
 </head>
@@ -693,6 +734,10 @@
 
     <!-- SIDEBAR -->
     <aside class="sidebar" id="sidebar">
+        <button class="sidebar-close" onclick="closeSidebar()">
+            <i class="fas fa-times"></i>
+        </button>
+
         <div class="brand">
             <i class="fas fa-robot"></i>
             <div>
@@ -740,16 +785,16 @@
         </button>
     </aside>
 
-    <!-- OVERLAY MOBILE -->
-    <div class="sidebar-overlay" id="sidebarOverlay" onclick="toggleSidebar()"></div>
+    <!-- OVERLAY - klik area kosong untuk tutup sidebar -->
+    <div class="sidebar-overlay" id="sidebarOverlay" onclick="closeSidebar()"></div>
 
     <!-- MAIN CONTENT -->
-    <main class="main-content">
+    <main class="main-content" id="mainContent">
 
         <!-- TOP HEADER -->
         <div class="top-header">
             <div class="left">
-                <button class="menu-toggle" onclick="toggleSidebar()">
+                <button class="menu-toggle" onclick="toggleSidebar()" aria-label="Toggle menu">
                     <i class="fas fa-bars"></i>
                 </button>
                 <h2 id="pageTitle">Dashboard</h2>
@@ -768,7 +813,6 @@
 
         <!-- DASHBOARD 1 -->
         <div id="dashboard1">
-            <!-- STATS -->
             <div class="stats-grid">
                 <div class="stat-card glow-card">
                     <div class="stat-icon"><i class="fas fa-user"></i></div>
@@ -792,7 +836,6 @@
                 </div>
             </div>
 
-            <!-- API KEY + WELCOME -->
             <div class="dash-grid">
                 <div>
                     <div class="api-key-section glow-card">
@@ -815,7 +858,6 @@
                     </div>
                 </div>
 
-                <!-- FEATURE UPDATES -->
                 <div class="feature-table glow-card">
                     <h3><i class="fas fa-rocket" style="color:#64c8ff;"></i> Feature Updates</h3>
                     <table>
@@ -859,7 +901,7 @@
             </div>
         </div>
 
-        <!-- DASHBOARD 2 - SERVICES -->
+        <!-- DASHBOARD 2 -->
         <div class="dash-two" id="dashboard2">
             <div class="services-section glow-card">
                 <h3><i class="fas fa-cubes"></i> Services</h3>
@@ -888,7 +930,7 @@
             </div>
         </div>
 
-        <!-- NATIVE FLOW BUTTONS -->
+        <!-- NATIVE FLOW -->
         <div class="native-flow-bar glow-card">
             <div class="flow-text">
                 <i class="fas fa-bolt"></i>
@@ -941,14 +983,37 @@
         }
 
         // ============================================================
-        //  FUNGSI
+        //  SIDEBAR FUNCTIONS
+        // ============================================================
+        function toggleSidebar() {
+            const sidebar = document.getElementById('sidebar');
+            const overlay = document.getElementById('sidebarOverlay');
+            sidebar.classList.toggle('open');
+            overlay.classList.toggle('active');
+            // prevent body scroll
+            document.body.style.overflow = sidebar.classList.contains('open') ? 'hidden' : '';
+        }
+
+        function closeSidebar() {
+            const sidebar = document.getElementById('sidebar');
+            const overlay = document.getElementById('sidebarOverlay');
+            sidebar.classList.remove('open');
+            overlay.classList.remove('active');
+            document.body.style.overflow = '';
+        }
+
+        // Tutup sidebar saat klik di luar (sudah pakai overlay onclick)
+
+        // ============================================================
+        //  FUNGSI LAIN
         // ============================================================
         let currentCategory = null;
 
         function filterCategory(cat) {
             currentCategory = cat;
-            showToast(`📂 Filter: ${cat} (${apiData.filter(a => a.category === cat).length} API)`);
-            // scroll ke dashboard
+            const count = apiData.filter(a => a.category === cat).length;
+            showToast(`📂 Filter: ${cat} (${count} API)`);
+            closeSidebar();
             document.getElementById('dashboard1').scrollIntoView({ behavior: 'smooth' });
         }
 
@@ -999,8 +1064,12 @@
 
         function navigateTo(page) {
             document.querySelectorAll('.nav-item').forEach(el => el.classList.remove('active'));
-            event.target.closest('.nav-item').classList.add('active');
+            if (event && event.target) {
+                const target = event.target.closest('.nav-item');
+                if (target) target.classList.add('active');
+            }
             document.getElementById('pageTitle').textContent = page.charAt(0).toUpperCase() + page.slice(1);
+            closeSidebar();
             if (page === 'dashboard') {
                 document.getElementById('dashboard1').scrollIntoView({ behavior: 'smooth' });
             } else if (page === 'docs') {
@@ -1008,11 +1077,6 @@
             } else if (page === 'pricing') {
                 showToast('💰 Harga: Free tier 10k/hari, Premium unlimited');
             }
-        }
-
-        function toggleSidebar() {
-            document.getElementById('sidebar').classList.toggle('open');
-            document.getElementById('sidebarOverlay').classList.toggle('active');
         }
 
         // ============================================================
@@ -1031,25 +1095,33 @@
         // ============================================================
         //  INIT
         // ============================================================
-        // Update total API di stat
         document.getElementById('totalApi').textContent = apiData.length;
-
-        // Tampilkan IP (simulasi)
         document.getElementById('ipDisplay').textContent = '103.155.201.59';
 
-        // Welcome
         setTimeout(() => showToast(`🚀 Xyrooo FX | ${apiData.length} API siap digunakan`), 500);
 
         // Tutup sidebar saat resize ke desktop
         window.addEventListener('resize', () => {
             if (window.innerWidth > 768) {
-                document.getElementById('sidebar').classList.remove('open');
-                document.getElementById('sidebarOverlay').classList.remove('active');
+                closeSidebar();
             }
         });
 
-        // Close sidebar on overlay click
-        document.getElementById('sidebarOverlay').addEventListener('click', toggleSidebar);
+        // Tutup sidebar saat tekan ESC
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') closeSidebar();
+        });
+
+        // Klik di main content juga bisa tutup sidebar (tapi pakai overlay sudah cukup)
+        document.getElementById('mainContent').addEventListener('click', function(e) {
+            const sidebar = document.getElementById('sidebar');
+            if (sidebar.classList.contains('open')) {
+                // cek apakah klik berasal dari dalam sidebar
+                if (!sidebar.contains(e.target)) {
+                    closeSidebar();
+                }
+            }
+        });
     </script>
 
 </body>
