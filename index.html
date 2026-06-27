@@ -20,7 +20,6 @@
             overflow-x: hidden;
         }
 
-        /* ANIMASI BIRU MUDA */
         @keyframes glowPulse {
             0% { box-shadow: 0 0 10px rgba(100, 200, 255, 0.05); }
             50% { box-shadow: 0 0 30px rgba(100, 200, 255, 0.15); }
@@ -31,6 +30,11 @@
             0% { transform: translateY(0px); }
             50% { transform: translateY(-4px); }
             100% { transform: translateY(0px); }
+        }
+
+        @keyframes slideDown {
+            from { opacity: 0; transform: translateY(-10px); }
+            to { opacity: 1; transform: translateY(0); }
         }
 
         .glow-card {
@@ -46,8 +50,6 @@
         ::-webkit-scrollbar { width: 5px; }
         ::-webkit-scrollbar-track { background: #0d0d0f; }
         ::-webkit-scrollbar-thumb { background: #1a3a4a; border-radius: 10px; }
-
-        .container { max-width: 1440px; margin: 0 auto; padding: 0 16px; }
 
         /* ===== SIDEBAR ===== */
         .sidebar {
@@ -170,7 +172,25 @@
             transform: scale(1.02);
         }
 
-        /* ===== OVERLAY ===== */
+        .sidebar-close {
+            display: none;
+            position: absolute;
+            top: 16px;
+            right: 16px;
+            background: none;
+            border: none;
+            color: #64c8ff;
+            font-size: 24px;
+            cursor: pointer;
+            padding: 4px 8px;
+            border-radius: 8px;
+            transition: 0.2s;
+        }
+
+        .sidebar-close:hover {
+            background: rgba(100, 200, 255, 0.05);
+        }
+
         .sidebar-overlay {
             display: none;
             position: fixed;
@@ -196,7 +216,6 @@
             transition: margin-left 0.3s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
-        /* TOP HEADER */
         .top-header {
             display: flex;
             justify-content: space-between;
@@ -282,18 +301,25 @@
             font-family: monospace;
         }
 
-        /* DASHBOARD GRID */
-        .dash-grid {
-            display: grid;
-            grid-template-columns: 2fr 1fr;
-            gap: 20px;
-            margin-bottom: 28px;
+        .github-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            color: #64c8ff;
+            text-decoration: none;
+            font-size: 13px;
+            padding: 6px 16px;
+            border-radius: 30px;
+            border: 1px solid rgba(100, 200, 255, 0.15);
+            transition: 0.3s;
         }
 
-        @media (max-width: 1024px) {
-            .dash-grid { grid-template-columns: 1fr; }
+        .github-link:hover {
+            background: rgba(100, 200, 255, 0.05);
+            border-color: rgba(100, 200, 255, 0.3);
         }
 
+        /* ===== STATS ===== */
         .stats-grid {
             display: grid;
             grid-template-columns: repeat(4, 1fr);
@@ -334,6 +360,18 @@
             float: right;
             font-size: 28px;
             color: rgba(100, 200, 255, 0.08);
+        }
+
+        /* ===== DASHBOARD GRID ===== */
+        .dash-grid {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 20px;
+            margin-bottom: 28px;
+        }
+
+        @media (max-width: 1024px) {
+            .dash-grid { grid-template-columns: 1fr; }
         }
 
         .api-key-section {
@@ -427,6 +465,7 @@
             font-weight: 600;
         }
 
+        /* ===== FEATURE TABLE ===== */
         .feature-table {
             background: #0d0d10;
             border: 1px solid #15151a;
@@ -435,10 +474,55 @@
             overflow-x: auto;
         }
 
-        .feature-table h3 {
-            font-size: 16px;
+        .feature-table .table-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
             margin-bottom: 16px;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .feature-table .table-header h3 {
+            font-size: 16px;
             color: #b0c0d0;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .feature-table .table-header h3 i {
+            color: #64c8ff;
+        }
+
+        .feature-table .table-header .toggle-btn {
+            padding: 6px 18px;
+            border-radius: 30px;
+            border: 1px solid rgba(100, 200, 255, 0.2);
+            background: transparent;
+            color: #64c8ff;
+            font-size: 12px;
+            cursor: pointer;
+            transition: 0.3s;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .feature-table .table-header .toggle-btn:hover {
+            background: rgba(100, 200, 255, 0.08);
+            border-color: rgba(100, 200, 255, 0.4);
+        }
+
+        .feature-table .table-wrapper {
+            overflow: hidden;
+            transition: max-height 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+            max-height: 400px;
+        }
+
+        .feature-table .table-wrapper.collapsed {
+            max-height: 0 !important;
+            padding: 0;
         }
 
         .feature-table table {
@@ -485,6 +569,7 @@
             font-weight: 600;
         }
 
+        /* ===== DASHBOARD 2 ===== */
         .dash-two {
             display: grid;
             grid-template-columns: 1fr 1fr;
@@ -503,17 +588,55 @@
             padding: 20px 24px;
         }
 
-        .services-section h3 {
+        .services-section .section-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 14px;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .services-section .section-header h3 {
             font-size: 15px;
             color: #b0c0d0;
-            margin-bottom: 14px;
             display: flex;
             align-items: center;
             gap: 10px;
         }
 
-        .services-section h3 i {
+        .services-section .section-header h3 i {
             color: #64c8ff;
+        }
+
+        .services-section .section-header .toggle-btn {
+            padding: 4px 14px;
+            border-radius: 30px;
+            border: 1px solid rgba(100, 200, 255, 0.2);
+            background: transparent;
+            color: #64c8ff;
+            font-size: 11px;
+            cursor: pointer;
+            transition: 0.3s;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .services-section .section-header .toggle-btn:hover {
+            background: rgba(100, 200, 255, 0.08);
+            border-color: rgba(100, 200, 255, 0.4);
+        }
+
+        .services-section .services-wrapper {
+            overflow: hidden;
+            transition: max-height 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+            max-height: 500px;
+        }
+
+        .services-section .services-wrapper.collapsed {
+            max-height: 0 !important;
+            padding: 0;
         }
 
         .services-grid {
@@ -547,6 +670,7 @@
             color: #64c8ff;
         }
 
+        /* ===== NATIVE FLOW ===== */
         .native-flow-bar {
             display: flex;
             flex-wrap: wrap;
@@ -610,24 +734,7 @@
             transform: translateY(-2px);
         }
 
-        .github-link {
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-            color: #64c8ff;
-            text-decoration: none;
-            font-size: 13px;
-            padding: 6px 16px;
-            border-radius: 30px;
-            border: 1px solid rgba(100, 200, 255, 0.15);
-            transition: 0.3s;
-        }
-
-        .github-link:hover {
-            background: rgba(100, 200, 255, 0.05);
-            border-color: rgba(100, 200, 255, 0.3);
-        }
-
+        /* ===== TOAST ===== */
         .toast {
             position: fixed;
             bottom: 30px;
@@ -670,6 +777,10 @@
                 transform: translateX(0);
             }
 
+            .sidebar-close {
+                display: block;
+            }
+
             .sidebar-overlay.active {
                 display: block;
                 opacity: 1;
@@ -700,32 +811,6 @@
         @media (min-width: 769px) {
             .sidebar-overlay {
                 display: none !important;
-            }
-        }
-
-        /* tombol close di sidebar untuk mobile */
-        .sidebar-close {
-            display: none;
-            position: absolute;
-            top: 16px;
-            right: 16px;
-            background: none;
-            border: none;
-            color: #64c8ff;
-            font-size: 24px;
-            cursor: pointer;
-            padding: 4px 8px;
-            border-radius: 8px;
-            transition: 0.2s;
-        }
-
-        .sidebar-close:hover {
-            background: rgba(100, 200, 255, 0.05);
-        }
-
-        @media (max-width: 768px) {
-            .sidebar-close {
-                display: block;
             }
         }
     </style>
@@ -785,7 +870,7 @@
         </button>
     </aside>
 
-    <!-- OVERLAY - klik area kosong untuk tutup sidebar -->
+    <!-- OVERLAY -->
     <div class="sidebar-overlay" id="sidebarOverlay" onclick="closeSidebar()"></div>
 
     <!-- MAIN CONTENT -->
@@ -858,74 +943,119 @@
                     </div>
                 </div>
 
+                <!-- FEATURE UPDATES - DENGAN TOGGLE -->
                 <div class="feature-table glow-card">
-                    <h3><i class="fas fa-rocket" style="color:#64c8ff;"></i> Feature Updates</h3>
-                    <table>
-                        <thead>
-                            <tr><th>Feature</th><th>Date</th><th>Notes</th><th>Preview</th></tr>
-                        </thead>
-                        <tbody id="updateTable">
-                            <tr>
-                                <td class="feature-name">Tovid</td>
-                                <td>2026-06-22 21:32:25</td>
-                                <td>Fix Features</td>
-                                <td><button class="view-btn" onclick="showToast('📱 Preview Tovid')">View</button></td>
-                            </tr>
-                            <tr>
-                                <td class="feature-name">Add Features</td>
-                                <td>2026-05-25 17:16:36</td>
-                                <td>Sticker Circle</td>
-                                <td><button class="view-btn" onclick="showToast('📱 Preview Add Features')">View</button></td>
-                            </tr>
-                            <tr>
-                                <td class="feature-name">Tebakan</td>
-                                <td>2026-05-25 17:14:59</td>
-                                <td>fix tebak hewan, bendera, pemain bola</td>
-                                <td><button class="view-btn" onclick="showToast('📱 Preview Tebakan')">View</button></td>
-                            </tr>
-                            <tr>
-                                <td class="feature-name">Anime</td>
-                                <td>2026-05-03 14:20:54</td>
-                                <td>Fix</td>
-                                <td><button class="view-btn" onclick="showToast('📱 Preview Anime')">View</button></td>
-                            </tr>
-                            <tr>
-                                <td class="feature-name">Brat 3</td>
-                                <td>2026-04-27 15:17:07</td>
-                                <td>Add New Features</td>
-                                <td><button class="view-btn" onclick="showToast('📱 Preview Brat 3')">View</button></td>
-                            </tr>
-                        </tbody>
-                    </table>
+                    <div class="table-header">
+                        <h3><i class="fas fa-rocket"></i> Feature Updates</h3>
+                        <button class="toggle-btn" onclick="toggleFeatureTable()" id="featureToggleBtn">
+                            <i class="fas fa-chevron-up"></i> <span id="featureToggleText">Sembunyikan</span>
+                        </button>
+                    </div>
+                    <div class="table-wrapper" id="featureWrapper">
+                        <table>
+                            <thead>
+                                <tr><th>Feature</th><th>Date</th><th>Notes</th><th>Preview</th></tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td class="feature-name">Tovid</td>
+                                    <td>2026-06-22 21:32:25</td>
+                                    <td>Fix Features</td>
+                                    <td><button class="view-btn" onclick="showToast('📱 Preview Tovid')">View</button></td>
+                                </tr>
+                                <tr>
+                                    <td class="feature-name">Add Features</td>
+                                    <td>2026-05-25 17:16:36</td>
+                                    <td>Sticker Circle</td>
+                                    <td><button class="view-btn" onclick="showToast('📱 Preview Add Features')">View</button></td>
+                                </tr>
+                                <tr>
+                                    <td class="feature-name">Tebakan</td>
+                                    <td>2026-05-25 17:14:59</td>
+                                    <td>fix tebak hewan, bendera, pemain bola</td>
+                                    <td><button class="view-btn" onclick="showToast('📱 Preview Tebakan')">View</button></td>
+                                </tr>
+                                <tr>
+                                    <td class="feature-name">Anime</td>
+                                    <td>2026-05-03 14:20:54</td>
+                                    <td>Fix</td>
+                                    <td><button class="view-btn" onclick="showToast('📱 Preview Anime')">View</button></td>
+                                </tr>
+                                <tr>
+                                    <td class="feature-name">Brat 3</td>
+                                    <td>2026-04-27 15:17:07</td>
+                                    <td>Add New Features</td>
+                                    <td><button class="view-btn" onclick="showToast('📱 Preview Brat 3')">View</button></td>
+                                </tr>
+                                <tr>
+                                    <td class="feature-name">AI Assistant</td>
+                                    <td>2026-04-20 09:45:12</td>
+                                    <td>Chatbot integration</td>
+                                    <td><button class="view-btn" onclick="showToast('📱 Preview AI Assistant')">View</button></td>
+                                </tr>
+                                <tr>
+                                    <td class="feature-name">Weather API</td>
+                                    <td>2026-04-15 13:22:08</td>
+                                    <td>Real-time weather data</td>
+                                    <td><button class="view-btn" onclick="showToast('📱 Preview Weather')">View</button></td>
+                                </tr>
+                                <tr>
+                                    <td class="feature-name">Payment Gateway</td>
+                                    <td>2026-04-10 11:30:45</td>
+                                    <td>Support 10+ payment methods</td>
+                                    <td><button class="view-btn" onclick="showToast('📱 Preview Payment')">View</button></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
             </div>
         </div>
 
-        <!-- DASHBOARD 2 -->
+        <!-- DASHBOARD 2 - SERVICES DENGAN TOGGLE -->
         <div class="dash-two" id="dashboard2">
             <div class="services-section glow-card">
-                <h3><i class="fas fa-cubes"></i> Services</h3>
-                <div class="services-grid">
-                    <div class="service-item" onclick="filterCategory('Islami')"><i class="fas fa-mosque"></i> Islami</div>
-                    <div class="service-item" onclick="filterCategory('Maker')"><i class="fas fa-wand-magic"></i> Maker</div>
-                    <div class="service-item" onclick="filterCategory('News')"><i class="fas fa-newspaper"></i> News</div>
-                    <div class="service-item" onclick="filterCategory('Information')"><i class="fas fa-info-circle"></i> Information</div>
-                    <div class="service-item" onclick="filterCategory('Primbon')"><i class="fas fa-star"></i> Primbon</div>
-                    <div class="service-item" onclick="filterCategory('Random')"><i class="fas fa-dice"></i> Random</div>
-                    <div class="service-item" onclick="filterCategory('Search')"><i class="fas fa-search"></i> Search</div>
-                    <div class="service-item" onclick="filterCategory('Stalker')"><i class="fas fa-user-secret"></i> Stalker</div>
-                    <div class="service-item" onclick="filterCategory('Tools')"><i class="fas fa-tools"></i> Tools</div>
+                <div class="section-header">
+                    <h3><i class="fas fa-cubes"></i> Services</h3>
+                    <button class="toggle-btn" onclick="toggleServices('services1')" id="servicesToggle1">
+                        <i class="fas fa-chevron-up"></i> <span>Sembunyikan</span>
+                    </button>
+                </div>
+                <div class="services-wrapper" id="servicesWrapper1">
+                    <div class="services-grid">
+                        <div class="service-item" onclick="filterCategory('Islami')"><i class="fas fa-mosque"></i> Islami</div>
+                        <div class="service-item" onclick="filterCategory('Maker')"><i class="fas fa-wand-magic"></i> Maker</div>
+                        <div class="service-item" onclick="filterCategory('News')"><i class="fas fa-newspaper"></i> News</div>
+                        <div class="service-item" onclick="filterCategory('Information')"><i class="fas fa-info-circle"></i> Information</div>
+                        <div class="service-item" onclick="filterCategory('Primbon')"><i class="fas fa-star"></i> Primbon</div>
+                        <div class="service-item" onclick="filterCategory('Random')"><i class="fas fa-dice"></i> Random</div>
+                        <div class="service-item" onclick="filterCategory('Search')"><i class="fas fa-search"></i> Search</div>
+                        <div class="service-item" onclick="filterCategory('Stalker')"><i class="fas fa-user-secret"></i> Stalker</div>
+                        <div class="service-item" onclick="filterCategory('Tools')"><i class="fas fa-tools"></i> Tools</div>
+                        <div class="service-item" onclick="filterCategory('AI')"><i class="fas fa-brain"></i> AI</div>
+                        <div class="service-item" onclick="filterCategory('Games')"><i class="fas fa-gamepad"></i> Games</div>
+                        <div class="service-item" onclick="filterCategory('Downloader')"><i class="fas fa-download"></i> Downloader</div>
+                    </div>
                 </div>
             </div>
 
             <div class="services-section glow-card">
-                <h3><i class="fas fa-font"></i> Text Manipulation</h3>
-                <div class="services-grid">
-                    <div class="service-item" onclick="filterCategory('Textpro')"><i class="fas fa-pen-fancy"></i> Textpro</div>
-                    <div class="service-item" onclick="filterCategory('TTS')"><i class="fas fa-microphone"></i> Text To Voice</div>
-                    <div class="service-item" onclick="filterCategory('Free')"><i class="fas fa-gem"></i> Free Features</div>
-                    <div class="service-item" onclick="showToast('🔗 Links section')"><i class="fas fa-link"></i> Links</div>
-                    <div class="service-item" onclick="showToast('📞 Contact support')"><i class="fas fa-headset"></i> Contact</div>
+                <div class="section-header">
+                    <h3><i class="fas fa-font"></i> Text Manipulation</h3>
+                    <button class="toggle-btn" onclick="toggleServices('services2')" id="servicesToggle2">
+                        <i class="fas fa-chevron-up"></i> <span>Sembunyikan</span>
+                    </button>
+                </div>
+                <div class="services-wrapper" id="servicesWrapper2">
+                    <div class="services-grid">
+                        <div class="service-item" onclick="filterCategory('Textpro')"><i class="fas fa-pen-fancy"></i> Textpro</div>
+                        <div class="service-item" onclick="filterCategory('TTS')"><i class="fas fa-microphone"></i> Text To Voice</div>
+                        <div class="service-item" onclick="filterCategory('Free')"><i class="fas fa-gem"></i> Free Features</div>
+                        <div class="service-item" onclick="showToast('🔗 Links section')"><i class="fas fa-link"></i> Links</div>
+                        <div class="service-item" onclick="showToast('📞 Contact support')"><i class="fas fa-headset"></i> Contact</div>
+                        <div class="service-item" onclick="filterCategory('Convert')"><i class="fas fa-exchange-alt"></i> Convert</div>
+                        <div class="service-item" onclick="filterCategory('Database')"><i class="fas fa-database"></i> Database</div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -941,9 +1071,7 @@
                 <button onclick="testRandomApi()"><i class="fas fa-play"></i> Test API</button>
                 <button onclick="showAllEndpoints()"><i class="fas fa-list"></i> All Endpoints</button>
                 <button class="primary" onclick="exportCollection()"><i class="fas fa-download"></i> Export</button>
-                <button onclick="document.getElementById('dashboard1').scrollIntoView({behavior:'smooth'})">
-                    <i class="fas fa-arrow-up"></i> Top
-                </button>
+                <button onclick="resetAll()"><i class="fas fa-undo"></i> Reset</button>
             </div>
         </div>
 
@@ -983,6 +1111,92 @@
         }
 
         // ============================================================
+        //  TOGGLE FUNCTIONS - EXPAND/COLLAPSE
+        // ============================================================
+        let featureExpanded = true;
+        let services1Expanded = true;
+        let services2Expanded = true;
+
+        function toggleFeatureTable() {
+            const wrapper = document.getElementById('featureWrapper');
+            const btn = document.getElementById('featureToggleBtn');
+            const text = document.getElementById('featureToggleText');
+            
+            featureExpanded = !featureExpanded;
+            
+            if (featureExpanded) {
+                wrapper.classList.remove('collapsed');
+                text.textContent = 'Sembunyikan';
+                btn.querySelector('i').className = 'fas fa-chevron-up';
+                showToast('📋 Menampilkan semua fitur');
+            } else {
+                wrapper.classList.add('collapsed');
+                text.textContent = 'Tampilkan';
+                btn.querySelector('i').className = 'fas fa-chevron-down';
+                showToast('📋 Fitur disembunyikan');
+            }
+        }
+
+        function toggleServices(id) {
+            let wrapper, btn, expanded;
+            
+            if (id === 'services1') {
+                wrapper = document.getElementById('servicesWrapper1');
+                btn = document.getElementById('servicesToggle1');
+                services1Expanded = !services1Expanded;
+                expanded = services1Expanded;
+            } else {
+                wrapper = document.getElementById('servicesWrapper2');
+                btn = document.getElementById('servicesToggle2');
+                services2Expanded = !services2Expanded;
+                expanded = services2Expanded;
+            }
+            
+            if (expanded) {
+                wrapper.classList.remove('collapsed');
+                btn.querySelector('i').className = 'fas fa-chevron-up';
+                btn.querySelector('span').textContent = 'Sembunyikan';
+                showToast('📂 Menampilkan layanan');
+            } else {
+                wrapper.classList.add('collapsed');
+                btn.querySelector('i').className = 'fas fa-chevron-down';
+                btn.querySelector('span').textContent = 'Tampilkan';
+                showToast('📂 Layanan disembunyikan');
+            }
+        }
+
+        // Reset semua toggle ke keadaan expand
+        function resetAll() {
+            // Feature table
+            const featureWrapper = document.getElementById('featureWrapper');
+            const featureBtn = document.getElementById('featureToggleBtn');
+            const featureText = document.getElementById('featureToggleText');
+            featureWrapper.classList.remove('collapsed');
+            featureText.textContent = 'Sembunyikan';
+            featureBtn.querySelector('i').className = 'fas fa-chevron-up';
+            featureExpanded = true;
+            
+            // Services 1
+            const s1Wrapper = document.getElementById('servicesWrapper1');
+            const s1Btn = document.getElementById('servicesToggle1');
+            s1Wrapper.classList.remove('collapsed');
+            s1Btn.querySelector('i').className = 'fas fa-chevron-up';
+            s1Btn.querySelector('span').textContent = 'Sembunyikan';
+            services1Expanded = true;
+            
+            // Services 2
+            const s2Wrapper = document.getElementById('servicesWrapper2');
+            const s2Btn = document.getElementById('servicesToggle2');
+            s2Wrapper.classList.remove('collapsed');
+            s2Btn.querySelector('i').className = 'fas fa-chevron-up';
+            s2Btn.querySelector('span').textContent = 'Sembunyikan';
+            services2Expanded = true;
+            
+            showToast('🔄 Semua tampilan direset');
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        // ============================================================
         //  SIDEBAR FUNCTIONS
         // ============================================================
         function toggleSidebar() {
@@ -990,7 +1204,6 @@
             const overlay = document.getElementById('sidebarOverlay');
             sidebar.classList.toggle('open');
             overlay.classList.toggle('active');
-            // prevent body scroll
             document.body.style.overflow = sidebar.classList.contains('open') ? 'hidden' : '';
         }
 
@@ -1001,8 +1214,6 @@
             overlay.classList.remove('active');
             document.body.style.overflow = '';
         }
-
-        // Tutup sidebar saat klik di luar (sudah pakai overlay onclick)
 
         // ============================================================
         //  FUNGSI LAIN
@@ -1100,26 +1311,20 @@
 
         setTimeout(() => showToast(`🚀 Xyrooo FX | ${apiData.length} API siap digunakan`), 500);
 
-        // Tutup sidebar saat resize ke desktop
         window.addEventListener('resize', () => {
             if (window.innerWidth > 768) {
                 closeSidebar();
             }
         });
 
-        // Tutup sidebar saat tekan ESC
         document.addEventListener('keydown', (e) => {
             if (e.key === 'Escape') closeSidebar();
         });
 
-        // Klik di main content juga bisa tutup sidebar (tapi pakai overlay sudah cukup)
         document.getElementById('mainContent').addEventListener('click', function(e) {
             const sidebar = document.getElementById('sidebar');
-            if (sidebar.classList.contains('open')) {
-                // cek apakah klik berasal dari dalam sidebar
-                if (!sidebar.contains(e.target)) {
-                    closeSidebar();
-                }
+            if (sidebar.classList.contains('open') && !sidebar.contains(e.target)) {
+                closeSidebar();
             }
         });
     </script>
