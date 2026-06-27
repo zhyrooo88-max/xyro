@@ -3,489 +3,236 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>AryaTopup — Top Up Game Resmi & Instan</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@500;600&display=swap" rel="stylesheet">
+<title>XYROOO TOPUP</title>
+
 <style>
-  :root{
-    --bg-base:#0B0B14;
-    --bg-card:#15131F;
-    --bg-card-2:#1B1828;
-    --line:#2A2640;
-    --accent:#8B5CFF;
-    --accent-2:#2DE8C0;
-    --hot:#FF4D6D;
-    --text:#F5F3FF;
-    --muted:#8D88A8;
-  }
-  *{box-sizing:border-box; margin:0; padding:0;}
-  html,body{background:var(--bg-base); color:var(--text); font-family:'Inter',sans-serif; -webkit-font-smoothing:antialiased;}
-  body{max-width:480px; margin:0 auto; min-height:100vh; position:relative;}
-  h1,h2,h3,.display{font-family:'Space Grotesk',sans-serif;}
-  .mono{font-family:'JetBrains Mono',monospace;}
-  a{color:inherit; text-decoration:none;}
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:Arial,Helvetica,sans-serif;
+}
 
-  /* ---------- Header ---------- */
-  header.top{
-    display:flex; align-items:center; gap:12px;
-    padding:16px 18px; background:var(--bg-base);
-    border-bottom:1px solid var(--line);
-    position:sticky; top:0; z-index:30;
-  }
-  .logo-mark{
-    width:38px; height:38px; border-radius:10px;
-    background:linear-gradient(135deg,var(--accent),var(--accent-2));
-    display:flex; align-items:center; justify-content:center;
-    font-family:'Space Grotesk'; font-weight:700; font-size:18px; color:#0B0B14;
-    flex-shrink:0;
-  }
-  .brand-name{font-size:16px; font-weight:700; letter-spacing:.2px;}
-  .brand-tag{font-size:11.5px; color:var(--muted);}
-  .avatar{
-    width:34px; height:34px; border-radius:50%; margin-left:auto;
-    background:var(--bg-card-2); border:1px solid var(--line);
-    display:flex; align-items:center; justify-content:center; font-size:14px; color:var(--muted);
-  }
+body{
+background:#fff;
+color:#111;
+}
 
-  /* ---------- Hero ---------- */
-  .hero{
-    margin:14px 16px 0; border-radius:18px; overflow:hidden;
-    background:
-      radial-gradient(120% 140% at 0% 0%, rgba(139,92,255,.55), transparent 55%),
-      radial-gradient(120% 140% at 100% 100%, rgba(45,232,192,.35), transparent 55%),
-      #150F26;
-    border:1px solid var(--line);
-    padding:20px 18px 22px;
-    position:relative;
-  }
-  .hero::after{
-    content:""; position:absolute; inset:0; pointer-events:none;
-    background:repeating-linear-gradient(115deg, rgba(255,255,255,.035) 0 2px, transparent 2px 14px);
-  }
-  .hero-eyebrow{
-    display:inline-flex; align-items:center; gap:6px;
-    font-size:11px; font-weight:600; letter-spacing:.06em; text-transform:uppercase;
-    color:var(--accent-2); background:rgba(45,232,192,.1);
-    border:1px solid rgba(45,232,192,.3); border-radius:999px; padding:4px 10px;
-    margin-bottom:12px;
-  }
-  .hero h1{font-size:24px; line-height:1.18; font-weight:700; max-width:80%;}
-  .hero h1 span{color:var(--accent-2);}
-  .hero p{font-size:13px; color:var(--muted); margin-top:8px; max-width:88%;}
-  .hero-code{
-    margin-top:14px; display:inline-flex; align-items:center; gap:8px;
-    background:var(--bg-card); border:1px dashed var(--accent);
-    border-radius:10px; padding:8px 12px; font-size:12.5px;
-  }
-  .hero-code b{color:var(--accent-2); font-family:'JetBrains Mono';}
+header{
+display:flex;
+justify-content:space-between;
+align-items:center;
+padding:20px 50px;
+border-bottom:1px solid #ddd;
+}
 
-  /* ---------- Section heading ---------- */
-  .section{padding:24px 16px 4px;}
-  .section-title{font-size:17px; font-weight:700;}
-  .step-row{display:flex; align-items:center; gap:10px; margin-bottom:14px;}
-  .step-num{
-    width:26px; height:26px; border-radius:7px; flex-shrink:0;
-    background:linear-gradient(135deg,var(--accent),#5C3CD9);
-    display:flex; align-items:center; justify-content:center;
-    font-family:'Space Grotesk'; font-weight:700; font-size:13px; color:#fff;
-  }
+.logo{
+font-size:30px;
+font-weight:bold;
+}
 
-  /* ---------- Game grid ---------- */
-  .game-grid{display:grid; grid-template-columns:repeat(4,1fr); gap:12px;}
-  .game-item{display:flex; flex-direction:column; align-items:center; gap:6px; cursor:pointer;}
-  .game-icon{
-    width:100%; aspect-ratio:1; border-radius:14px; position:relative;
-    border:1.5px solid var(--line); overflow:hidden;
-    display:flex; align-items:center; justify-content:center;
-    font-family:'Space Grotesk'; font-weight:700; font-size:18px; color:#fff;
-    transition:transform .15s ease, border-color .15s ease;
-  }
-  .game-item.active .game-icon{
-    border-color:var(--accent-2);
-    box-shadow:0 0 0 3px rgba(45,232,192,.18), 0 8px 18px -6px rgba(139,92,255,.5);
-  }
-  .game-item span{font-size:11.5px; color:var(--muted); text-align:center; line-height:1.25;}
-  .game-item.active span{color:var(--text); font-weight:600;}
-  .gi-1{background:linear-gradient(160deg,#FF6A3D,#C2272D);}
-  .gi-2{background:linear-gradient(160deg,#3A3F4B,#15171C);}
-  .gi-3{background:linear-gradient(160deg,#FF9A56,#FF5E62);}
-  .gi-4{background:linear-gradient(160deg,#4B5D8C,#1B2138);}
-  .gi-5{background:linear-gradient(160deg,#3E5C49,#16221A);}
-  .gi-6{background:linear-gradient(160deg,#4FA8E8,#2350A8);}
-  .gi-7{background:linear-gradient(160deg,#F7C948,#E07A1F);}
-  .gi-8{background:linear-gradient(160deg,#FFE38A,#F2C200); color:#3A2B00;}
-  .badge-check{
-    position:absolute; top:5px; right:5px; width:16px; height:16px; border-radius:50%;
-    background:var(--accent-2); color:#0B0B14; font-size:10px; font-weight:700;
-    display:flex; align-items:center; justify-content:center;
-  }
+nav a{
+text-decoration:none;
+color:#111;
+margin-left:25px;
+font-weight:bold;
+}
 
-  /* ---------- Promo banner strip ---------- */
-  .promo-strip{
-    margin:18px 16px 0; border-radius:14px; overflow:hidden; position:relative;
-    background:linear-gradient(120deg,#241A3D,#0F0B1C); border:1px solid var(--line);
-    padding:14px 16px; display:flex; align-items:center; gap:12px;
-  }
-  .promo-strip .pill{
-    font-size:10px; font-weight:700; letter-spacing:.05em; text-transform:uppercase;
-    background:var(--hot); color:#fff; border-radius:6px; padding:3px 7px; flex-shrink:0;
-  }
-  .promo-strip .t{font-size:13px; font-weight:600;}
-  .promo-strip .s{font-size:11.5px; color:var(--muted); margin-top:2px;}
+.btn{
+padding:12px 25px;
+border:none;
+border-radius:10px;
+cursor:pointer;
+font-weight:bold;
+transition:.3s;
+}
 
-  /* ---------- Login card ---------- */
-  .card{
-    background:var(--bg-card); border:1px solid var(--line); border-radius:16px;
-    padding:16px;
-  }
-  .field-label{font-size:12.5px; color:var(--muted); margin-bottom:8px; display:flex; align-items:center; gap:6px;}
-  .input-row{display:flex; gap:8px;}
-  .input-row input{
-    flex:1; background:var(--bg-card-2); border:1px solid var(--line); border-radius:10px;
-    padding:12px 14px; color:var(--text); font-size:13.5px; outline:none;
-  }
-  .input-row input:focus{border-color:var(--accent);}
-  .btn-primary{
-    background:linear-gradient(135deg,var(--accent),#6635F0); color:#fff; border:none;
-    border-radius:10px; padding:0 18px; font-weight:700; font-size:13px; cursor:pointer;
-    font-family:'Space Grotesk';
-  }
-  .alt-login{margin-top:14px; display:flex; align-items:center; gap:10px; font-size:12px; color:var(--muted);}
-  .social-dot{
-    width:30px; height:30px; border-radius:50%; background:var(--bg-card-2); border:1px solid var(--line);
-    display:flex; align-items:center; justify-content:center; font-size:13px; font-weight:700;
-  }
+.login{
+background:#111;
+color:#fff;
+}
 
-  /* ---------- Tabs ---------- */
-  .tabs{display:flex; gap:8px; margin-bottom:14px;}
-  .tab{
-    flex:1; text-align:center; padding:9px; border-radius:10px; font-size:12.5px; font-weight:600;
-    border:1px solid var(--line); color:var(--muted); cursor:pointer;
-  }
-  .tab.active{background:rgba(139,92,255,.12); border-color:var(--accent); color:var(--text);}
+.register{
+background:#fff;
+color:#111;
+border:2px solid #111;
+}
 
-  /* ---------- Nominal grid ---------- */
-  .nominal-grid{display:grid; grid-template-columns:repeat(3,1fr); gap:10px;}
-  .nominal-item{
-    border:1.5px solid var(--line); border-radius:12px; padding:12px 6px; text-align:center;
-    cursor:pointer; background:var(--bg-card-2); transition:border-color .15s, box-shadow .15s;
-  }
-  .nominal-item.active{
-    border-color:var(--accent-2); box-shadow:0 0 0 3px rgba(45,232,192,.16);
-    background:linear-gradient(160deg,rgba(139,92,255,.18),rgba(45,232,192,.06));
-  }
-  .nominal-item .dia{font-size:13px;}
-  .nominal-item .amt{font-family:'JetBrains Mono'; font-weight:600; font-size:13.5px; margin-top:4px;}
-  .show-all{
-    text-align:center; font-size:12.5px; color:var(--accent-2); font-weight:600; margin-top:12px;
-    cursor:pointer;
-  }
+.hero{
+display:flex;
+justify-content:center;
+align-items:center;
+flex-direction:column;
+height:80vh;
+text-align:center;
+}
 
-  /* ---------- Special offers ---------- */
-  .offer-grid{display:grid; grid-template-columns:repeat(2,1fr); gap:10px;}
-  .offer-card{
-    border-radius:14px; overflow:hidden; border:1px solid var(--line); background:var(--bg-card);
-    cursor:pointer;
-  }
-  .offer-art{
-    height:78px; display:flex; align-items:center; justify-content:center;
-    font-family:'Space Grotesk'; font-weight:700; font-size:22px; color:rgba(255,255,255,.85);
-    position:relative; overflow:hidden;
-  }
-  .offer-art::after{
-    content:""; position:absolute; inset:0;
-    background:linear-gradient(125deg, rgba(255,255,255,.18), transparent 40%);
-  }
-  .of-1{background:linear-gradient(160deg,#6E3FD8,#2A1763);}
-  .of-2{background:linear-gradient(160deg,#C77A1E,#5B3406);}
-  .of-3{background:linear-gradient(160deg,#D6A53B,#5E3F0B);}
-  .of-4{background:linear-gradient(160deg,#34507A,#101B2C);}
-  .offer-label{padding:9px 10px; font-size:12px; font-weight:600;}
+.hero h1{
+font-size:55px;
+margin-bottom:15px;
+}
 
-  /* ---------- Payment grid ---------- */
-  .pay-grid{display:grid; grid-template-columns:repeat(2,1fr); gap:10px;}
-  .pay-item{
-    border:1.5px solid var(--line); border-radius:12px; padding:14px 12px; position:relative;
-    background:var(--bg-card-2); display:flex; align-items:center; gap:10px; cursor:pointer;
-  }
-  .pay-item.active{border-color:var(--accent-2); box-shadow:0 0 0 3px rgba(45,232,192,.14);}
-  .pay-icon{
-    width:34px; height:34px; border-radius:8px; flex-shrink:0;
-    display:flex; align-items:center; justify-content:center; font-size:12px; font-weight:700; color:#fff;
-  }
-  .pay-item .name{font-size:12.5px; font-weight:600; line-height:1.25;}
-  .tag{
-    position:absolute; top:-9px; right:8px; display:flex; gap:4px;
-  }
-  .tag span{
-    font-size:9px; font-weight:700; letter-spacing:.03em; padding:2px 6px; border-radius:5px; text-transform:uppercase;
-  }
-  .tag .promo{background:var(--accent); color:#fff;}
-  .tag .hot{background:var(--hot); color:#fff;}
+.hero p{
+font-size:18px;
+color:#555;
+margin-bottom:30px;
+}
 
-  /* ---------- Footer ---------- */
-  footer{padding:28px 16px 96px; text-align:center;}
-  footer .copy{font-size:11.5px; color:var(--muted);}
-  footer .links{display:flex; justify-content:center; gap:14px; margin-top:10px; font-size:11.5px; color:var(--muted); flex-wrap:wrap;}
+.hero button{
+padding:16px 40px;
+font-size:18px;
+background:#111;
+color:#fff;
+border:none;
+border-radius:15px;
+cursor:pointer;
+}
 
-  /* ---------- Sticky CTA ---------- */
-  .sticky-cta{
-    position:fixed; bottom:0; left:50%; transform:translateX(-50%);
-    width:100%; max-width:480px; background:rgba(11,11,20,.92); backdrop-filter:blur(10px);
-    border-top:1px solid var(--line); padding:12px 16px; display:flex; align-items:center;
-    justify-content:space-between; gap:12px; z-index:40;
-  }
-  .sticky-cta .total-label{font-size:11px; color:var(--muted);}
-  .sticky-cta .total-amt{font-family:'JetBrains Mono'; font-weight:700; font-size:16px; color:var(--accent-2);}
-  .sticky-cta button{
-    background:linear-gradient(135deg,var(--accent),#6635F0); color:#fff; border:none;
-    border-radius:10px; padding:13px 22px; font-weight:700; font-size:13.5px; cursor:pointer;
-    font-family:'Space Grotesk';
-  }
+.section{
+padding:60px;
+}
 
-  hr.div{border:none; border-top:1px solid var(--line); margin:22px 16px 0;}
+.title{
+font-size:35px;
+margin-bottom:30px;
+}
+
+.grid{
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(200px,1fr));
+gap:20px;
+}
+
+.card{
+border:1px solid #ddd;
+border-radius:18px;
+padding:20px;
+transition:.3s;
+}
+
+.card:hover{
+transform:translateY(-6px);
+box-shadow:0 10px 20px rgba(0,0,0,.08);
+}
+
+.card img{
+width:70px;
+margin-bottom:15px;
+}
+
+.card h3{
+margin-bottom:8px;
+}
+
+.buy{
+margin-top:15px;
+width:100%;
+padding:12px;
+background:#111;
+color:#fff;
+border:none;
+border-radius:10px;
+cursor:pointer;
+}
+
+footer{
+margin-top:60px;
+padding:30px;
+text-align:center;
+border-top:1px solid #ddd;
+color:#777;
+}
 </style>
+
 </head>
+
 <body>
 
-  <header class="top">
-    <div class="logo-mark">A</div>
-    <div>
-      <div class="brand-name">AryaTopup</div>
-      <div class="brand-tag">Top Up Game Resmi &amp; Instan</div>
-    </div>
-    <div class="avatar">☻</div>
-  </header>
+<header>
 
-  <section class="hero">
-    <span class="hero-eyebrow">● Diamond Forge — Diskon Minggu Ini</span>
-    <h1>Top up <span>lebih murah</span>, masuk lebih cepat.</h1>
-    <p>Isi diamond, voucher, dan kredit game favoritmu dengan proses instan dan harga bersahabat.</p>
-    <div class="hero-code">Pakai kode <b>ARYAFIRSTTOPUP</b> — diskon 10%</div>
-  </section>
+<div class="logo">
+XYROOO TOPUP
+</div>
 
-  <div class="section">
-    <div class="section-title" style="margin-bottom:14px;">Pilih Game</div>
-    <div class="game-grid">
-      <div class="game-item active">
-        <div class="game-icon gi-1">🔥<div class="badge-check">✓</div></div>
-        <span>Free Fire</span>
-      </div>
-      <div class="game-item">
-        <div class="game-icon gi-2">DF</div>
-        <span>Delta Force</span>
-      </div>
-      <div class="game-item">
-        <div class="game-icon gi-3">HK</div>
-        <span>Haikyuu Fly High</span>
-      </div>
-      <div class="game-item">
-        <div class="game-icon gi-4">GU</div>
-        <span>Garena Undawn</span>
-      </div>
-      <div class="game-item">
-        <div class="game-icon gi-5">CD</div>
-        <span>Call of Duty</span>
-      </div>
-      <div class="game-item">
-        <div class="game-icon gi-6">AOV</div>
-        <span>Garena AOV</span>
-      </div>
-      <div class="game-item">
-        <div class="game-icon gi-7">SD</div>
-        <span>Speed Drifters</span>
-      </div>
-      <div class="game-item">
-        <div class="game-icon gi-8">🐚</div>
-        <span>Shell Top Up</span>
-      </div>
-    </div>
-  </div>
+<nav>
+<a href="#">Home</a>
+<a href="#">Topup</a>
+<a href="#">Riwayat</a>
+<a href="#">Kontak</a>
 
-  <div class="promo-strip">
-    <span class="pill">Hot</span>
-    <div>
-      <div class="t">Free Fire — Layanan Top-Up Terjamin Aman</div>
-      <div class="s">Resmi &amp; otomatis ke akun dalam hitungan detik</div>
-    </div>
-  </div>
+<button class="btn login">
+Login
+</button>
 
-  <hr class="div">
+<button class="btn register">
+Register
+</button>
 
-  <div class="section">
-    <div class="step-row">
-      <div class="step-num">1</div>
-      <div class="section-title">Login</div>
-    </div>
-    <div class="card">
-      <div class="field-label">Player ID <span style="opacity:.6;">?</span></div>
-      <div class="input-row">
-        <input type="text" placeholder="Isi Player ID disini">
-        <button class="btn-primary">Cek ID</button>
-      </div>
-      <div class="alt-login">
-        Atau login dengan
-        <div class="social-dot">f</div>
-        <div class="social-dot">G</div>
-        <div class="social-dot">X</div>
-        <div class="social-dot">VK</div>
-      </div>
-    </div>
-  </div>
+</nav>
 
-  <div class="section">
-    <div class="step-row">
-      <div class="step-num">2</div>
-      <div class="section-title">Nominal Top-Up</div>
-    </div>
-    <div class="tabs">
-      <div class="tab active">Pembelian</div>
-      <div class="tab">Redeem Voucher</div>
-    </div>
-    <div class="nominal-grid">
-      <div class="nominal-item"><div class="dia">💎</div><div class="amt">5</div></div>
-      <div class="nominal-item"><div class="dia">💎</div><div class="amt">12</div></div>
-      <div class="nominal-item"><div class="dia">💎</div><div class="amt">50</div></div>
-      <div class="nominal-item active"><div class="dia">💎</div><div class="amt">70</div></div>
-      <div class="nominal-item"><div class="dia">💎</div><div class="amt">91</div></div>
-      <div class="nominal-item"><div class="dia">💎</div><div class="amt">140</div></div>
-      <div class="nominal-item"><div class="dia">💎</div><div class="amt">355</div></div>
-      <div class="nominal-item"><div class="dia">💎</div><div class="amt">720</div></div>
-      <div class="nominal-item"><div class="dia">💎</div><div class="amt">1.450</div></div>
-    </div>
-    <div class="show-all">Tampilkan Semua ▾</div>
-  </div>
+</header>
 
-  <div class="section">
-    <div class="section-title" style="font-size:14px; color:var(--muted); margin-bottom:12px;">Penawaran Spesial</div>
-    <div class="offer-grid">
-      <div class="offer-card">
-        <div class="offer-art of-1">W</div>
-        <div class="offer-label">Member Mingguan</div>
-      </div>
-      <div class="offer-card">
-        <div class="offer-art of-2">B</div>
-        <div class="offer-label">BP Card</div>
-      </div>
-      <div class="offer-card">
-        <div class="offer-art of-3">M</div>
-        <div class="offer-label">Member Bulanan</div>
-      </div>
-      <div class="offer-card">
-        <div class="offer-art of-4">★</div>
-        <div class="offer-label">Sultan Cahaya Bundle</div>
-      </div>
-    </div>
-  </div>
+<section class="hero">
 
-  <div class="section">
-    <div class="step-row">
-      <div class="step-num">3</div>
-      <div class="section-title">Metode Pembayaran</div>
-    </div>
-    <div class="pay-grid">
-      <div class="pay-item active">
-        <div class="tag"><span class="promo">Promo</span><span class="hot">Hot</span></div>
-        <div class="pay-icon" style="background:#111;">QR</div>
-        <div class="name">QRIS</div>
-      </div>
-      <div class="pay-item">
-        <div class="tag"><span class="promo">Promo</span><span class="hot">Hot</span></div>
-        <div class="pay-icon" style="background:#EE4D2D;">SP</div>
-        <div class="name">ShopeePay</div>
-      </div>
-      <div class="pay-item">
-        <div class="tag"><span class="promo">Promo</span></div>
-        <div class="pay-icon" style="background:#00AA5B;">GP</div>
-        <div class="name">GoPay</div>
-      </div>
-      <div class="pay-item">
-        <div class="tag"><span class="promo">Promo</span></div>
-        <div class="pay-icon" style="background:#118EEA;">DN</div>
-        <div class="name">DANA</div>
-      </div>
-      <div class="pay-item">
-        <div class="tag"><span class="promo">Promo</span></div>
-        <div class="pay-icon" style="background:#D2232A;">ID</div>
-        <div class="name">Indomaret</div>
-      </div>
-      <div class="pay-item">
-        <div class="tag"><span class="promo">Promo</span></div>
-        <div class="pay-icon" style="background:#2A2D34;">💳</div>
-        <div class="name">Kartu Debit &amp; Kredit</div>
-      </div>
-      <div class="pay-item">
-        <div class="tag"><span class="promo">Promo</span></div>
-        <div class="pay-icon" style="background:#34507A;">VA</div>
-        <div class="name">Virtual Account / Transfer</div>
-      </div>
-      <div class="pay-item">
-        <div class="pay-icon" style="background:#E2191F;">TS</div>
-        <div class="name">Telkomsel</div>
-      </div>
-      <div class="pay-item">
-        <div class="pay-icon" style="background:#0B5ED7;">XL</div>
-        <div class="name">XL</div>
-      </div>
-      <div class="pay-item">
-        <div class="pay-icon" style="background:#1B1B1B;">3</div>
-        <div class="name">Tri</div>
-      </div>
-      <div class="pay-item">
-        <div class="pay-icon" style="background:#D2232A;">AF</div>
-        <div class="name">Alfamart</div>
-      </div>
-      <div class="pay-item">
-        <div class="pay-icon" style="background:#2A2D34;">ATM</div>
-        <div class="name">ATM Transfer</div>
-      </div>
-    </div>
-  </div>
+<h1>Top Up Game Cepat & Otomatis</h1>
 
-  <footer>
-    <div class="copy">© AryaTopup. Seluruh hak dilindungi.</div>
-    <div class="links">
-      <a href="#">FAQ</a>
-      <a href="#">Pusat Bantuan</a>
-      <a href="#">Syarat dan Ketentuan</a>
-      <a href="#">Kebijakan Privasi</a>
-    </div>
-  </footer>
+<p>
+24 Jam • Harga Murah • Proses Instan
+</p>
 
-  <div class="sticky-cta">
-    <div>
-      <div class="total-label">Total Bayar</div>
-      <div class="total-amt">Rp9.000</div>
-    </div>
-    <button>Lanjut Bayar</button>
-  </div>
+<button>
+Top Up Sekarang
+</button>
 
-<script>
-  document.querySelectorAll('.game-item').forEach(el=>{
-    el.addEventListener('click',()=>{
-      document.querySelectorAll('.game-item').forEach(g=>g.classList.remove('active'));
-      el.classList.add('active');
-    });
-  });
-  document.querySelectorAll('.nominal-item').forEach(el=>{
-    el.addEventListener('click',()=>{
-      document.querySelectorAll('.nominal-item').forEach(g=>g.classList.remove('active'));
-      el.classList.add('active');
-    });
-  });
-  document.querySelectorAll('.pay-item').forEach(el=>{
-    el.addEventListener('click',()=>{
-      document.querySelectorAll('.pay-item').forEach(g=>g.classList.remove('active'));
-      el.classList.add('active');
-    });
-  });
-  document.querySelectorAll('.tab').forEach(el=>{
-    el.addEventListener('click',()=>{
-      document.querySelectorAll('.tab').forEach(g=>g.classList.remove('active'));
-      el.classList.add('active');
-    });
-  });
-</script>
+</section>
+
+<section class="section">
+
+<h2 class="title">
+Game Populer
+</h2>
+
+<div class="grid">
+
+<div class="card">
+<img src="https://cdn-icons-png.flaticon.com/512/5968/5968705.png">
+<h3>Mobile Legends</h3>
+<p>Diamond ML</p>
+<button class="buy">Beli Sekarang</button>
+</div>
+
+<div class="card">
+<img src="https://cdn-icons-png.flaticon.com/512/5968/5968705.png">
+<h3>Free Fire</h3>
+<p>Diamond FF</p>
+<button class="buy">Beli Sekarang</button>
+</div>
+
+<div class="card">
+<img src="https://cdn-icons-png.flaticon.com/512/5968/5968705.png">
+<h3>PUBG Mobile</h3>
+<p>UC PUBG</p>
+<button class="buy">Beli Sekarang</button>
+</div>
+
+<div class="card">
+<img src="https://cdn-icons-png.flaticon.com/512/5968/5968705.png">
+<h3>Honor Of Kings</h3>
+<p>Token HOK</p>
+<button class="buy">Beli Sekarang</button>
+</div>
+
+</div>
+
+</section>
+
+<footer>
+
+© 2026 XYROOO TOPUP
+<br>
+Website Top Up Game Premium
+
+</footer>
 
 </body>
 </html>
