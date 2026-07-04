@@ -3,666 +3,643 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Selamat Malam</title>
+<title>Verifa — Nomor Virtual & OTP Instan</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
-  @import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@400;500;600;700&family=Cormorant+Garamond:ital,wght@0,400;0,500;1,400&display=swap');
-
   :root{
-    --sky-deep: #0b1330;
-    --sky-mid: #16204a;
-    --sky-glow: #2b3a72;
-    --moon: #fdf3d8;
-    --moon-soft: #f3e6b8;
-    --star: #fdf6e3;
-    --cream: #f3ecdd;
-    --blush: #d9a5a0;
-    --blush-soft: #e6c2bd;
-    --bear: #a97a56;
-    --bear-dark: #8a5f42;
-    --bear-light: #c99b74;
-    --blanket: #6b5a8e;
-    --blanket-dark: #55467a;
+    --bg: #0A0C10;
+    --bg-soft: #10131A;
+    --card: #141822;
+    --card-border: #232838;
+    --text: #ECEEF2;
+    --muted: #8B93A6;
+    --muted-2: #5B6274;
+    --amber: #F5A93B;
+    --amber-soft: rgba(245,169,59,0.12);
+    --teal: #33D6B8;
+    --teal-soft: rgba(51,214,184,0.12);
+    --danger: #E5646B;
+    --radius: 14px;
   }
-
-  *{ margin:0; padding:0; box-sizing:border-box; }
-
-  html,body{
-    height:100%;
-    background: radial-gradient(ellipse at 50% 0%, var(--sky-glow) 0%, var(--sky-mid) 45%, var(--sky-deep) 100%);
+  *{box-sizing:border-box;margin:0;padding:0;}
+  html{scroll-behavior:smooth;}
+  body{
+    background:var(--bg);
+    color:var(--text);
+    font-family:'Inter',sans-serif;
+    -webkit-font-smoothing:antialiased;
     overflow-x:hidden;
-    font-family:'Quicksand', sans-serif;
   }
+  h1,h2,h3,.display{font-family:'Space Grotesk',sans-serif;}
+  .mono{font-family:'JetBrains Mono',monospace;}
+  a{color:inherit;text-decoration:none;}
+  .wrap{max-width:1120px;margin:0 auto;padding:0 24px;}
+  ::selection{background:var(--amber);color:#0A0C10;}
 
-  .stage{
-    position:relative;
-    min-height:100vh;
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    overflow:hidden;
-    padding: 40px 20px;
-  }
-
-  /* ---------- STARFIELD ---------- */
-  .stars, .stars2, .stars3{
-    position:absolute;
-    top:0; left:0; width:100%; height:100%;
-    background-repeat:repeat;
-    pointer-events:none;
-  }
-  .stars{ background-image: radial-gradient(1.5px 1.5px at var(--x1,20px) var(--y1,30px), var(--star), transparent); }
-
-  .twinkle-layer{
-    position:absolute;
-    inset:0;
-    pointer-events:none;
-  }
-  .tw{
-    position:absolute;
-    background:var(--star);
-    border-radius:50%;
-    animation:twinkle 3.2s ease-in-out infinite;
-    box-shadow:0 0 4px rgba(253,246,227,0.8);
-  }
-  @keyframes twinkle{
-    0%,100%{ opacity:.25; transform:scale(0.8); }
-    50%{ opacity:1; transform:scale(1.15); }
-  }
-
-  /* ---------- SHOOTING STARS ---------- */
-  .shooting-star{
-    position:absolute;
-    width:2px;
-    height:2px;
-    background:linear-gradient(-45deg, rgba(255,255,255,1), rgba(255,255,255,0));
-    border-radius:50%;
-    filter: drop-shadow(0 0 6px #fff);
-    opacity:0;
-    animation:shoot 4.5s linear infinite;
-  }
-  .shooting-star::before{
-    content:"";
-    position:absolute;
-    top:50%;
-    left:0;
-    width:110px;
-    height:1px;
-    background:linear-gradient(90deg, rgba(255,255,255,0.9), transparent);
-    transform:translateY(-50%) rotate(180deg);
-    transform-origin:left center;
-  }
-  @keyframes shoot{
-    0%{ opacity:0; transform: translate(0,0) rotate(215deg); }
-    3%{ opacity:1; }
-    18%{ opacity:0; transform: translate(-420px, 300px) rotate(215deg); }
-    100%{ opacity:0; }
-  }
-
-  /* ---------- MOON ---------- */
-  .moon{
-    position:absolute;
-    top:8%;
-    right:10%;
-    width:90px;
-    height:90px;
-    border-radius:50%;
-    background: radial-gradient(circle at 35% 30%, #fffdf3 0%, var(--moon) 55%, var(--moon-soft) 100%);
-    box-shadow: 0 0 60px 18px rgba(253,243,216,0.35), 0 0 120px 40px rgba(253,243,216,0.12);
-    animation: floaty 7s ease-in-out infinite;
-  }
-  .moon::after{
-    content:"";
-    position:absolute;
-    width:18px; height:18px;
-    background:rgba(220,200,150,0.35);
-    border-radius:50%;
-    top:22px; left:16px;
-    box-shadow: 30px 20px 0 -4px rgba(220,200,150,0.28), 12px 42px 0 -6px rgba(220,200,150,0.22);
-  }
-
-  @keyframes floaty{
-    0%,100%{ transform:translateY(0); }
-    50%{ transform:translateY(-14px); }
-  }
-
-  /* ---------- CARD ---------- */
-  .card{
-    position:relative;
-    z-index:3;
-    display:flex;
-    flex-direction:column;
-    align-items:center;
-    text-align:center;
-    max-width:520px;
-    width:100%;
-  }
-
-  .eyebrow{
-    font-family:'Cormorant Garamond', serif;
-    font-style:italic;
-    font-size:1.05rem;
-    letter-spacing:0.12em;
-    color:var(--blush-soft);
-    opacity:0.85;
-    margin-bottom:6px;
-  }
-
-  h1{
-    font-family:'Quicksand', sans-serif;
-    font-weight:700;
-    font-size:clamp(2.1rem, 6vw, 3.1rem);
-    color:var(--cream);
-    line-height:1.15;
-    text-shadow: 0 0 30px rgba(217,165,160,0.25);
-  }
-
-  h1 span{
-    display:block;
-    font-family:'Cormorant Garamond', serif;
-    font-style:italic;
-    font-weight:500;
-    font-size:0.55em;
-    color:var(--blush);
-    margin-top:6px;
-  }
-
-  .message{
-    margin-top:22px;
-    color:var(--cream);
-    opacity:0.9;
-    font-size:1.05rem;
-    line-height:1.85;
-    font-weight:500;
-    max-width:420px;
-  }
-
-  .divider{
-    width:64px;
-    height:1px;
-    background:linear-gradient(90deg, transparent, var(--blush-soft), transparent);
-    margin:26px auto;
-    opacity:0.6;
-  }
-
-  /* ---------- SCENE: BEAR + BLANKET ---------- */
-  .scene{
-    position:relative;
-    width:260px;
-    height:230px;
-    margin-top:14px;
-  }
-
-  .cushion{
-    position:absolute;
-    bottom:0;
-    left:50%;
-    transform:translateX(-50%);
-    width:220px;
-    height:70px;
-    background: radial-gradient(ellipse at center, rgba(255,255,255,0.06), transparent 70%);
-    border-radius:50%;
-    filter: blur(2px);
-  }
-
-  .bear{
-    position:absolute;
-    bottom:26px;
-    left:50%;
-    transform:translateX(-50%);
-    width:170px;
-    height:180px;
-    animation: breathe 4.2s ease-in-out infinite;
-  }
-  @keyframes breathe{
-    0%,100%{ transform:translateX(-50%) translateY(0); }
-    50%{ transform:translateX(-50%) translateY(-5px); }
-  }
-
-  .ear{
-    position:absolute;
-    width:38px; height:38px;
-    background:var(--bear);
-    border-radius:50%;
-    top:-8px;
-  }
-  .ear::after{
-    content:"";
-    position:absolute;
-    width:18px; height:18px;
-    background:var(--bear-light);
-    border-radius:50%;
-    top:10px; left:10px;
-  }
-  .ear.left{ left:2px; }
-  .ear.right{ right:2px; }
-
-  .head{
-    position:absolute;
-    top:6px;
-    left:50%;
-    transform:translateX(-50%);
-    width:112px;
-    height:104px;
-    background: radial-gradient(circle at 35% 30%, var(--bear-light), var(--bear) 75%);
-    border-radius:50% 50% 46% 46%;
-    z-index:2;
-  }
-
-  .muzzle{
-    position:absolute;
-    bottom:18px;
-    left:50%;
-    transform:translateX(-50%);
-    width:52px;
-    height:38px;
-    background:var(--bear-light);
-    border-radius:50%;
-  }
-  .nose{
-    position:absolute;
-    top:6px;
-    left:50%;
-    transform:translateX(-50%);
-    width:14px;
-    height:10px;
-    background:var(--bear-dark);
-    border-radius:50%;
-  }
-
-  .eye{
-    position:absolute;
-    top:44px;
-    width:7px;
-    height:9px;
-    background:#2a1d16;
-    border-radius:50%;
-    animation: blink 5.5s ease-in-out infinite;
-  }
-  .eye.left{ left:32px; }
-  .eye.right{ right:32px; }
-  @keyframes blink{
-    0%,92%,100%{ transform:scaleY(1); }
-    95%{ transform:scaleY(0.1); }
-  }
-
-  .blush-cheek{
-    position:absolute;
-    top:58px;
-    width:14px;
-    height:9px;
-    background:var(--blush-soft);
-    border-radius:50%;
-    opacity:0.55;
-  }
-  .blush-cheek.left{ left:18px; }
-  .blush-cheek.right{ right:18px; }
-
-  .body{
-    position:absolute;
-    bottom:0;
-    left:50%;
-    transform:translateX(-50%);
-    width:150px;
-    height:110px;
-    background: radial-gradient(circle at 35% 25%, var(--bear-light), var(--bear) 80%);
-    border-radius:55% 55% 40% 40%;
-    z-index:1;
-  }
-
-  .tummy{
-    position:absolute;
-    bottom:8px;
-    left:50%;
-    transform:translateX(-50%);
-    width:70px;
-    height:60px;
-    background:var(--bear-light);
-    border-radius:50%;
-    opacity:0.9;
-  }
-
-  .arm{
-    position:absolute;
-    bottom:24px;
-    width:34px;
-    height:52px;
-    background:var(--bear);
-    border-radius:40px;
-    z-index:0;
-  }
-  .arm.left{ left:-6px; transform:rotate(18deg); }
-  .arm.right{ right:-6px; transform:rotate(-18deg); }
-
-  .blanket{
-    position:absolute;
-    bottom:-6px;
-    left:50%;
-    transform:translateX(-50%);
-    width:196px;
-    height:64px;
-    background: linear-gradient(180deg, var(--blanket) 0%, var(--blanket-dark) 100%);
-    border-radius:16px 16px 40px 40px / 16px 16px 30px 30px;
-    z-index:3;
-  }
-  .blanket::before{
-    content:"";
-    position:absolute;
-    top:6px;
-    left:10px;
-    right:10px;
-    height:1px;
-    background:rgba(255,255,255,0.15);
-  }
-  .stitch{
-    position:absolute;
-    top:16px;
-    width:6px;
-    height:6px;
-    border:1px solid rgba(255,255,255,0.25);
-    border-radius:50%;
-  }
-
-  .zzz{
-    position:absolute;
-    top:-6px;
-    right:26px;
-    font-family:'Quicksand', sans-serif;
-    font-weight:700;
-    color:var(--cream);
-    opacity:0.8;
-  }
-  .zzz span{
-    position:absolute;
-    animation: floatUp 3.6s ease-in infinite;
-    opacity:0;
-  }
-  .zzz span:nth-child(1){ font-size:12px; animation-delay:0s; left:0; }
-  .zzz span:nth-child(2){ font-size:16px; animation-delay:1.1s; left:10px; }
-  .zzz span:nth-child(3){ font-size:20px; animation-delay:2.2s; left:20px; }
-  @keyframes floatUp{
-    0%{ transform:translateY(0) translateX(0); opacity:0; }
-    15%{ opacity:0.9; }
-    100%{ transform:translateY(-46px) translateX(14px); opacity:0; }
-  }
-
-  .signature{
-    margin-top:30px;
-    font-family:'Cormorant Garamond', serif;
-    font-style:italic;
-    font-size:1.15rem;
-    color:var(--blush-soft);
-    opacity:0.9;
-  }
-
-  @media (max-width:420px){
-    .scene{ transform:scale(0.85); margin-top:0; }
-    h1{ font-size:1.85rem; }
-  }
+  /* focus visibility */
+  a:focus-visible, button:focus-visible{outline:2px solid var(--amber);outline-offset:3px;border-radius:6px;}
 
   @media (prefers-reduced-motion: reduce){
-    *{ animation:none !important; }
+    *{animation-duration:0.01ms !important; animation-iteration-count:1 !important; transition-duration:0.01ms !important;}
   }
 
-  /* ---------- MUSIC ---------- */
-  .yt-hidden{
-    position:absolute;
-    width:1px; height:1px;
-    overflow:hidden;
-    opacity:0;
+  /* NAV */
+  header{
+    position:sticky;top:0;z-index:50;
+    background:rgba(10,12,16,0.82);
+    backdrop-filter:blur(10px);
+    border-bottom:1px solid var(--card-border);
+  }
+  nav{display:flex;align-items:center;justify-content:space-between;padding:16px 0;}
+  .logo{display:flex;align-items:center;gap:9px;font-weight:700;font-size:19px;letter-spacing:-0.02em;}
+  .logo-mark{
+    width:30px;height:30px;border-radius:8px;
+    background:linear-gradient(145deg,var(--amber),#D9871E);
+    display:flex;align-items:center;justify-content:center;
+    color:#0A0C10;font-family:'JetBrains Mono',monospace;font-weight:700;font-size:13px;
+  }
+  .nav-links{display:flex;gap:32px;align-items:center;}
+  .nav-links a{color:var(--muted);font-size:14.5px;font-weight:500;transition:color .15s;}
+  .nav-links a:hover{color:var(--text);}
+  .nav-cta{display:flex;gap:10px;align-items:center;}
+  .btn{
+    display:inline-flex;align-items:center;justify-content:center;gap:8px;
+    padding:10px 18px;border-radius:9px;font-size:14.5px;font-weight:600;
+    border:1px solid transparent;cursor:pointer;transition:all .15s ease;white-space:nowrap;
+  }
+  .btn-ghost{background:transparent;border-color:var(--card-border);color:var(--text);}
+  .btn-ghost:hover{border-color:var(--muted-2);}
+  .btn-primary{background:var(--amber);color:#241704;}
+  .btn-primary:hover{background:#FFBD5C;}
+  .btn-outline-light{background:transparent;border-color:rgba(255,255,255,0.35);color:#fff;}
+  .btn-outline-light:hover{border-color:#fff;}
+  .btn-sm{padding:8px 14px;font-size:13.5px;}
+  .hide-mobile{display:none;}
+  @media(min-width:860px){.hide-mobile{display:flex;}}
+
+  /* HERO */
+  .hero{padding:76px 0 40px;position:relative;}
+  .eyebrow{
+    display:inline-flex;align-items:center;gap:8px;
+    background:var(--teal-soft);border:1px solid rgba(51,214,184,0.3);
+    color:var(--teal);font-size:12.5px;font-weight:600;
+    padding:6px 12px;border-radius:100px;margin-bottom:22px;
+  }
+  .eyebrow .dot{width:6px;height:6px;border-radius:50%;background:var(--teal);animation:pulse 2s infinite;}
+  @keyframes pulse{0%,100%{opacity:1;}50%{opacity:.35;}}
+
+  .hero-grid{display:grid;grid-template-columns:1fr;gap:48px;align-items:center;}
+  @media(min-width:960px){.hero-grid{grid-template-columns:1.05fr 0.95fr;gap:40px;}}
+
+  .hero h1{
+    font-size:clamp(34px,5.4vw,54px);
+    line-height:1.06;font-weight:700;letter-spacing:-0.025em;
+    margin-bottom:20px;
+  }
+  .hero h1 .accent{color:var(--amber);}
+  .hero p.lede{color:var(--muted);font-size:17px;line-height:1.6;max-width:480px;margin-bottom:30px;}
+  .hero-actions{display:flex;gap:12px;flex-wrap:wrap;margin-bottom:36px;}
+  .btn-lg{padding:13px 24px;font-size:15px;}
+
+  .trust-row{display:flex;gap:28px;flex-wrap:wrap;}
+  .trust-item{display:flex;flex-direction:column;gap:2px;}
+  .trust-item .num{font-family:'JetBrains Mono',monospace;font-weight:700;font-size:20px;color:var(--text);}
+  .trust-item .lbl{font-size:12.5px;color:var(--muted-2);}
+
+  /* SIGNATURE: phone OTP stream mock */
+  .device{
+    position:relative;background:var(--card);
+    border:1px solid var(--card-border);border-radius:22px;
+    padding:20px;max-width:360px;margin:0 auto;
+    box-shadow:0 30px 80px -20px rgba(0,0,0,0.6);
+  }
+  .device::before{
+    content:'';position:absolute;inset:-1px;border-radius:22px;
+    background:radial-gradient(120% 100% at 0% 0%, rgba(245,169,59,0.18), transparent 55%);
     pointer-events:none;
   }
-
-  .music-gate{
-    position:fixed;
-    inset:0;
-    z-index:50;
-    background:rgba(11,19,48,0.88);
-    backdrop-filter: blur(3px);
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    cursor:pointer;
-    animation: fadeIn 0.6s ease;
-    transition: opacity 0.5s ease;
+  .device-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:16px;}
+  .device-head .app{display:flex;align-items:center;gap:8px;font-size:13px;font-weight:600;color:var(--muted);}
+  .status-chip{
+    display:flex;align-items:center;gap:6px;font-size:11px;color:var(--teal);
+    background:var(--teal-soft);padding:4px 9px;border-radius:100px;font-weight:600;
   }
-  .music-gate.hide{
-    opacity:0;
-    pointer-events:none;
+  .stream{display:flex;flex-direction:column;gap:10px;min-height:280px;}
+  .otp-card{
+    background:var(--bg-soft);border:1px solid var(--card-border);border-radius:12px;
+    padding:14px 16px;display:flex;align-items:center;justify-content:space-between;
+    opacity:0;transform:translateY(10px);animation:slideIn .5s ease forwards;
   }
-  @keyframes fadeIn{ from{ opacity:0; } to{ opacity:1; } }
-
-  .music-gate-inner{
-    text-align:center;
-    color:var(--cream);
-    font-family:'Quicksand', sans-serif;
+  @keyframes slideIn{to{opacity:1;transform:translateY(0);}}
+  .otp-card .left{display:flex;align-items:center;gap:11px;}
+  .otp-card .svc-icon{
+    width:34px;height:34px;border-radius:9px;display:flex;align-items:center;justify-content:center;
+    font-size:14px;font-weight:700;color:#fff;flex-shrink:0;
   }
-  .music-gate-inner .note-icon{
-    font-size:2.6rem;
-    color:var(--blush-soft);
-    margin-bottom:10px;
-    animation: pulseNote 1.8s ease-in-out infinite;
+  .otp-card .meta .name{font-size:13.5px;font-weight:600;}
+  .otp-card .meta .num{font-size:11.5px;color:var(--muted-2);font-family:'JetBrains Mono',monospace;}
+  .otp-card .code{
+    font-family:'JetBrains Mono',monospace;font-weight:700;font-size:17px;
+    letter-spacing:0.06em;color:var(--amber);
   }
-  @keyframes pulseNote{
-    0%,100%{ transform:scale(1); opacity:0.85; }
-    50%{ transform:scale(1.15); opacity:1; }
-  }
-  .music-gate-inner p{
-    font-size:0.95rem;
-    letter-spacing:0.04em;
-    opacity:0.85;
+  .device-foot{
+    margin-top:14px;padding-top:14px;border-top:1px dashed var(--card-border);
+    display:flex;justify-content:space-between;font-size:11.5px;color:var(--muted-2);
   }
 
-  .music-toggle{
-    position:fixed;
-    bottom:22px;
-    right:22px;
-    z-index:40;
-    width:50px;
-    height:50px;
-    border-radius:50%;
-    border:1px solid rgba(243,236,221,0.3);
-    background:rgba(22,32,74,0.7);
-    backdrop-filter: blur(6px);
-    color:var(--cream);
-    font-size:1.3rem;
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    cursor:pointer;
-    box-shadow: 0 4px 18px rgba(0,0,0,0.35);
-    transition: transform 0.25s ease, background 0.25s ease;
+  /* TICKER */
+  .ticker-wrap{
+    border-top:1px solid var(--card-border);border-bottom:1px solid var(--card-border);
+    background:var(--bg-soft);overflow:hidden;padding:14px 0;
   }
-  .music-toggle:hover{ transform:scale(1.08); }
-  .music-toggle.playing #musicIcon{
-    animation: spinNote 3s linear infinite;
+  .ticker{display:flex;gap:40px;white-space:nowrap;animation:tick 26s linear infinite;width:max-content;}
+  @keyframes tick{from{transform:translateX(0);}to{transform:translateX(-50%);}}
+  .ticker span{font-size:13.5px;color:var(--muted);display:flex;align-items:center;gap:8px;}
+  .ticker span b{color:var(--text);font-weight:600;}
+  .ticker span .price{font-family:'JetBrains Mono',monospace;color:var(--teal);}
+
+  /* SECTION HEADS */
+  .section{padding:88px 0;}
+  .section-head{max-width:600px;margin-bottom:52px;}
+  .section-head.center{margin-left:auto;margin-right:auto;text-align:center;}
+  .tag{
+    display:inline-block;font-size:12px;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;
+    color:var(--amber);background:var(--amber-soft);padding:5px 11px;border-radius:6px;margin-bottom:16px;
   }
-  @keyframes spinNote{
-    from{ transform:rotate(0deg); }
-    to{ transform:rotate(360deg); }
+  .section-head h2{font-size:clamp(26px,3.6vw,38px);font-weight:700;letter-spacing:-0.02em;line-height:1.15;margin-bottom:14px;}
+  .section-head p{color:var(--muted);font-size:16px;line-height:1.6;}
+
+  /* FEATURES */
+  .feat-grid{display:grid;grid-template-columns:1fr;gap:16px;}
+  @media(min-width:700px){.feat-grid{grid-template-columns:repeat(2,1fr);}}
+  @media(min-width:1000px){.feat-grid{grid-template-columns:repeat(3,1fr);}}
+  .feat-card{
+    background:var(--card);border:1px solid var(--card-border);border-radius:var(--radius);
+    padding:26px;transition:border-color .2s, transform .2s;
   }
+  .feat-card:hover{border-color:var(--muted-2);transform:translateY(-2px);}
+  .feat-icon{
+    width:42px;height:42px;border-radius:10px;display:flex;align-items:center;justify-content:center;
+    font-size:19px;margin-bottom:16px;
+  }
+  .feat-card h3{font-size:17px;font-weight:600;margin-bottom:8px;}
+  .feat-card p{color:var(--muted);font-size:14.5px;line-height:1.55;}
+
+  /* HOW IT WORKS */
+  .steps{display:grid;grid-template-columns:1fr;gap:0;}
+  @media(min-width:800px){.steps{grid-template-columns:repeat(4,1fr);gap:20px;}}
+  .step{position:relative;padding:24px 0;border-bottom:1px solid var(--card-border);}
+  @media(min-width:800px){.step{border-bottom:none;border-left:2px solid var(--card-border);padding:4px 0 4px 22px;}}
+  .step .idx{font-family:'JetBrains Mono',monospace;color:var(--muted-2);font-size:13px;margin-bottom:10px;}
+  .step h4{font-size:16px;font-weight:600;margin-bottom:8px;}
+  .step p{color:var(--muted);font-size:14px;line-height:1.55;}
+
+  /* PRICING */
+  .pricing-grid{display:grid;grid-template-columns:1fr;gap:20px;}
+  @media(min-width:860px){.pricing-grid{grid-template-columns:repeat(3,1fr);}}
+  .plan{
+    background:var(--card);border:1px solid var(--card-border);border-radius:var(--radius);
+    padding:30px 26px;display:flex;flex-direction:column;position:relative;
+  }
+  .plan.featured{border-color:var(--amber);background:linear-gradient(180deg,rgba(245,169,59,0.06),var(--card) 40%);}
+  .plan-badge{
+    position:absolute;top:-12px;right:24px;background:var(--amber);color:#241704;
+    font-size:11px;font-weight:700;padding:4px 10px;border-radius:100px;
+  }
+  .plan .kicker{font-size:12px;color:var(--muted-2);text-transform:uppercase;letter-spacing:0.06em;font-weight:600;margin-bottom:10px;}
+  .plan h3{font-size:20px;font-weight:700;margin-bottom:4px;}
+  .plan .desc{color:var(--muted);font-size:13.5px;margin-bottom:20px;}
+  .plan .price{font-family:'JetBrains Mono',monospace;font-weight:700;font-size:34px;margin-bottom:2px;}
+  .plan .price small{font-size:14px;color:var(--muted);font-weight:500;}
+  .plan .per{color:var(--muted-2);font-size:13px;margin-bottom:22px;}
+  .plan ul{list-style:none;display:flex;flex-direction:column;gap:11px;margin-bottom:26px;flex:1;}
+  .plan li{display:flex;align-items:flex-start;gap:9px;font-size:14px;color:var(--text);}
+  .plan li.off{color:var(--muted-2);text-decoration:line-through;}
+  .plan li .ck{color:var(--teal);flex-shrink:0;margin-top:1px;}
+  .plan li.off .ck{color:var(--muted-2);}
+
+  /* TESTIMONIALS */
+  .test-grid{display:grid;grid-template-columns:1fr;gap:16px;}
+  @media(min-width:800px){.test-grid{grid-template-columns:repeat(3,1fr);}}
+  .test-card{background:var(--card);border:1px solid var(--card-border);border-radius:var(--radius);padding:24px;}
+  .stars{color:var(--amber);font-size:13px;letter-spacing:2px;margin-bottom:14px;}
+  .test-card p.quote{font-size:14.5px;line-height:1.6;color:var(--text);margin-bottom:20px;font-style:italic;}
+  .avatar-row{display:flex;align-items:center;gap:10px;}
+  .avatar{
+    width:36px;height:36px;border-radius:50%;display:flex;align-items:center;justify-content:center;
+    font-weight:700;font-size:14px;color:#fff;flex-shrink:0;
+  }
+  .avatar-row .name{font-size:13.5px;font-weight:600;}
+  .avatar-row .role{font-size:12px;color:var(--muted-2);}
+
+  /* LEADERBOARD */
+  .board-grid{display:grid;grid-template-columns:1fr;gap:16px;}
+  @media(min-width:800px){.board-grid{grid-template-columns:repeat(3,1fr);}}
+  .board-card{
+    background:var(--card);border:1px solid var(--card-border);border-radius:var(--radius);
+    padding:26px;text-align:center;position:relative;
+  }
+  .board-card.gold{border-color:rgba(245,169,59,0.5);}
+  .rank-medal{font-size:26px;margin-bottom:8px;}
+  .board-avatar{
+    width:52px;height:52px;border-radius:50%;margin:0 auto 12px;display:flex;align-items:center;justify-content:center;
+    font-weight:700;font-size:18px;color:#fff;
+  }
+  .board-card .uname{font-weight:600;font-size:15px;margin-bottom:8px;}
+  .board-card .stat{font-size:12.5px;color:var(--muted);display:flex;align-items:center;justify-content:center;gap:6px;margin-bottom:3px;}
+  .board-card .stat b{color:var(--teal);font-family:'JetBrains Mono',monospace;}
+
+  /* CTA */
+  .cta-band{
+    background:linear-gradient(135deg,#12321F,#0F2B23);
+    border:1px solid rgba(51,214,184,0.25);
+    border-radius:20px;padding:56px 40px;text-align:center;position:relative;overflow:hidden;
+  }
+  .cta-band::after{
+    content:'';position:absolute;inset:0;
+    background:radial-gradient(600px 200px at 50% 0%, rgba(51,214,184,0.18), transparent 70%);
+  }
+  .cta-band h2{font-size:clamp(24px,3.4vw,32px);font-weight:700;margin-bottom:12px;position:relative;}
+  .cta-band p{color:#B7C4C0;font-size:15.5px;margin-bottom:26px;position:relative;}
+  .cta-actions{display:flex;gap:12px;justify-content:center;flex-wrap:wrap;position:relative;}
+
+  /* FOOTER */
+  footer{border-top:1px solid var(--card-border);padding:56px 0 28px;background:var(--bg-soft);}
+  .foot-grid{display:grid;grid-template-columns:1fr;gap:36px;margin-bottom:40px;}
+  @media(min-width:760px){.foot-grid{grid-template-columns:1.4fr repeat(2,1fr);}}
+  .foot-brand p{color:var(--muted);font-size:13.5px;line-height:1.6;margin:14px 0 18px;max-width:280px;}
+  .social-row{display:flex;gap:10px;}
+  .social-row a{
+    width:34px;height:34px;border-radius:9px;border:1px solid var(--card-border);
+    display:flex;align-items:center;justify-content:center;font-size:14px;color:var(--muted);transition:.15s;
+  }
+  .social-row a:hover{border-color:var(--muted-2);color:var(--text);}
+  .foot-col h5{font-size:13px;font-weight:700;text-transform:uppercase;letter-spacing:0.05em;margin-bottom:16px;color:var(--muted);}
+  .foot-col a{display:block;color:var(--muted-2);font-size:14px;margin-bottom:11px;transition:.15s;}
+  .foot-col a:hover{color:var(--text);}
+  .foot-bottom{
+    border-top:1px solid var(--card-border);padding-top:22px;
+    display:flex;justify-content:space-between;flex-wrap:wrap;gap:10px;
+    font-size:12.5px;color:var(--muted-2);
+  }
+  .foot-status{display:flex;align-items:center;gap:6px;color:var(--teal);}
+  .foot-status .dot{width:6px;height:6px;border-radius:50%;background:var(--teal);}
+
+  @media(max-width:859px){.nav-links{display:none;}}
 </style>
 </head>
 <body>
 
-<div class="stage">
-  <div class="twinkle-layer" id="twinkleLayer"></div>
-  <div id="shootingStars"></div>
+<header>
+  <div class="wrap">
+    <nav>
+      <div class="logo"><div class="logo-mark">V</div>Verifa</div>
+      <div class="nav-links hide-mobile">
+        <a href="#fitur">Fitur</a>
+        <a href="#cara-kerja">Cara Kerja</a>
+        <a href="#docs">API Docs</a>
+        <a href="#harga">Harga</a>
+      </div>
+      <div class="nav-cta">
+        <a class="btn btn-ghost btn-sm hide-mobile" href="#">Masuk</a>
+        <a class="btn btn-primary btn-sm" href="#harga">Daftar Gratis</a>
+      </div>
+    </nav>
+  </div>
+</header>
 
-  <div class="moon"></div>
-
-  <div class="card">
-    <p class="eyebrow">untuk kamu, malam ini</p>
-    <h1>Selamat malam, cantik
-      <span>istirahat yang tenang ya</span>
-    </h1>
-
-    <div class="divider"></div>
-
-    <p class="message">
-      Semoga tidur malam ini membawa istirahat yang benar-benar cukup.
-      Tubuhmu sedang bekerja keras untuk pulih, jadi biarkan dulu semuanya melambat.
-      Minum obatnya, selimutan yang hangat, dan bangun besok dengan badan yang jauh lebih baik.
-      Cepat sembuh ya.
-    </p>
-
-    <div class="scene">
-      <div class="cushion"></div>
-      <div class="bear">
-        <div class="zzz">
-          <span>z</span><span>z</span><span>Z</span>
-        </div>
-        <div class="ear left"></div>
-        <div class="ear right"></div>
-        <div class="head">
-          <div class="eye left"></div>
-          <div class="eye right"></div>
-          <div class="blush-cheek left"></div>
-          <div class="blush-cheek right"></div>
-          <div class="muzzle"><div class="nose"></div></div>
-        </div>
-        <div class="arm left"></div>
-        <div class="arm right"></div>
-        <div class="body"><div class="tummy"></div></div>
-        <div class="blanket">
-          <div class="stitch" style="left:24px;"></div>
-          <div class="stitch" style="left:60px;"></div>
-          <div class="stitch" style="left:96px;"></div>
-          <div class="stitch" style="left:132px;"></div>
-          <div class="stitch" style="left:168px;"></div>
-        </div>
+<section class="hero">
+  <div class="wrap hero-grid">
+    <div>
+      <div class="eyebrow"><span class="dot"></span> Sistem online · Uptime 99.9%</div>
+      <h1>Nomor virtual, kode masuk <span class="accent">dalam hitungan detik.</span></h1>
+      <p class="lede">Sewa nomor virtual untuk verifikasi OTP di 1.700+ layanan. Sistem auto-cek, refund otomatis kalau gagal, dan API siap pakai untuk developer maupun reseller.</p>
+      <div class="hero-actions">
+        <a class="btn btn-primary btn-lg" href="#harga">Mulai Sekarang — Gratis</a>
+        <a class="btn btn-ghost btn-lg" href="#docs">Lihat API Docs</a>
+      </div>
+      <div class="trust-row">
+        <div class="trust-item"><span class="num">1.700+</span><span class="lbl">Layanan tersedia</span></div>
+        <div class="trust-item"><span class="num">50K+</span><span class="lbl">OTP berhasil</span></div>
+        <div class="trust-item"><span class="num">&lt;3s</span><span class="lbl">Rata-rata respons</span></div>
       </div>
     </div>
 
-    <p class="signature">tidur nyenyak, ya.</p>
-  </div>
-
-  <!-- tap-to-play overlay: browser tidak mengizinkan lagu bersuara otomatis tanpa sentuhan pertama -->
-  <div class="music-gate" id="musicGate">
-    <div class="music-gate-inner">
-      <div class="note-icon">♪</div>
-      <p>ketuk untuk memutar musik</p>
+    <div class="device">
+      <div class="device-head">
+        <div class="app">📥 Kotak Masuk OTP</div>
+        <div class="status-chip"><span class="dot" style="width:5px;height:5px;border-radius:50%;background:var(--teal);"></span>Live</div>
+      </div>
+      <div class="stream" id="stream"></div>
+      <div class="device-foot">
+        <span>Auto-cek tiap 10 detik</span>
+        <span class="mono">#VF-2291</span>
+      </div>
     </div>
   </div>
+</section>
 
-  <button class="music-toggle" id="musicToggle" title="mute / unmute musik">
-    <span id="musicIcon">♪</span>
-  </button>
-
-  <div id="ytPlayer" class="yt-hidden"></div>
+<div class="ticker-wrap">
+  <div class="wrap" style="overflow:hidden;">
+    <div class="ticker" id="tickerEl"></div>
+  </div>
 </div>
 
+<section class="section" id="fitur">
+  <div class="wrap">
+    <div class="section-head center">
+      <div class="tag">Kenapa Verifa</div>
+      <h2>Dibangun untuk kecepatan dan kepastian</h2>
+      <p>Setiap bagian dirancang supaya OTP-mu masuk tepat waktu — tanpa drama, tanpa nomor mati.</p>
+    </div>
+    <div class="feat-grid">
+      <div class="feat-card">
+        <div class="feat-icon" style="background:var(--amber-soft);">⚡</div>
+        <h3>Instan &amp; otomatis</h3>
+        <p>OTP masuk dalam hitungan detik lewat sistem auto-cek — tidak perlu refresh manual.</p>
+      </div>
+      <div class="feat-card">
+        <div class="feat-icon" style="background:rgba(122,140,255,0.14);">🗂️</div>
+        <h3>1.700+ layanan</h3>
+        <p>Dari aplikasi chat, media sosial, hingga marketplace lokal. Satu platform untuk semua kebutuhan verifikasi.</p>
+      </div>
+      <div class="feat-card">
+        <div class="feat-icon" style="background:var(--teal-soft);">⌘</div>
+        <h3>API developer-friendly</h3>
+        <p>REST API dengan dokumentasi lengkap. Integrasi ke sistem apa pun selesai dalam menit.</p>
+      </div>
+      <div class="feat-card">
+        <div class="feat-icon" style="background:rgba(229,100,107,0.14);">🛡️</div>
+        <h3>Garansi refund</h3>
+        <p>Kode tidak masuk? Saldo kembali otomatis. Tidak ada risiko, tidak ada kerugian.</p>
+      </div>
+      <div class="feat-card">
+        <div class="feat-icon" style="background:var(--amber-soft);">🏦</div>
+        <h3>Deposit QRIS</h3>
+        <p>Top up saldo lewat QRIS dari semua bank dan e-wallet. Proses masuk kurang dari 30 detik.</p>
+      </div>
+      <div class="feat-card">
+        <div class="feat-icon" style="background:rgba(122,140,255,0.14);">🌐</div>
+        <h3>Multi-negara</h3>
+        <p>Pilih nomor dari puluhan negara — Indonesia, AS, Inggris, dan lainnya sesuai kebutuhan.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="cara-kerja" style="background:var(--bg-soft);">
+  <div class="wrap">
+    <div class="section-head">
+      <div class="tag">Cara Kerja</div>
+      <h2>Order sampai OTP masuk, 4 langkah</h2>
+      <p>Seluruh proses berjalan otomatis dari awal sampai akhir — tanpa langkah manual di tengah jalan.</p>
+    </div>
+    <div class="steps">
+      <div class="step">
+        <div class="idx">01 / Layanan</div>
+        <h4>Pilih layanan &amp; negara</h4>
+        <p>Cari dari 1.700+ layanan dan pilih negara asal nomor yang kamu butuhkan.</p>
+      </div>
+      <div class="step">
+        <div class="idx">02 / Provider</div>
+        <h4>Bandingkan &amp; konfirmasi</h4>
+        <p>Lihat harga dari beberapa provider nomor, pilih yang paling sesuai budget.</p>
+      </div>
+      <div class="step">
+        <div class="idx">03 / Verifikasi</div>
+        <h4>Pakai nomor di aplikasi target</h4>
+        <p>Masukkan nomor virtual ke kolom verifikasi, lalu tunggu kode dikirim.</p>
+      </div>
+      <div class="step">
+        <div class="idx">04 / Selesai</div>
+        <h4>Kode terdeteksi otomatis</h4>
+        <p>Sistem mengecek tiap 10 detik dan menampilkan kode langsung ke dashboard-mu.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="harga">
+  <div class="wrap">
+    <div class="section-head center">
+      <div class="tag">Harga Transparan</div>
+      <h2>Pilih paket yang sesuai kebutuhan</h2>
+      <p>Tidak ada biaya tersembunyi. Bayar hanya saat kamu benar-benar pakai.</p>
+    </div>
+    <div class="pricing-grid">
+      <div class="plan">
+        <span class="kicker">Starter</span>
+        <h3>Basic</h3>
+        <p class="desc">Untuk kebutuhan individu, bayar per pemakaian.</p>
+        <div class="price">Rp2K <small>/ OTP</small></div>
+        <div class="per">Tanpa biaya bulanan</div>
+        <ul>
+          <li><span class="ck">✓</span> 500+ layanan tersedia</li>
+          <li><span class="ck">✓</span> Auto-cek OTP</li>
+          <li><span class="ck">✓</span> Refund otomatis</li>
+          <li><span class="ck">✓</span> Deposit QRIS</li>
+          <li class="off"><span class="ck">✕</span> Akses API</li>
+          <li class="off"><span class="ck">✕</span> Priority support</li>
+        </ul>
+        <a class="btn btn-ghost" href="#">Mulai Gratis</a>
+      </div>
+      <div class="plan featured">
+        <span class="plan-badge">Populer</span>
+        <span class="kicker">Developer</span>
+        <h3>API Access</h3>
+        <p class="desc">Untuk developer &amp; reseller yang butuh integrasi penuh.</p>
+        <div class="price">Rp0 <small>/ bulan</small></div>
+        <div class="per">Bayar sesuai transaksi</div>
+        <ul>
+          <li><span class="ck">✓</span> 1.700+ layanan tersedia</li>
+          <li><span class="ck">✓</span> Akses penuh REST API</li>
+          <li><span class="ck">✓</span> Multi-negara support</li>
+          <li><span class="ck">✓</span> Refund otomatis</li>
+          <li><span class="ck">✓</span> Webhook real-time</li>
+          <li><span class="ck">✓</span> Priority support</li>
+        </ul>
+        <a class="btn btn-primary" href="#">Daftar Sekarang</a>
+      </div>
+      <div class="plan">
+        <span class="kicker">Business</span>
+        <h3>Reseller</h3>
+        <p class="desc">Markup harga sendiri dan jual langsung ke user-mu.</p>
+        <div class="price">Rp0 <small>/ setup</small></div>
+        <div class="per">Gratis, tanpa kontrak</div>
+        <ul>
+          <li><span class="ck">✓</span> Semua fitur Developer</li>
+          <li><span class="ck">✓</span> Custom markup harga</li>
+          <li><span class="ck">✓</span> Dashboard reseller</li>
+          <li><span class="ck">✓</span> Branding sendiri</li>
+          <li><span class="ck">✓</span> Dedicated support</li>
+        </ul>
+        <a class="btn btn-ghost" href="#">Hubungi Kami</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section" style="background:var(--bg-soft);">
+  <div class="wrap">
+    <div class="section-head center">
+      <div class="tag">Testimoni</div>
+      <h2>Dipercaya ribuan pengguna</h2>
+    </div>
+    <div class="test-grid">
+      <div class="test-card">
+        <div class="stars">★★★★★</div>
+        <p class="quote">Sudah pakai Verifa 6 bulan. OTP selalu masuk cepat, dan kalau gagal langsung direfund. Andalan buat reseller.</p>
+        <div class="avatar-row">
+          <div class="avatar" style="background:#D9871E;">R</div>
+          <div><div class="name">Rizal F.</div><div class="role">Reseller OTP, Surabaya</div></div>
+        </div>
+      </div>
+      <div class="test-card">
+        <div class="stars">★★★★★</div>
+        <p class="quote">API-nya rapi, dokumentasinya jelas. Integrasi ke bot Telegram saya cuma butuh waktu dua jam.</p>
+        <div class="avatar-row">
+          <div class="avatar" style="background:#5B6EF5;">A</div>
+          <div><div class="name">Andi P.</div><div class="role">Backend Developer, Jakarta</div></div>
+        </div>
+      </div>
+      <div class="test-card">
+        <div class="stars">★★★★☆</div>
+        <p class="quote">Respons timenya kencang, kode biasanya masuk di bawah 30 detik. Lebih stabil dari layanan lain yang pernah saya coba.</p>
+        <div class="avatar-row">
+          <div class="avatar" style="background:#7A57C9;">D</div>
+          <div><div class="name">Dina S.</div><div class="role">Digital Marketer, Bandung</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="wrap">
+    <div class="section-head center">
+      <div class="tag">Hall of Fame</div>
+      <h2>🏆 Top 3 pembeli terbanyak</h2>
+      <p>Berdasarkan jumlah order nomor sukses. Diperbarui otomatis tiap 5 menit.</p>
+    </div>
+    <div class="board-grid">
+      <div class="board-card">
+        <div class="rank-medal">🥈</div>
+        <div class="board-avatar" style="background:#5B6EF5;">ZA</div>
+        <div class="uname">zamz</div>
+        <div class="stat">📦 <b>14</b> order</div>
+        <div class="stat">💰 <b>Rp37.782</b></div>
+      </div>
+      <div class="board-card gold">
+        <div class="rank-medal">🥇</div>
+        <div class="board-avatar" style="background:var(--teal);">EN</div>
+        <div class="uname">endra</div>
+        <div class="stat">📦 <b>23</b> order</div>
+        <div class="stat">💰 <b>Rp100.687</b></div>
+      </div>
+      <div class="board-card">
+        <div class="rank-medal">🥉</div>
+        <div class="board-avatar" style="background:#D9871E;">XE</div>
+        <div class="uname">xenomz</div>
+        <div class="stat">📦 <b>13</b> order</div>
+        <div class="stat">💰 <b>Rp34.087</b></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section" style="padding-top:0;">
+  <div class="wrap">
+    <div class="cta-band">
+      <h2>Siap mulai order OTP lebih cepat &amp; mudah?</h2>
+      <p>Daftar gratis, tidak perlu kartu kredit. Order pertamamu selesai dalam hitungan menit.</p>
+      <div class="cta-actions">
+        <a class="btn btn-primary btn-lg" href="#">Daftar Gratis Sekarang</a>
+        <a class="btn btn-outline-light btn-lg" href="#docs">Baca Dokumentasi API</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <div class="foot-grid">
+      <div class="foot-brand">
+        <div class="logo"><div class="logo-mark">V</div>Verifa</div>
+        <p>Platform nomor virtual &amp; OTP terlengkap. Cepat, aman, dan terpercaya untuk semua kebutuhan verifikasi digital.</p>
+        <div class="social-row">
+          <a href="#" aria-label="Telegram">✈️</a>
+          <a href="#" aria-label="Instagram">📷</a>
+          <a href="#" aria-label="WhatsApp">💬</a>
+        </div>
+      </div>
+      <div class="foot-col">
+        <h5>Produk</h5>
+        <a href="#">Order OTP</a>
+        <a href="#">Deposit QRIS</a>
+        <a href="#">Dashboard</a>
+        <a href="#">Riwayat</a>
+      </div>
+      <div class="foot-col">
+        <h5>Developer &amp; Support</h5>
+        <a href="#">API Docs</a>
+        <a href="#">Quick Start</a>
+        <a href="#">Kebijakan Refund</a>
+        <a href="#">Hubungi Kami</a>
+      </div>
+    </div>
+    <div class="foot-bottom">
+      <span>© 2026 Verifa. Semua hak dilindungi.</span>
+      <span class="foot-status"><span class="dot"></span> All Systems Operational</span>
+    </div>
+  </div>
+</footer>
+
 <script>
-  // generate twinkling stars
-  const layer = document.getElementById('twinkleLayer');
-  const starCount = 90;
-  for(let i=0;i<starCount;i++){
-    const s = document.createElement('div');
-    s.className = 'tw';
-    const size = Math.random()*2 + 1;
-    s.style.width = size+'px';
-    s.style.height = size+'px';
-    s.style.top = Math.random()*100+'%';
-    s.style.left = Math.random()*100+'%';
-    s.style.animationDelay = (Math.random()*4)+'s';
-    s.style.animationDuration = (2.4 + Math.random()*2.4)+'s';
-    layer.appendChild(s);
-  }
-
-  // generate shooting stars at random intervals/positions
-  const shootLayer = document.getElementById('shootingStars');
-  function spawnShootingStar(){
-    const star = document.createElement('div');
-    star.className = 'shooting-star';
-    star.style.top = (Math.random()*40)+'%';
-    star.style.left = (40 + Math.random()*55)+'%';
-    star.style.animationDuration = (2.6 + Math.random()*2)+'s';
-    shootLayer.appendChild(star);
-    setTimeout(()=> star.remove(), 5000);
-  }
-  setInterval(spawnShootingStar, 2400);
-  spawnShootingStar();
-
-  // ---------- MUSIC: "Sempurna" - Andra and the Backbone ----------
-  const YT_VIDEO_ID = 'jStNaVCW838';
-  let ytPlayer = null;
-  let ytReady = false;
-
-  const tag = document.createElement('script');
-  tag.src = "https://www.youtube.com/iframe_api";
-  document.body.appendChild(tag);
-
-  window.onYouTubeIframeAPIReady = function(){
-    ytPlayer = new YT.Player('ytPlayer', {
-      height: '1',
-      width: '1',
-      videoId: YT_VIDEO_ID,
-      playerVars: {
-        autoplay: 1,
-        loop: 1,
-        playlist: YT_VIDEO_ID,
-        controls: 0,
-        playsinline: 1
-      },
-      events: {
-        onReady: (e) => {
-          ytReady = true;
-          e.target.mute();
-          e.target.playVideo();
-          // coba langsung bersuara; kalau browser memblokir, overlay "ketuk untuk memutar" tetap tampil
-          setTimeout(() => {
-            try{
-              e.target.unMute();
-              e.target.setVolume(70);
-              e.target.playVideo();
-              hideGate();
-              setPlayingUI(true);
-            }catch(err){}
-          }, 300);
-        },
-        onStateChange: (e) => {
-          if(e.data === YT.PlayerState.PLAYING){
-            setPlayingUI(true);
-          }
-        }
-      }
-    });
-  };
-
-  const gate = document.getElementById('musicGate');
-  const toggleBtn = document.getElementById('musicToggle');
-
-  function hideGate(){ gate.classList.add('hide'); }
-  function setPlayingUI(isPlaying){
-    toggleBtn.classList.toggle('playing', isPlaying);
-    document.getElementById('musicIcon').textContent = isPlaying ? '♪' : '♫';
-  }
-
-  function startMusic(){
-    if(ytReady && ytPlayer){
-      ytPlayer.unMute();
-      ytPlayer.setVolume(70);
-      ytPlayer.playVideo();
-      setPlayingUI(true);
+  const services = [
+    {name:'WhatsApp', num:'+62 812-xxxx-119', color:'#2FCB6E', letter:'W'},
+    {name:'Google', num:'+1 415-xxx-882', color:'#E5646B', letter:'G'},
+    {name:'Instagram', num:'+62 838-xxxx-041', color:'#C4548A', letter:'I'},
+    {name:'Telegram', num:'+44 7xxx-xxx-320', color:'#33A6D9', letter:'T'},
+    {name:'TikTok', num:'+62 895-xxxx-773', color:'#26232A', letter:'Tk'},
+    {name:'Facebook', num:'+1 202-xxx-556', color:'#5B6EF5', letter:'F'},
+  ];
+  const codes = ['482913','130456','905721','667208','341590','728064'];
+  const stream = document.getElementById('stream');
+  let i = 0;
+  function pushCard(){
+    const s = services[i % services.length];
+    const code = codes[i % codes.length];
+    const card = document.createElement('div');
+    card.className = 'otp-card';
+    card.innerHTML = `
+      <div class="left">
+        <div class="svc-icon" style="background:${s.color};">${s.letter}</div>
+        <div class="meta">
+          <div class="name">${s.name}</div>
+          <div class="num">${s.num}</div>
+        </div>
+      </div>
+      <div class="code">${code}</div>`;
+    stream.appendChild(card);
+    if(stream.children.length > 4){
+      stream.removeChild(stream.firstElementChild);
     }
-    hideGate();
+    i++;
   }
+  pushCard();
+  setTimeout(pushCard, 300);
+  setTimeout(pushCard, 600);
+  setInterval(pushCard, 2200);
 
-  gate.addEventListener('click', startMusic);
-
-  toggleBtn.addEventListener('click', () => {
-    if(!ytReady || !ytPlayer) return;
-    const state = ytPlayer.getPlayerState();
-    if(state === YT.PlayerState.PLAYING){
-      ytPlayer.pauseVideo();
-      setPlayingUI(false);
-    } else {
-      ytPlayer.unMute();
-      ytPlayer.setVolume(70);
-      ytPlayer.playVideo();
-      setPlayingUI(true);
-      hideGate();
-    }
-  });
+  const tickerData = [
+    ['Telegram OTP','Rp2.500'],['Google OTP','Rp3.000'],['Instagram OTP','Rp2.500'],
+    ['Facebook OTP','Rp2.500'],['TikTok OTP','Rp2.700'],['WhatsApp OTP','Rp3.500'],
+    ['Shopee OTP','Rp2.200'],['Gojek OTP','Rp2.800']
+  ];
+  const tickerEl = document.getElementById('tickerEl');
+  const full = [...tickerData, ...tickerData];
+  tickerEl.innerHTML = full.map(([n,p]) => `<span><b>${n}</b><span class="price">${p}</span></span>`).join('');
 </script>
 
 </body>
